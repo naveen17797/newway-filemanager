@@ -1,8 +1,9 @@
-
-
+   
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/path/to/jquery.mCustomScrollbar.concat.min.js"></script>
 <?php 
 
-
+session_start();
 
 
 
@@ -48,64 +49,31 @@ while ($file = readdir($dh)) {
 
 	 if (empty($ext)) {
 
-echo "<h5><i class='fa fa-folder'></i>&nbsp;&nbsp;&nbsp;&nbsp;";
+echo "<form action='index.php' method='POST'><i class='fa fa-folder'></i>&nbsp;&nbsp;&nbsp;&nbsp;";
 
-echo "<a href='$dir/$file' download>";
-echo $file, '</a></h5>';
-
-
+echo "<input type='hidden' value='$dir$file/' name='dir'><input type='submit' value='$file' class='btn btn-link'></form>";
 
 
 
 
 	 }
 
-elseif ($ext == 'pdf') {
-		echo "<div id='plate'>";
-
-	echo "<h5><i class='fa fa-file-pdf-o'></i>&nbsp;&nbsp;&nbsp;&nbsp;";
-
-
-echo $file, '</a>';
-
-echo "<form method='POST' action='index.php'><input type='hidden' name='file' value='$dir$file'><input type='submit' value='delete' class='submit'>
-&nbsp;&nbsp;&nbsp;&nbsp;
-<a href='$dir$file' class='btn btn-success'><i class='fa fa-eye'>&nbsp;</i>view</a>
-
-
-
-
-<a href='$dir/$file' download>
-
-
-
-
-
-
-
-</form></h5><br/>
-
-</div>";
-
-	
-}
 else {
-	echo "<div id='plate'>";
 
-echo "<h5><i class='fa fa-file-o'></i>&nbsp;&nbsp;&nbsp;&nbsp;";
+
+echo "<i class='fa fa-file-o'></i>&nbsp;&nbsp;&nbsp;&nbsp;";
 
 echo "<a href='$dir/$file' download>";
 echo $file, '</a>';
 
 
-echo "<form method='POST' action='index.php'><input type='hidden' name='file' value='$dir$file'><br/><i class='fa fa-remove'></i><input type='submit' value='delete' class='submit btn btn-danger'>&nbsp;&nbsp;&nbsp;&nbsp;<a href='$dir$file' class='btn btn-success'><i class='fa fa-eye'></i>&nbsp;view</a></form></h5><br/>";
+echo "<div id='proxy'><form method='POST' action='index.php'><input type='hidden' name='file' value='$dir$file'><i class='fa fa-remove'></i><input type='submit' value='delete' class='submit btn btn-danger'>&nbsp;&nbsp;&nbsp;&nbsp;<a href='$dir$file' class='btn btn-success'><i class='fa fa-eye'></i>&nbsp;view</a></form></div><br/><br/>";
 
-echo "</div>";
 }
 
 
 
-//loop ends before
+//if else loop ends before
 }
 
 
@@ -174,7 +142,7 @@ display login page ...
 	echo '<!--header-->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 <!--end-->
 <style>
 	.fa-shekel {
@@ -212,6 +180,7 @@ https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css
 
 	}
 
+
 </style>
 <div class="col-sm-4">
 </div>
@@ -225,6 +194,7 @@ https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css
 <input type="password" class="form-control" placeholder="password" name="password">
 <br/>
 <input type="submit" class="submit btn btn-default" value="login">
+</form>
 <br/><br/>
 <a href="#">forget password?</a>
 </div>
@@ -235,29 +205,42 @@ https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css
 
 }
 else {
+if (!empty($_POST['dir'])) {
+	$dir = $_POST['dir'];
 
+}
+else {
+$dir = "../";
+}
 
 	/*display the list of folders and files in the diectory */
 
 	echo '<!--header-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
 <!--end-->
 <style>
-body {
-	background-color: #eee;
 
-}
 .fa-folder {
 	color: #3399ff;
 }
 .box {
 
-	height: 400px;
+	height: 790px;
 	
 	overflow-y: scroll;
 	margin-bottom: 10px;
+		background-color: black;
+		font-size: 40px;
+	
+
+}
+.col-sm-3 {
+height: 790px;
+background-color: black;
+color: #3399ff;
+	
 
 }
 hr {
@@ -267,7 +250,9 @@ hr {
 font-size: 90px;
 }
 #plate {
+padding: 0px;
 	background-color: #339944;
+	display: none;
 color: white;
 }
 a{
@@ -276,31 +261,93 @@ a{
 a:hover {
 	color: white;
 }
-.box {
-	background-color: black;
-}
+
 #plate:hover {
 
 	opacity: 0.9;
-	height: 115px;
-	width: 360px;
+	dispay: block;
+
 }
+	.fa-file-o {
+
+
+
+		color: #3399ff;
+	}
+
+#proxy {
+			display: inline-block;
+			margin-left: 4em;
+	}
+	.fa-shekel {
+
+
+		color: #3399ff;
+		font-size: 80px;
+	}
+	B {
+		color: #3399ff;
+	}
+	.fa-folder-open {
+		color: #3399ff;
+	}
+	#form {
+	font-size: 15px;
+	color: #3399ff;
+}
+
+
 </style>
-<div class="col-sm-12 box">
+<div class="col-sm-9 box scrollbar" id="style-1">
+<h1 align="center"><i class="fa fa-shekel"></i><br/><BR/><b>FILE MANAGER</B></h1>
+<br/>
+<br/><div id="form"><form action="index.php" method="POST" class="form-group"><input type="text" name="dir" placeholder="c:// or any directory"><input type="submit" value="open the direcotry"></form></div>';
+echo '<b><i class="fa fa-folder-open"></i>&nbsp;&nbsp;', $dir, '</b><br/><br/>';
 
 
-';
 
-
-
-
-
-$dir = "C://";
 $file = new file($dir);
 
 
 
+
 echo "</div>";
+echo '<div class="col-sm-3 text-center scrollbar sd" id="style-1">
+
+<h1 align="center"><i class="fa fa-shekel"></i></h1>
+<h1 align="center"><b>instructions</b></h1>
+<br/>
+<br/>
+<li>use delete option to delete files,the files wont be recovered after deleting</li>
+
+<br/>
+<br/>
+<li>cick to download the file,easy to download files.click on the file, you see.you will get downloaded.</li>
+
+
+
+<br/>
+<br/>
+<li>click to view the file in your browser.the file will be opened in the window</li>
+
+
+<br/>
+<br/>
+<li>more features coming soon......</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>';
 
 
 }
@@ -311,6 +358,14 @@ echo "</div>";
 
 
 
+
+
+
+
+
+
+
+<!--delete fie-->
 
 <?php 
 ##################delete files
@@ -336,18 +391,31 @@ $delete = new deletefile($dest);
 
 
 
+
+
+
+
+
+<!--password verification-->
+
 <?php 
 //verify user name and password
-if (!empty($_POST['username'] && !empty($_POST['password']))) {
+if (!empty($_POST['username']) && !empty($_POST['password'])) {
 
-$username = "admin";
-$password = "admin";
 
+
+
+
+//change username and password according to your wish ############################33
+                           $username = "admin";                            #########################
+                           $password = "admin";                             ########################
+############################################################################
 
 if ($username == htmlentities($_POST['username']) && $password == htmlentities($_POST['password'])) {
 
-session_start();
 $_SESSION['name'] = str_shuffle("dfewkeoeritioeuabcdefgeforeirpoeiritrepotifeorjfeiojrfoejfoiefikwfkw;kweqjdpowkfakdapodkopfkofjwpfowpefopwekfoewpjfwihfwopwoipwirwpoeipwoekwpoewpoirrpwkfdpowkepfkeoifierfierweporopwe");
+
+header("location: index.php");
 
 
 }
@@ -359,8 +427,36 @@ $_SESSION['name'] = str_shuffle("dfewkeoeritioeuabcdefgeforeirpoeiritrepotifeorj
 else {
 
 
-
 }
 
 
 ?>
+
+<style>
+	 *  STYLE 1
+ */
+
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+
+
+
+
+</style>
