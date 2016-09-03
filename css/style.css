@@ -1,0 +1,46 @@
+
+.fa-edit {
+
+color: #d26456;
+
+
+
+
+
+}
+
+
+
+
+
+.co {
+	height: 500px;
+color: #d26456;
+background-color: white;
+display: none;
+
+}
+
+
+.fa-sign-in {
+
+	color: #d26456;
+	font-size: 40px;
+}
+#link {
+text-decoration: none;
+color: white;
+
+
+}
+.submitbutton {
+	background-color: transparent;
+	border: none;
+	
+
+}
+.add {
+
+	height: 900px;
+	background-color: #d26456;
+}
