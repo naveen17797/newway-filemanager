@@ -32,6 +32,7 @@ if (empty($_SESSION['id'])) {
     $templates->Load($filepage1);
     echo $filepage1;
     unset($filepage1);
+
     include 'lib/class.delete.php';
 
     /* The class for viewing folders and files and perform all file. */
