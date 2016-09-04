@@ -1,89 +1,67 @@
-<?php 
-//total hours wasted here - 40
-
+<?php
 ini_set('display_errors', 1);
 session_start();
 
+/* For handling template files. */
+include 'lib/class.templates.php';
+$templates = new templates;
 
 if (empty($_SESSION['id'])) {
+    /* Authenciation required to generate a session key. */
+    $front = 'front.html';
+    $templates->Load($front);
+    echo $front;
+    unset($front);
+    include 'lib/class.login.php';
 
-	//authenciation required to generate a session key
+    if (isset($_POST['username']) && isset($_POST['password'])) {
 
-include("templates/front.html");
-include("lib/class.login.php");
+        if (!empty($_POST['username']) && !empty($_POST['password'])) {
 
+            $login = new login($_POST['username'], $_POST['password']);
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
+        }
 
-if (!empty($_POST['username']) && !empty($_POST['password'])) {
+    }
 
+} else {
 
-$login = new login($_POST['username'], $_POST['password']);
+    /* After login this page will appear to the user. */
+    include 'lib/class.filefunctions.php';
+    $filepage1 = 'filepage1.html';
+    $templates->Load($filepage1);
+    echo $filepage1;
+    unset($filepage1);
+    include 'lib/class.delete.php';
 
-}
+    /* The class for viewing folders and files and perform all file. */
+    $filefunctions = new filefunctions;
 
-}
+    if (isset($_POST['directory'])) {
 
-}
+        if (!empty($_POST['directory'])) {
+            /* This function shows a list of files. */
+            $directory = $_POST['directory'];
+            $_SESSION['dir'] = $directory;
+        }
 
+    } else {
 
-else {
+        $directory = '../';
 
-	//after login this page will appear to user
+    }
 
+    $filefunctions->viewfile($directory);
 
-include ("lib/class.filefunctions.php");
-include("templates/filepage1.php");
-include("lib/class.delete.php");
+    $filepage2 = 'filepage2.html';
+    $templates->Load($filepage2);
+    echo $filepage2;
+    unset($filepage2);
 
-$filefunctions = new filefunctions; //the class for viewing folders and files and perform all file 
+    if (!empty($_POST['delete'])) {
 
+        $delete = new delete($_POST['delete']);
 
-
-
-if (isset($_POST['directory'])) {
-
-	if (!empty($_POST['directory'])) {
-		//this function show a list of files
-		$directory = $_POST['directory'];
-		$_SESSION['dir'] = $directory; 
-
-}
-
-}
-
-else {
-
-	$directory = "../";
-}
-
-
-$filefunctions->viewfile($directory);
-
-
-include("templates/filepage2.html");
-
-if (isset($_POST['delete'])) {
-if (!empty($_POST['delete'])) {
-
-$delete = new delete($_POST['delete']);
-
+    }
 
 }
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-
-
-?>
