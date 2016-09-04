@@ -10,5 +10,8 @@ password: admin
 you need to change these values in index.php file, it is usually at the top, just use a text editor then ctrl+f to find these words and change it to your wish.
 
 ######
-new way v.0.0.3 thorium is now released
+=
+#NEW WAY TITANIUM IS THE CURRENT MASTER VERSION
+
+
 
