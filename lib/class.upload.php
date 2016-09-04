@@ -1,28 +1,10 @@
-<?php 
+<?php
 class upload {
- 
 
+    public function up($name, $tmp_name, $location) {
 
- public function up ($name, $tmp_name, $location) {
+        move_uploaded_file($tmp_name, $location);
 
-
-move_uploaded_file($tmp_name, $loaction);
-
-
-
-
-
-
-
- }
-
-
-
-
+    }
+    
 }
-
-
-
-
-
-?>

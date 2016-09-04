@@ -3,24 +3,18 @@
 <title>new way titanium</title>
 <div class="col-sm-5 col text-center">
 
-
 <i class="fa fa-shield"></i>
-
 
 <h1>New way</h1>
 
 <br/>
 <form action="index.php" method="POST">
-	
-	<input type="text" name="username" class="form-control" placeholder="username" id="user">
-	<br/>
-	<input type="password" name="password" class="form-control" placeholder="password" id="user">
-
-	<br/>
-	<input type="submit" id="submit" value="login">
+    <input type="text" name="username" class="form-control" placeholder="username" id="user" />
+    <br/>
+    <input type="password" name="password" class="form-control" placeholder="password" id="user" />
+    <br/>
+    <input type="submit" id="submit" value="login" />
 </form>
-
-
 
 </div>
 
@@ -36,58 +30,42 @@
 
 </div>
 
-
 <style>
-.fa-lock{
-	color: white;
-	font-size: 400px;
+#submit, .bol {
+    color:#fff;
+    background-color:#4567d2;
+}
+.bol, .col {
+    height:700px;
+    display:none;
+}
+.fa-lock {
+    color:#fff;
+    font-size:400px;
 }
 .bol {
-
-		height: 700px;
-
-background-color: #4567d2;
-display: none;
-color: white;
-font-family: cursive;
-
+    font-family:cursive;
 }
 #submit {
-color: white;
-	padding: 10px;
-	background-color: #4567d2;
-	border-radius: 20%;
+    padding:10px;
+    border-radius:20%;
 }
 #user {
-
-	margin-left: 20%;
-	width: 300px;
+    margin-left:20%;
+    width:300px;
 }
-
-
-	.fa-shield {
-
-
-color: #4567d2;
-font-size: 400px;
-
-
-
-	}
-	.col {
-
-		height: 700px;
-
-color: #4567d2;
-display: none;
-	}
+.fa-shield {
+    color:#4567d2;
+    font-size:400px;
+}
+.col {
+    color:#4567d2;
+}
 </style>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script>
-	$('.col').fadeIn("9000", function () {
-
-
-		$('.bol').fadeIn("8000");
-	});
+$('.col').fadeIn('9000', function () {
+	$('.bol').fadeIn('8000');
+});
 </script>
