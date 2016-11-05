@@ -1,68 +1,172 @@
-<?php
-ini_set('display_errors', 1);
-session_start();
+<?php 
 
-/* For handling template files. */
-include 'lib/class.templates.php';
-$templates = new templates;
 
-if (empty($_SESSION['id'])) {
-    /* Authenciation required to generate a session key. */
-    $front = 'front.html';
-    $templates->Load($front);
-    echo $front;
-    unset($front);
-    include 'lib/class.login.php';
+/**
+                            *@package: newway
+*
+                       *@author: New way developer community
+*
+                         *@category: file manager
+*
+                      *@link http://github.com/naveen17797/newway
+*
+                   *#THIS FILE IS INTEGRAL COMPONENT OF NEW WAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
+*
+*
+*
 
-    if (isset($_POST['username']) && isset($_POST['password'])) {
+*/
 
-        if (!empty($_POST['username']) && !empty($_POST['password'])) {
 
-            $login = new login($_POST['username'], $_POST['password']);
+?>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/font.css">
+<title>New way File manager</title>
+<div class="col-xs-12 col-lg-12 col-md-4" id="header">
+<h1><a href="index.php"><i class='fa fa-shield'></i>&nbsp;New way</a></h1>
 
-        }
 
-    }
+</div>
 
-} else {
+<div class="col-xs-12 col-lg-12 col-md-4 text-left">
+<br/><br/>
 
-    /* After login this page will appear to the user. */
-    include 'lib/class.filefunctions.php';
-    $filepage1 = 'filepage1.html';
-    $templates->Load($filepage1);
-    echo $filepage1;
-    unset($filepage1);
+<br/><br/>
+</div>
 
-    include 'lib/class.delete.php';
 
-    /* The class for viewing folders and files and perform all file. */
-    $filefunctions = new filefunctions;
 
-    if (isset($_POST['directory'])) {
+<div class="col-xs-12 col-lg-12 col-md-4 text-center">
 
-        if (!empty($_POST['directory'])) {
-            /* This function shows a list of files. */
-            $directory = $_POST['directory'];
-            $_SESSION['dir'] = $directory;
-        }
 
-    } else {
 
-        $directory = '../';
 
-    }
 
-    $filefunctions->viewfile($directory);
 
-    $filepage2 = 'filepage2.html';
-    $templates->Load($filepage2);
-    echo $filepage2;
-    unset($filepage2);
+<div class="form-group">
+<form class="form-inline" action="view.php" method="GET">
+<input type="text" name="dir" class="form-control" style="width: 700px; " placeholder="enter the directory" value="../">
+<input type="submit" value="browse" class="btn btn-danger">
+</form>
 
-    if (!empty($_POST['delete'])) {
 
-        $delete = new delete($_POST['delete']);
+</div>
+</div>
 
-    }
+
+<div class="col-xs-2"></div><div class="col-xs-8 text-center col-lg-8 col-md-4"><br/><br/><br/><br/><div class="panel panel-primary">
+<div class="panel panel-heading"><i class="fa fa-shield"></i>&nbsp;Tips</div>
+
+<div class="panel panel-body">
+<li>use ../ if you are going to browse server home directory</li>
+<br/>
+
+
+</div></div>
+
+
+
+
+
+<style type="text/css">
+	
+
+#footer {
+	background-color: #2165c1;
+	height: 150px;
+	font-family: ubuntu;
+	font-size: 24px;
+	color: white;
+}
+
+.folder, .file {
+
+cursor: pointer;
+	padding: 30px;
+	font-family: ubuntu;
+	font-size: 20px;
+
+	border: 1px solid #eee;
+		
+		color: #2165c1;
+		border-right: none;
+}
+
+.folder:hover, .file:hover {
+color: white;
+background-color: #2165c1;
 
 }
+
+
+
+
+
+
+
+
+#options {
+	padding-left: 80px;
+	padding-right: 80px;
+}
+
+#header {
+
+	background-color: #2165c1;
+	height: 70px;
+	font-family: ubuntu;
+	color: white;
+}
+
+body {
+	background-color: #fff;
+}
+th,td {
+	
+	background-color: #2165c1;
+	color: white;
+padding: 80px;
+padding-bottom: 10px;
+padding-top: 10px;
+padding-left: 20px;
+}
+td {
+
+}
+table {
+	font-family: ubuntu;
+	font-size: 30px;
+}
+tr {
+	background-color: transparent;
+	color: #2165c1;
+}
+a {
+text-decoration: none;
+color: black;
+	
+}
+a:hover {
+
+text-decoration: underline;
+color: white;
+
+}
+a:visited {
+text-decoration: none;
+color: white;
+
+}
+
+a:active {
+	text-decoration: none;
+	color: white;
+}
+.panel {
+
+	font-family: ubuntu;
+	font-size: 20px;
+}
+</style>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
