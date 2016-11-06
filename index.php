@@ -66,6 +66,11 @@ if(empty($_SESSION['acess_key'])) {
 <div class="panel panel-body">
 <li>use ../ if you are going to browse server home directory</li>
 <br/>
+<br/>
+<li>use /home/ if you are going to browse ubuntu home directory<br/><br/>
+
+front and backslash mandatory for ubuntu</li>
+<br/>
 
 
 </div></div>
