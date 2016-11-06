@@ -51,7 +51,7 @@ echo "<div class='col-xs-3 folder text-left'><a href='view.php?dir=$location$fil
 echo $this->shortenName($file);
 
 
-echo "</a><br/><br/><a href='delete.php?dir=$location$file/' style='font-size: 16px;' class='btn btn-danger'>delete</a></div>";
+echo "</a><br/><br/><a href='delete.php?dir=$location$file' style='font-size: 16px;' class='btn btn-danger'>delete</a>&nbsp;&nbsp;<a href='rename.php?dir=$location$file&name=$file&location=$location' class='btn btn-info'>rename</a></div>";
 }
 
 }
@@ -77,17 +77,21 @@ rmdir($location);
 }
 
 
-public function deleteFile($location) {
+public function deleteFile($location, $url) {
 
 $logic = unlink($location);
 
 if ($logic == false) {
 header("location: chmod.php");
 }
+elseif($logic == true) {
+  //redirect to same page with referrer url
+  header("location: $url");
+}
 
 }
 
-public function delete($location) {
+public function delete($location, $url) {
 
 $slash = "/";
 
@@ -97,18 +101,24 @@ if ($opendir = opendir($location)) {
 
 
 if (is_dir($location.$slash.$file) == false) {
-$logic = $this->deleteFile($file);
-if ($logic == false) {
+$logic = unlink($location.$slash.$file);
+}
+
+}
+//while loop ends before
+$logic = rmdir($location);
+if ($logic == true) {
+header("location: $url");
+}
+else {
   header("location: chmod.php");
 }
 }
-$this->deleteFolder($location);
-}
 
 }
 
 
-}
+
 
 
 
