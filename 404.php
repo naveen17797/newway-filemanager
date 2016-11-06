@@ -36,7 +36,11 @@
 <div class="col-xs-3"><a>ask a alien for help</a></div> <div class="col-xs-3"><a>report this bug</a></div>
  <div class="col-xs-3"><a href="index.php">go home</a></div>
 <style type="text/css">
-	
+	@font-face {
+
+	font-family: ubuntu;
+	src: url("fonts/ubuntu.ttf");
+}
 	body {
 		background: rgba(178, 0, 0, 0.9);
 	}

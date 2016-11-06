@@ -26,6 +26,11 @@
 <title>CHMOD</title>
 
 <style type="text/css">
+@font-face {
+
+	font-family: ubuntu;
+	src: url("fonts/ubuntu.ttf");
+}
 	
 	body {
 		background: rgba(178, 0, 0, 0.9);

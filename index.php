@@ -1,5 +1,10 @@
 <?php 
+session_start();
+if(empty($_SESSION['acess_key'])) {
 
+	header("location: login.php");
+
+}
 
 /**
                             *@package: newway
@@ -69,6 +74,12 @@
 
 
 <style type="text/css">
+
+@font-face {
+
+	font-family: ubuntu;
+	src: url("fonts/ubuntu.ttf");
+}
 	
 
 #footer {

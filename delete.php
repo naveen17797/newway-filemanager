@@ -1,5 +1,5 @@
 <?php 
-
+session_start();
 
 /**
                             *@package: newway
@@ -27,6 +27,11 @@
 <h1><i class="fa fa-shield"></i>&nbsp;&nbsp;NEW WAY</h1>
 </div>
 <style>
+@font-face {
+
+	font-family: ubuntu;
+	src: url("fonts/ubuntu.ttf");
+}
 	
 	body {
 
@@ -50,15 +55,24 @@ if (empty($_GET['dir']) && empty($_SESSION['acess_key'])) {
 	header("location: 404.php");
 }
 
-if (!empty($_GET['dir'])) {
+if (!empty($_GET['dir']) && !empty($_SESSION['acess_key'])) {
+
+$url = $_SERVER['HTTP_REFERER'];
 
 $dir = $_GET['dir'];
 
+
+if (is_dir($dir) == false) {
 $ff = new ff;
+$ff->deleteFile($dir, $url);
+}
+//if it is a directory then delete entire directory
+elseif(is_dir($dir) == true) {
+$ff = new ff;
+$ff->delete($dir, $url);
+}
 
-$ff->deleteFile($dir);
 
-header('$location: $url');
 
 }
 

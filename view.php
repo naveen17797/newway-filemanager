@@ -33,7 +33,7 @@
 
 session_start();
 
-$_SESSION["acess_key"] = "dffvdgvdfgvf";
+
 
 include 'lib/class.ff.php';
 
@@ -50,6 +50,9 @@ $dir = $_GET['dir'];
 $ff = new ff;
 $ff->viewFolder($dir);
 $ff->viewFile($dir);
+}
+elseif(empty($_SESSION['acess_key'])) {
+	header("location: login.php");
 }
 
 
@@ -80,7 +83,11 @@ cursor: pointer;
 
 		
 }
+@font-face {
 
+	font-family: ubuntu;
+	src: url("fonts/ubuntu.ttf");
+}
 .folder:hover, .file:hover {
 color: white;
 background-color: rgba(0,0,98,1);
