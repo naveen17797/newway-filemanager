@@ -46,9 +46,11 @@ if (empty($_GET['dir'])) {
 if (!empty($_SESSION['acess_key']) && !empty($_GET['dir'])) {
 
 //get the directory location
-$dir = $_GET['dir'];
+$dir = htmlentities($_GET['dir']);
 $ff = new ff;
+
 $ff->viewFolder($dir);
+
 $ff->viewFile($dir);
 }
 elseif(empty($_SESSION['acess_key'])) {
