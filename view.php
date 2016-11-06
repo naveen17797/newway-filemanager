@@ -2,7 +2,11 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <div class="col-xs-12 col-lg-12 col-md-4" id="header">
-<h1><a href="index.php" style="text-decoration: none;" id="h"><i class='fa fa-shield'></i>&nbsp;New way</h1>
+<h1><a href="index.php" style="text-decoration: none;" id="h"><i class='fa fa-shield'></i>&nbsp;New way
+
+
+<?php $diro = $_GET['dir']; echo "<a href=upload.php?dir=$diro class='btn btn-warning' style='font-size: 20px; margin-left: 40em; background: transparent;'><i class='fa fa-upload'></i>&nbsp;upload files</a>";?>
+</h1>
 
 
 </div>

@@ -87,6 +87,7 @@ if (empty($_SESSION['acess_key'])) {
 
 else {
 
+if (isset($_POST['rename']) && isset($_POST['location']) && isset($_POST['oldname'])) {
 
 if (!empty($_POST['rename']) && !empty($_POST['location']) && !empty($_POST['oldname'])) {	
 	$loc = $_POST['location'];
@@ -103,6 +104,15 @@ header("location: $re");
 }
 else {
 	header("location: chmod.php");
+}
+
+}
+
+
+if (empty($_POST['rename']) OR empty($_POST['location']) OR empty($_POST['oldname'])) {	
+
+header("location: $re");
+
 }
 
 }

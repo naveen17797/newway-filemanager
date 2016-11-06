@@ -28,7 +28,8 @@ if(empty($_SESSION['acess_key'])) {
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <title>New way File manager</title>
 <div class="col-xs-12 col-lg-12 col-md-4" id="header">
-<h1><a href="index.php"><i class='fa fa-shield'></i>&nbsp;New way</a></h1>
+<h1><a href="index.php"><i class='fa fa-shield'></i>&nbsp;New way</a>
+
 
 
 </div>
