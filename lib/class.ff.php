@@ -20,6 +20,24 @@
 class ff {
 
 
+public function sCheck($input) {
+
+return $input = htmlentities($input);
+
+}
+
+
+
+
+public function uploadFile($tmp_location, $location, $redirect) {
+
+if (move_uploaded_file($tmp_location, $location)) {
+
+header("location: $redirect");
+
+}
+
+}
 
 
 
