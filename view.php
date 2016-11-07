@@ -18,7 +18,7 @@ $http = $_SERVER['HTTP_REFERER'];
 <input type='text' name='dir' class='form-control' style='margin-left: 2em; width: 600px;' placeholder="enter any directory to go">
 &nbsp;
 
-<button type="submit" class="btn btn-info" style='background: transparent;'><i class="fa fa-search"></i>&nbsp;search</button>
+<button type="submit" class="btn btn-info" style='background: transparent;'><i class="fa fa-search"></i>&nbsp;browse</button>
 <?php $diro = $_GET['dir']; echo "<a href=upload.php?dir=$diro class='btn btn-info' style=' margin-left: 2em; background: transparent;'><i class='fa fa-upload'></i>&nbsp;upload files</a>";?>
 
 </form>
@@ -30,16 +30,29 @@ $http = $_SERVER['HTTP_REFERER'];
 
 
 </div>
-<div class="col-xs-12 col-lg-12 col-md-4">
+<div class="col-xs-12">
 <br/>
-
-
-<br/><br/><br/>
 </div>
 
+<div class="col-xs-3 text-center" id="searchbar" style="border-right: 5px solid #fff; height: 100%;">
+	<h3><i class="fa fa-search"></i>&nbsp;&nbsp;<b>search</b></h3>
+		<br/><br/>
+			<div class="form-group">
+				<div class="form-inline">
+					<input type="text" name="search" class="form-control" style="width: 230px" placeholder="search files or folders in this directory" id="string">
+					&nbsp;<button type="submit" id="search" style="height: 35px;" class="btn btn-primary"><i class="fa fa-search"></i></button>
 
-<div class="col-xs-12" id="newway_files">
+					<div id="search_feed" class="text-left" style="font-family: ubuntu; font-size: 20px;">
+					</div>
+
+				</div>
+			</div>
+
+
+</div>
+<div class="col-xs-9" id="newway_files">
 <br/><br/><br/>
+<br/>
 <?php 
 
 /**
@@ -91,6 +104,10 @@ elseif(empty($_SESSION['acess_key'])) {
 
 <style type="text/css">
 	
+	#searchbar {
+		color: white;
+		font-family: ubuntu;
+	}
 
 #footer {
 	background-color: #2165c1;
@@ -105,7 +122,7 @@ elseif(empty($_SESSION['acess_key'])) {
 cursor: pointer;
 	padding: 30px;
 	font-family: ubuntu;
-	font-size: 20px;
+	font-size: 16px;
 
 
 		
@@ -120,7 +137,7 @@ cursor: pointer;
 }
 .folder:hover, .file:hover {
 color: white;
-background-color: rgba(0,0,98,1);
+opacity: 1;
 
 }
 .btn {
@@ -175,7 +192,7 @@ color: inherit;
 }
 a:hover {
 
-text-decoration: underline;
+text-decoration: none;
 color: inherit;
 
 }
@@ -189,6 +206,7 @@ a:active {
 #h, #h:visited, #h:active {
 	color: white
 }
+
 </style>
 
 	<script type="text/javascript" src="js/jquery.min.js"></script>
@@ -203,8 +221,9 @@ a:active {
 
 					$('#newway_files').animate({
 
-						bottom: '80px',
+						bottom: '40px',
 
+						opacity: '1',
 					
 
 
@@ -216,10 +235,30 @@ a:active {
 
 				});
 
+		
 
 
-				
+$('#string').keyup(function () {
 
+var string = $('#string').val();
+
+var chars  = string.length;
+
+var location = "<?php echo $_GET['dir']; ?>";
+
+$.post("ajax_search.php", {location: location, chars: chars, string: string}, function (data) {
+
+$('#search_feed').html(data);
+
+
+});
+
+
+
+
+
+
+});
 
 
 		</script>
