@@ -2,21 +2,44 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <div class="col-xs-12 col-lg-12 col-md-4" id="header">
-<h1><a href="index.php" style="text-decoration: none;" id="h"><i class='fa fa-shield'></i>&nbsp;New way
+<div class="form-group">
+<form action="view.php" method="GET" class="form-inline">
+<h2><a href="index.php" style="text-decoration: none;" id="h"><i class='fa fa-shield'></i>&nbsp;New way
+</a>&nbsp;
+<?php
 
+if(isset($_SERVER['HTTP_REFERER'])) {
 
-<?php $diro = $_GET['dir']; echo "<a href=upload.php?dir=$diro class='btn btn-warning' style='font-size: 20px; margin-left: 40em; background: transparent;'><i class='fa fa-upload'></i>&nbsp;upload files</a>";?>
-</h1>
+$http = $_SERVER['HTTP_REFERER'];
+
+}
+
+?>
+<input type='text' name='dir' class='form-control' style='margin-left: 2em; width: 600px;' placeholder="enter any directory to go">
+&nbsp;
+
+<button type="submit" class="btn btn-info" style='background: transparent;'><i class="fa fa-search"></i>&nbsp;search</button>
+<?php $diro = $_GET['dir']; echo "<a href=upload.php?dir=$diro class='btn btn-info' style=' margin-left: 2em; background: transparent;'><i class='fa fa-upload'></i>&nbsp;upload files</a>";?>
+
+</form>
+
+</h2>
+
+</div>
+</div>
 
 
 </div>
 <div class="col-xs-12 col-lg-12 col-md-4">
-<br/><br/><br/>
+<br/>
 
+
+<br/><br/><br/>
 </div>
 
-<div id="files" class="col-xs-12 col-lg-12 col-md-4">
 
+<div class="col-xs-12" id="newway_files">
+<br/><br/><br/>
 <?php 
 
 /**
@@ -65,6 +88,7 @@ elseif(empty($_SESSION['acess_key'])) {
 
 ?>
 </div>
+
 <style type="text/css">
 	
 
@@ -122,7 +146,7 @@ background-color: rgba(0,0,98,1);
 }
 
 body {
-	background-color: rgba(0,0,103,0.9);
+	background-color: rgba(0,0,109,1);
 }
 th,td {
 	
@@ -165,5 +189,37 @@ a:active {
 #h, #h:visited, #h:active {
 	color: white
 }
-
 </style>
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+		
+		<script type="text/javascript" src="jqueryFileTree.js"></script>
+
+
+		<script type="text/javascript">
+			
+				$(document).ready(function () {
+
+
+					$('#newway_files').animate({
+
+						bottom: '80px',
+
+					
+
+
+						
+
+					});
+
+
+
+				});
+
+
+
+				
+
+
+
+		</script>

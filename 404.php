@@ -23,10 +23,14 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 
 <link rel="stylesheet" type="text/css" href="css/font.css">
+
+
+
+
 <title>404</title>
 <div class="col-xs-12 col-lg-12 col-md-4 text-center" style="font-family: ubuntu; color: white;">
 <i class="fa fa-globe" style="color: white; font-size: 400px;"></i>
-<br/><br/><br/><br/>
+<br/><br/>
 <h1>you are looking for something that doesnt exist in the earth</h1>
 <br/><br/>
 </div>
