@@ -46,7 +46,9 @@ public function shortenName($input) {
 
 if(strlen($input) > 12) {
 
-return $filename = substr($input, 0,10);
+$dots = "..";
+
+return $filename = substr($input, 0,10).$dots;
 
 }
 else {
@@ -69,7 +71,7 @@ echo "<div class='col-xs-3 folder text-left'><a href='view.php?dir=$location$fil
 echo $this->shortenName($file);
 
 
-echo "</a><br/><br/><a href='delete.php?dir=$location$file' style='font-size: 16px;' class='btn btn-danger'>delete</a>&nbsp;&nbsp;<a href='rename.php?dir=$location$file&name=$file&location=$location' class='btn btn-info'>rename</a></div>";
+echo "</a><br/><br/><a href='delete.php?dir=$location$file' style='font-size: 16px;' class='btn btn-danger'><i class='fa fa-trash'></i></a>&nbsp;&nbsp;<a href='rename.php?dir=$location$file&name=$file&location=$location' class='btn btn-info'><i class='fa fa-pencil'></i></a></div>";
 }
 
 }
@@ -83,7 +85,7 @@ echo "<div class='col-xs-3 file text-left'><a href='$location$file' id='$locatio
 
 echo $this->shortenName($file);
 
-echo "</a><br/><br/><p><a href='delete.php?dir=$location$file'  class='btn btn-danger'>delete</a>&nbsp;&nbsp;<a href='$location$file' class='btn btn-success' download>download</a></p></div>";
+echo "</a><br/><br/><p><a href='delete.php?dir=$location$file'  class='btn btn-danger'><i class='fa fa-trash'></i></a>&nbsp;&nbsp;<a href='rename.php?dir=$location$file&name=$file&location=$location' class='btn btn-info'><i class='fa fa-pencil'></i></a></p></div>";
 
 
 }
@@ -145,22 +147,32 @@ public function viewFile($location) {
 
 if ($opendir = opendir($location)) {
 
+
+
 	while ($file = readdir($opendir)) {
 
-$slash = "/"; 
+        $slash = "/"; 
 
-//iteration to print only files
+        //iteration to print only files
 
-if (is_dir($location.$slash.$file) == false) {
+        if (is_dir($location.$slash.$file) == false) 
+        {
 
-$this->isFile($location, $file);
+            $this->isFile($location, $file);
 
 
-}
-unset($file);
+        } 
+
+              
+        unset($file);
 	}
 
+   
+
 }
+
+
+
 }
 
 
