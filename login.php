@@ -23,7 +23,7 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
 $username = $_POST['username'];
 $password = $_POST['password'];
 if ($username == "admin" && $password == "admin") {
-	$_SESSION['acess_key'] = password_hash("abcdefghijklmnopqrstuvwxyz", PASSWORD_DEFAULT);
+	$_SESSION['acess_key'] = md5("abcdefghijklmnopqrstuvwxyz");
 header("location: index.php");
 
 }
@@ -60,9 +60,10 @@ header("location: index.php");
 <h3>Login</h3>
 <br/>
 <form action="login.php" method="POST">
-<input type="text" class="form-control" name="username" placeholder="username">
+<p>username, password are admin</p>
+<input type="text" class="form-control" name="username" value="admin">
 <br/><br/>
-<input type="password" class="form-control" name="password" placeholder="password">
+<input type="password" class="form-control" name="password" value="admin">
 <br/>
 <br/>
 <input type="submit" value="login" class="btn btn-primary"></form>
