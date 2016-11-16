@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
                             *@package: newway
@@ -66,7 +66,7 @@ else {
 public function isDir($location, $file) {
 if ($file != "." AND $file != "..") {
 echo "<div class='col-xs-3 folder text-left'><a href='view.php?dir=$location$file/' id='$location$file/'><i class='fa fa-folder'></i>&nbsp;&nbsp;";
-//folder name prints in this 
+//folder name prints in this
 
 echo $this->shortenName($file);
 
@@ -151,23 +151,23 @@ if ($opendir = opendir($location)) {
 
 	while ($file = readdir($opendir)) {
 
-        $slash = "/"; 
+        $slash = "/";
 
         //iteration to print only files
 
-        if (is_dir($location.$slash.$file) == false) 
+        if (is_dir($location.$slash.$file) == false)
         {
 
             $this->isFile($location, $file);
 
 
-        } 
+        }
 
-              
+
         unset($file);
 	}
 
-   
+
 
 }
 
@@ -187,7 +187,7 @@ public function viewFolder($location) {
 if ($opendir = opendir($location)) {
 
 while ($file = readdir($opendir)) {
-$slash = "/"; 
+$slash = "/";
 
 if (is_dir($location.$slash.$file)) {
 	$this->isDir($location, $file);
