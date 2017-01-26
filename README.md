@@ -1,4 +1,4 @@
-#NEW WAY FILE MANAGER
+#NEWWAY FILE MANAGER
 
 ##Functions
 
