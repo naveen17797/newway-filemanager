@@ -30,9 +30,9 @@ if (isset($_SERVER['HTTP_REFERER']))
 //includes the core class for newway
 include 'lib/class.ff.php';
 $ff = new ff;
-if (empty($_SESSION['acess_key'])) {
+if (empty($_SESSION['access_key'])) {
 
-header("location: login.php");
+header("location: jls-login.php");
 
 }
 

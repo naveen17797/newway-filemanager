@@ -50,12 +50,12 @@ session_start();
 include 'lib/class.ff.php';
 
 
-if (empty($_GET['dir']) && empty($_SESSION['acess_key'])) {
+if (empty($_GET['dir']) && empty($_SESSION['access_key'])) {
 //making sue no acess without security key and paramaters
 	header("location: 404.php");
 }
 
-if (!empty($_GET['dir']) && !empty($_SESSION['acess_key'])) {
+if (!empty($_GET['dir']) && !empty($_SESSION['access_key'])) {
 
 $url = $_SERVER['HTTP_REFERER'];
 

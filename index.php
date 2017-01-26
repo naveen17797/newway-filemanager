@@ -4,9 +4,9 @@
 session_start();
 
 
-if(empty($_SESSION['acess_key'])) {
+if(empty($_SESSION['access_key'])) {
 
-	header("location: login.php");
+	header("location: jls-login.php");
 
 }
 

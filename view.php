@@ -98,7 +98,7 @@ if (empty($_GET['dir'])) {
 }
 
 
-if (!empty($_SESSION['acess_key']) && !empty($_GET['dir'])) {
+if (!empty($_SESSION['access_key']) && !empty($_GET['dir'])) {
 
 //get the directory location
 $dir = htmlentities($_GET['dir']);
@@ -122,8 +122,8 @@ $ff->viewFolder($dir);
 
 $ff->viewFile($dir, $if_ubuntu);
 }
-elseif(empty($_SESSION['acess_key'])) {
-	header("location: login.php");
+elseif(empty($_SESSION['access_key'])) {
+	header("location: jls-login.php");
 }
 
 

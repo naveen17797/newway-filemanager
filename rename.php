@@ -85,7 +85,7 @@ if (isset($_GET['location'])) {
 <?php 
 
 
-if (empty($_SESSION['acess_key'])) {
+if (empty($_SESSION['access_key'])) {
 
 	header("location: 404.php");
 
