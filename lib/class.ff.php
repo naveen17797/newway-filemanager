@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 /**
                             *@package: newway
@@ -66,7 +66,7 @@ else {
 public function isDir($location, $file) {
 if ($file != "." AND $file != "..") {
 echo "<div class='col-xs-3 folder text-left'><a href='view.php?dir=$location$file/' id='$location$file/'><i class='fa fa-folder'></i>&nbsp;&nbsp;";
-//folder name prints in this
+//folder name prints in this 
 
 echo $this->shortenName($file);
 
@@ -78,14 +78,32 @@ echo "</a><br/><br/><a href='delete.php?dir=$location$file' style='font-size: 16
 
 
 
-public function isFile($location, $file) {
+public function isFile($location, $file, $if_ubuntu) {
+
+if (empty($if_ubuntu)) {
+
+$attachment = "";
+
+}
+else {
+
+  $attachment = $if_ubuntu;
+
+}
 
 
-echo "<div class='col-xs-3 file text-left'><a href='$location$file' id='$location$file/'><i class='fa fa-file'></i>&nbsp;&nbsp;";
+
+echo "<div class='col-xs-3 file text-left'><a href='$attachment$location$file' id='$location$file/'><i class='fa fa-file'></i>&nbsp;&nbsp;";
 
 echo $this->shortenName($file);
 
 echo "</a><br/><br/><p><a href='delete.php?dir=$location$file'  class='btn btn-danger'><i class='fa fa-trash'></i></a>&nbsp;&nbsp;<a href='rename.php?dir=$location$file&name=$file&location=$location' class='btn btn-info'><i class='fa fa-pencil'></i></a></p></div>";
+
+
+
+
+
+
 
 
 }
@@ -143,7 +161,7 @@ else {
 
 
 
-public function viewFile($location) {
+public function viewFile($location, $if_ubuntu) {
 
 if ($opendir = opendir($location)) {
 
@@ -151,23 +169,23 @@ if ($opendir = opendir($location)) {
 
 	while ($file = readdir($opendir)) {
 
-        $slash = "/";
+        $slash = "/"; 
 
         //iteration to print only files
 
-        if (is_dir($location.$slash.$file) == false)
+        if (is_dir($location.$slash.$file) == false) 
         {
 
-            $this->isFile($location, $file);
+            $this->isFile($location, $file, $if_ubuntu);
 
 
-        }
+        } 
 
-
+              
         unset($file);
 	}
 
-
+   
 
 }
 
@@ -187,7 +205,7 @@ public function viewFolder($location) {
 if ($opendir = opendir($location)) {
 
 while ($file = readdir($opendir)) {
-$slash = "/";
+$slash = "/"; 
 
 if (is_dir($location.$slash.$file)) {
 	$this->isDir($location, $file);
@@ -207,6 +225,14 @@ else {header("location: 404.php");}
 
 
 }
+
+
+
+
+
+
+
+
 
 
 
