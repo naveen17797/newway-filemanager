@@ -1,1 +1,15 @@
-NEWWAY Is the file manager for server, it works with authenciation and has the ability to do all the filemanager works.you can use it to manage files in your site, the default credentials are username: admin, password: admin
+#NEW WAY FILE MANAGER
+
+##functions
+
+###view
+###delete
+###upload
+###download
+
+####New way is the file manager for server, it can manage files in the server.Currently it can do the functions mentioned in the above list.Also jls-login system is added to this project to make it secure.
+
+###contributors
+@Maikuolan
+@mike-bailey
+@naveen17797
