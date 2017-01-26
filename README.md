@@ -1,15 +1,15 @@
 #NEW WAY FILE MANAGER
 
-##functions
+##Functions
 
 ###view
 ###delete
 ###upload
 ###download
 
-New way is the file manager for server, it can manage files in the server.Currently it can do the functions mentioned in the above list.Also jls-login system is added to this project to make it secure.
+New way is a file manager for servers. Currently, it can perform the functions mentioned in the list above. For added security, this project implements the jls-login system.
 
 ###contributors
-@Maikuolan
-@mike-bailey
-@naveen17797
+@[Maikuolan](https://github.com/Maikuolan)
+@[mike-bailey](https://github.com/mike-bailey)
+@[naveen17797](https://github.com/naveen17797)
