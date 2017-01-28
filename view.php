@@ -20,14 +20,14 @@ $http = $_SERVER['HTTP_REFERER'];
 </style>
 <select type='text' name='dir'  class="form-control" style='margin-left: 2em; width: 400px; font-family: ubuntu; font-size:13px; background: transparent; color: white' placeholder="enter any directory to go" id="search_query">
 <option value="../">server home</option>
-<option value="/">root</option>
+
 <option value="/home/">ubuntu home</option>
-<option value="">home</option>
+
 </select>
 &nbsp;
 
 <button type="submit" class="btn btn-info" style='background: transparent;'><i class="fa fa-search"></i>&nbsp;browse</button>
-<?php $diro = $_GET['dir']; echo "<a href=upload.php?dir=$diro class='btn btn-info' style=' margin-left: 2em; background: transparent;'><i class='fa fa-upload'></i>&nbsp;upload files</a>";?>
+<?php $diro = $_GET['dir']; echo "<a href=upload.php?dir=$diro class='btn btn-info' style=' margin-left: 2em; background: transparent;'><i class='fa fa-upload'></i>&nbsp;upload files</a>&nbsp;&nbsp;<a href=create_folder.php?dir=$diro class='btn btn-info' style=' margin-left: 2em; background: transparent;'><i class='fa fa-folder'></i>&nbsp;&nbsp;create folder</a>";?>
 
 </form>
 
@@ -47,7 +47,17 @@ $http = $_SERVER['HTTP_REFERER'];
 		<br/><br/>
 			<div class="form-group">
 				<div class="form-inline">
-					<input type="text" name="search" class="form-control" style="width: 230px" placeholder="search files or folders in this directory" id="string">
+					<input type="text" name="search" class="form-control" style="width: 230px" placeholder="search files or folders in this directory" id="string" <?php 
+					if (!empty($_GET['search'])) {
+						$search = $_GET['search'];
+						echo "value=$search";
+
+					}
+					else {
+						echo "value=";
+					}
+
+						?>  >
 					&nbsp;<button type="submit" id="search" style="height: 35px;" class="btn btn-primary"><i class="fa fa-search"></i></button>
 	<br/><br/>
 <div id="query" style=" height: 300px;">
@@ -109,7 +119,9 @@ $if_ubuntu = "file://";
 
 
 }
-
+else {
+	$if_ubuntu = "";
+}
 
 
 
@@ -187,14 +199,14 @@ opacity: 1;
 
 #header {
 
-background-color: #263524;
+background-color: rgba(0,0,0,1);
 	height: 70px;
 	font-family: ubuntu;
 	color: white;
 }
 
 body {
-	background-color: #033518;
+	background-color: rgba(30,30,30,1);
 }
 th,td {
 	
@@ -266,6 +278,26 @@ a:active {
 
 		
 
+
+
+$(document).ready(function () {
+
+var string = $('#string').val();
+
+var chars  = string.length;
+
+var location = "<?php echo $_GET['dir']; ?>";
+
+$.post("ajax_search.php", {location: location, chars: chars, string: string}, function (data) {
+
+$('#search_feed').html(data).animate({bottom: '10px',});
+
+
+});
+
+
+
+});
 
 $('#string').keyup(function () {
 

@@ -30,9 +30,14 @@ if (isset($_SERVER['HTTP_REFERER']))
 //includes the core class for newway
 include 'lib/class.ff.php';
 $ff = new ff;
+
 if (empty($_SESSION['access_key'])) {
 
 header("location: jls-login.php");
+
+
+exit();
+
 
 }
 
@@ -91,13 +96,13 @@ color: white;
 
 		echo "<input type='hidden' name='location' value=$dir>"; 
 
-		echo "<input type='hidden' name='redirect_url' value=$url>";
+		
 	}
 
 ?>
 
 
-<input type="file" class='btn btn-warning' style="background: transparent; margin-left: 19.5em;" name="file">
+<input type="file" class='btn btn-warning' style="background: transparent; margin-left: 19.5em;" name="file[]" multiple="true">
 <br/><br/>
 <button type="submit" name="submit" class="btn btn-primary">upload</button>
 
@@ -112,26 +117,46 @@ color: white;
 //uploading file
 
 
-if (isset($_FILES['file']['tmp_name']) && isset($_FILES['file']['name'])) {
+if (isset($_FILES['file'])) {
 
 
-   if (!empty($_FILES['file']['tmp_name']) && !empty($_FILES['file']['name'])) {
+   if (!empty($_FILES['file'])) {
+
 
 
    		$redirect_url = $_POST['redirect_url'];
 
+
    		$dir = $_POST['location'];
 
-   		$tmp_name = $_FILES['file']['tmp_name'];
 
-   		$name = $_FILES['file']['name'];
+
+
+
+   		for ($i = 0; $i<count($_FILES['file']['name']); $i++) {
+
+   		
+
+   		$tmp_name = $_FILES['file']['tmp_name'][$i];
+
+   		$name = $_FILES['file']['name'][$i];
 
    		$location = $dir.$name;
 
-   		$ff->uploadFile($tmp_name, $location, $redirect_url);
+   		$logic = $ff->uploadFile($tmp_name, $location);
+
+   		
+   		}
+
+   		if ($logic == false) {
+
+   			header("location: view.php?dir=$dir");
+
+   		}
+   		
 
 
-
+   		
 
    }
 

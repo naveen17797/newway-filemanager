@@ -57,19 +57,19 @@ if (empty($_GET['dir']) && empty($_SESSION['access_key'])) {
 
 if (!empty($_GET['dir']) && !empty($_SESSION['access_key'])) {
 
-$url = $_SERVER['HTTP_REFERER'];
+
 
 $dir = $_GET['dir'];
 
 
-if (is_dir($dir) == false) {
+if (is_file($dir) == true) {
 $ff = new ff;
 $ff->deleteFile($dir, $url);
 }
 //if it is a directory then delete entire directory
 elseif(is_dir($dir) == true) {
 $ff = new ff;
-$ff->delete($dir, $url);
+$ff->delete($dir, $dir);
 }
 
 
