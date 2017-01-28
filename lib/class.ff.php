@@ -29,11 +29,67 @@ return $input = htmlentities($input);
 
 
 
-public function uploadFile($tmp_location, $location, $redirect) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public function displayFolderCreateForm($location) {
+
+
+$form_template = "<div class='col-xs-12 text-center'><br/><br/><br/><br/>
+enter the name of the folder you want to create
+<br/><br/>
+<form method='POST'><input type='text' placeholder=' name of the folder, ie:ABC' style='width: 500px;' name='folder'><input type='hidden' value=$location name='dir'><br/><br/><input type='submit' class='btn btn-large blue' value='create folder'></form>
+</div>";
+
+echo $form_template;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+public function produceNoParameterError() {
+
+echo "<div class='text-center'><br/><br/><h2>invalid operation</h2><br/><br/> you didnt provide enough details to access this page, it may occur if you edit the url of this application, <br/><br/>
+<a href='index.php' class='btn btn-large red'>return home</a></div>
+";
+
+}
+
+
+
+
+public function uploadFile($tmp_location, $location) {
 
 if (move_uploaded_file($tmp_location, $location)) {
 
-header("location: $redirect");
+}
+else {
+  echo "an unexpected error occured while uploading";
+  
 
 }
 
@@ -120,7 +176,18 @@ public function deleteFile($location, $url) {
 $logic = unlink($location);
 
 if ($logic == false) {
-header("location: chmod.php");
+ if (chmod($location, "777")) {
+    if (unlink($location)) {
+      header("$location: view.php?dir=$url");
+    }
+    else {
+    header("location: view.php?dir=$url");
+  }
+  }
+  else {
+    header("location: view.php?dir=$url");
+  }
+
 }
 elseif($logic == true) {
   //redirect to same page with referrer url
@@ -128,6 +195,12 @@ elseif($logic == true) {
 }
 
 }
+
+
+
+
+
+
 
 public function delete($location, $url) {
 
@@ -137,20 +210,26 @@ if ($opendir = opendir($location)) {
 
 	while ($file = readdir($opendir)) {
 
-
+if ($file != "." && $file!="..") {
 if (is_dir($location.$slash.$file) == false) {
-$logic = unlink($location.$slash.$file);
+unlink($location.$slash.$file);
+}
+if (is_dir($location.$slash.$file) == true) {
+  $loc = $location.$slash.$file;
+$this->delete($loc);
+}
 }
 
 }
 //while loop ends before
 $logic = rmdir($location);
 if ($logic == true) {
-header("location: $url");
+header("location: view.php?dir=../");
 }
 else {
-  header("location: chmod.php");
+  echo "change the folder permissions";
 }
+
 }
 
 }
