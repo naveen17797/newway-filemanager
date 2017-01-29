@@ -6,7 +6,7 @@ session_start();
 
 if(empty($_SESSION['access_key'])) {
 
-	header("location: jls-login.php");
+	header('Location: jls-login.php');
 
 }
 
@@ -15,13 +15,13 @@ if(empty($_SESSION['access_key'])) {
 /**
                             *@package: newway
 *
-                       *@author: New way developer community
+                       *@author: Newway developer community
 *
                          *@category: file manager
 *
                       *@link http://github.com/naveen17797/newway
 *
-                   *#THIS FILE IS INTEGRAL COMPONENT OF NEW WAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
+                   *#THIS FILE IS AN INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM. IT CAN BE MODIFIED, ALTERED, AND/OR *EDITED AS PER YOUR NEEDS. IT'S FREEWARE AND OPEN-SOURCE SOFTWARE.
 *
 *
 *
@@ -63,9 +63,9 @@ $json = new parseJson;
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <link rel="stylesheet" type="text/css" href="css/materialize.css">
-<title>New way File manager</title>
+<title>Newway</title>
 <div class="col-xs-12 col-lg-12 col-md-4 navbar navbar-fixed-top" id="header">
-<h4><a href="index.php"><i class='fa fa-shield'></i>&nbsp;New way</a>
+<h4><a href="index.php"><i class='fa fa-shield'></i>&nbsp;Newway</a>
 
 <a href="docs/" class="btn btn-large blue" style="margin-left: 56em; width: 20%;">Documentation</a>
 </h4>
@@ -166,7 +166,7 @@ front and double slash is mandatory for <b>ubuntu</b> as well as <b>server</b></
 	font-family: ubuntu;
 	src: url("fonts/ubuntu.ttf");
 }
-	
+
 
 #footer {
 	background-color: #2165c1;
@@ -184,7 +184,7 @@ cursor: pointer;
 	font-size: 20px;
 
 	border: 1px solid #eee;
-		
+
 		color: #2165c1;
 		border-right: none;
 }
@@ -216,7 +216,7 @@ background-color: #2165c1;
 	background-color: rgba(0,0,0,0.8);
 	font-family: ubuntu;
 	color: white;
-	
+
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
@@ -225,7 +225,7 @@ body {
 	background-color: #fff;
 }
 th,td {
-	
+
 	background-color: #2165c1;
 	color: white;
 padding: 80px;
@@ -247,7 +247,7 @@ tr {
 a {
 text-decoration: none;
 color: black;
-	
+
 }
 a:hover {
 

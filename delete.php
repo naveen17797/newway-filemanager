@@ -1,16 +1,16 @@
-<?php 
+<?php
 session_start();
 
 /**
                             *@package: newway
 *
-                       *@author: New way developer community
+                       *@author: Newway developer community
 *
                          *@category: file manager
 *
                       *@link http://github.com/naveen17797/newway
 *
-                   *#THIS FILE IS INTEGRAL COMPONENT OF NEW WAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
+                   *#THIS FILE IS AN INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM. IT CAN BE MODIFIED, ALTERED, AND/OR *EDITED AS PER YOUR NEEDS. IT'S FREEWARE AND OPEN-SOURCE SOFTWARE.
 *
 *
 *
@@ -24,7 +24,7 @@ session_start();
 <link rel="stylesheet" type="text/css" href="css/font.css">
 
 <div class="col-xs-12 col-md-4 col-lg-12 text-center">
-<h1><i class="fa fa-shield"></i>&nbsp;&nbsp;NEW WAY</h1>
+<h1><i class="fa fa-shield"></i>&nbsp;&nbsp;NEWWAY</h1>
 </div>
 <style>
 @font-face {
@@ -32,7 +32,7 @@ session_start();
 	font-family: ubuntu;
 	src: url("fonts/ubuntu.ttf");
 }
-	
+
 	body {
 
 		background-color: rgba(134, 0, 0, 0.9);
@@ -45,7 +45,7 @@ session_start();
 
 
 
-<?php 
+<?php
 
 include 'lib/class.ff.php';
 

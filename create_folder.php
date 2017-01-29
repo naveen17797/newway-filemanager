@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/materialize.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
-<title>create a folder | New way FIle manager</title>
+<title>Create a folder | Newway</title>
 <div class="col-xs-12 text-center">
 <h2><i class="fa fa-shield"></i>&nbsp;Newway</h2>
 </div>
@@ -21,9 +21,9 @@
 		background: transparent;
 	}
 </style>
-<?php 
+<?php
 
-require_once("lib/class.ff.php");
+require_once 'lib/class.ff.php';
 
 
 $ff = new ff;
@@ -31,7 +31,7 @@ $ff = new ff;
 
 if (empty($_SESSION['access_key'])) {
 
-header("location: jls-login.php");
+header('Location: jls-login.php');
 
 exit();
 

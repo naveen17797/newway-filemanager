@@ -12,14 +12,14 @@ if (isset($_SERVER['HTTP_REFERER']))
 /**
                             *@package: newway
 *
-                       *@author: New way developer community
+                       *@author: Newway developer community
 *
                          *@category: file manager
 *
                       *@link http://github.com/naveen17797/newway
 *
                       *
-                   *#THIS FILE IS INTEGRAL COMPONENT OF NEW WAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
+                   *#THIS FILE IS AN INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM. IT CAN BE MODIFIED, ALTERED, AND/OR *EDITED AS PER YOUR NEEDS. IT'S FREEWARE AND OPEN-SOURCE SOFTWARE.
 *
 *
 *
@@ -33,7 +33,7 @@ $ff = new ff;
 
 if (empty($_SESSION['access_key'])) {
 
-header("location: jls-login.php");
+header('Location: jls-login.php');
 
 
 exit();
@@ -44,7 +44,7 @@ exit();
 
 ?>
 
-<title>upload | newway</title>
+<title>Upload | Newway</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <style type="text/css">
@@ -64,7 +64,7 @@ color: white;
 </style>
 <div class="col-xs-12 col-lg-12 col-md-4 text-left">
 <h1>
-<i class="fa fa-shield"></i>&nbsp;New Way
+<i class="fa fa-shield"></i>&nbsp;Newway
 </h1>
 <br/><br/><br/><br/><br/>
 </div>
@@ -77,13 +77,13 @@ color: white;
 	<h2>Destination: &nbsp;&nbsp;&nbsp;<b>
 	<?php
 
-	if (isset($_GET['dir'])) 
+	if (isset($_GET['dir']))
 {
 
 	  $dir = $_GET['dir'];
 }
 	  ?>
-	  	
+	  
 	  </b></h2>
 	<br/><br/>
 	<form action="upload.php" enctype="multipart/form-data" method="POST">
@@ -94,9 +94,9 @@ color: white;
 	if (isset($_GET['dir']))
 	{
 
-		echo "<input type='hidden' name='location' value=$dir>"; 
+		echo "<input type='hidden' name='location' value=$dir>";
 
-		
+
 	}
 
 ?>
@@ -112,7 +112,7 @@ color: white;
 <br/>
 </div>
 
-<?php 
+<?php
 
 //uploading file
 
@@ -135,7 +135,7 @@ if (isset($_FILES['file'])) {
 
    		for ($i = 0; $i<count($_FILES['file']['name']); $i++) {
 
-   		
+   
 
    		$tmp_name = $_FILES['file']['tmp_name'][$i];
 
@@ -145,7 +145,7 @@ if (isset($_FILES['file'])) {
 
    		$logic = $ff->uploadFile($tmp_name, $location);
 
-   		
+   
    		}
 
    		if ($logic == false) {
@@ -153,10 +153,10 @@ if (isset($_FILES['file'])) {
    			header("location: view.php?dir=$dir");
 
    		}
-   		
+   
 
 
-   		
+   
 
    }
 

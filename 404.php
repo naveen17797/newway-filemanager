@@ -1,16 +1,16 @@
-<?php 
+<?php
 
 
 /**
                             *@package: newway
 *
-                       *@author: New way developer community
+                       *@author: Newway developer community
 *
                          *@category: file manager
 *
                       *@link http://github.com/naveen17797/newway
 *
-                   *#THIS FILE IS INTEGRAL COMPONENT OF NEW WAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
+                   *#THIS FILE IS AN INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM. IT CAN BE MODIFIED, ALTERED, AND/OR *EDITED AS PER YOUR NEEDS. IT'S FREEWARE AND OPEN-SOURCE SOFTWARE.
 *
 *
 *
@@ -27,17 +27,17 @@
 
 
 
-<title>404</title>
+<title>404 | Newway</title>
 <div class="col-xs-12 col-lg-12 col-md-4 text-center" style="font-family: ubuntu; color: white;">
 <i class="fa fa-globe" style="color: white; font-size: 400px;"></i>
 <br/><br/>
-<h1>you are looking for something that doesnt exist in the earth</h1>
+<h1>You're looking for something that doesn't exist on Earth.</h1>
 <br/><br/>
 </div>
 </div>
 <div class="col-xs-3"></div>
 
-<div class="col-xs-3"><a>ask a alien for help</a></div> <div class="col-xs-3"><a>report this bug</a></div>
+<div class="col-xs-3"><a>ask an alien for help</a></div> <div class="col-xs-3"><a>report this bug</a></div>
  <div class="col-xs-3"><a href="index.php">go home</a></div>
 <style type="text/css">
 	@font-face {

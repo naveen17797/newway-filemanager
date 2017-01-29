@@ -1,15 +1,15 @@
-<?php 
+<?php
 
 /**
                             *@package: newway
 *
-                       *@author: New way developer community
+                       *@author: Newway developer community
 *
                          *@category: file manager
 *
                       *@link http://github.com/naveen17797/newway
 *
-                   *#THIS FILE IS INTEGRAL COMPONENT OF NEW WAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
+                   *#THIS FILE IS AN INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM. IT CAN BE MODIFIED, ALTERED, AND/OR *EDITED AS PER YOUR NEEDS. IT'S FREEWARE AND OPEN-SOURCE SOFTWARE.
 *
 *
 *
@@ -43,18 +43,18 @@ $string = strtolower($string);
 			else {
 
 				echo "<a href='$location$file' download><i class='fa fa-file'></i>&nbsp;&nbsp;", $file;
-				
+
 				echo "</a><br/><br/>";
 
 			}
-     	
+     
 
-     } 
+     }
 
 
 	}
 
-   
+
 
 }
 
@@ -98,7 +98,7 @@ if (isset($_POST['location']) && isset($_POST['chars']) && isset($_POST['string'
 			$search->searchFile($location, $chars, $string);
 
 
-			
+
 
 	}
 }
