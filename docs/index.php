@@ -28,7 +28,7 @@
 </style>
 <div class="col-xs-12 col-lg-12 col-md-4 text-left navbar navbar-fixed-top" id="head">
 
-<b>N</b>ew way
+<b>N</b>ewway
 
 
 </div>
@@ -36,10 +36,10 @@
 <div class="col-xs-12 col-lg-12 col-md-4 text-left" id="content">
 <br/><br/><br/><br/><br/>
 
-<b id="heading"><i class='fa fa-folder' style="color: orange;"></i>&nbsp;New way File Manager</b>
-<br/><br/><p id="paragraph"><li> New way file manager is a web file manager for servers, it can perform Delete, Upload, Rename operations in server, it is improved to a greater extent in this update.</li><li>New way file manager has been provided with File Manager API to access files across the servers.</li>
-<li>New way file manager is written in PHP a web development language</li>
-<li>you can find the code for new way file manager in <a href="http://github.com/naveen17797/newway-filemanager">github</a></li>
+<b id="heading"><i class='fa fa-folder' style="color: orange;"></i>&nbsp;Newway File Manager</b>
+<br/><br/><p id="paragraph"><li>Newway File Manager is a file manager for webservers. It can perform Delete, Upload, and Rename operations on a server, and it has been improved to a greater extent in this update.</li><li>Newway file manager has been provided with a File Manager API to access files across servers.</li>
+<li>Newway file manager has been written in PHP.</li>
+<li>You can find the code for Newway File Manager on <a href="http://github.com/naveen17797/newway-filemanager">GitHub</a></li>
 </p>
 <br/><br/>
 <b id="heading"><i class="fa fa-gear"></i>&nbsp;Operations</b>

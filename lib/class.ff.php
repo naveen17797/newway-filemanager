@@ -1,16 +1,16 @@
-<?php 
+<?php
 
 /**
                             *@package: newway
 *
-                       *@author: New way developer community
+                       *@author: Newway developer community
 *
                          *@category: file manager
 *
                       *@link http://github.com/naveen17797/newway
 *
                       *
-                   *#THIS FILE IS INTEGRAL COMPONENT OF NEW WAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
+                   *#THIS FILE IS INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
 *
 *
 *
@@ -89,7 +89,7 @@ if (move_uploaded_file($tmp_location, $location)) {
 }
 else {
   echo "an unexpected error occured while uploading";
-  
+
 
 }
 
@@ -122,7 +122,7 @@ else {
 public function isDir($location, $file) {
 if ($file != "." AND $file != "..") {
 echo "<div class='col-xs-3 folder text-left'><a href='view.php?dir=$location$file/' id='$location$file/'><i class='fa fa-folder'></i>&nbsp;&nbsp;";
-//folder name prints in this 
+//folder name prints in this
 
 echo $this->shortenName($file);
 
@@ -248,23 +248,23 @@ if ($opendir = opendir($location)) {
 
 	while ($file = readdir($opendir)) {
 
-        $slash = "/"; 
+        $slash = "/";
 
         //iteration to print only files
 
-        if (is_dir($location.$slash.$file) == false) 
+        if (is_dir($location.$slash.$file) == false)
         {
 
             $this->isFile($location, $file, $if_ubuntu);
 
 
-        } 
+        }
 
-              
+
         unset($file);
 	}
 
-   
+
 
 }
 
@@ -284,7 +284,7 @@ public function viewFolder($location) {
 if ($opendir = opendir($location)) {
 
 while ($file = readdir($opendir)) {
-$slash = "/"; 
+$slash = "/";
 
 if (is_dir($location.$slash.$file)) {
 	$this->isDir($location, $file);

@@ -1,16 +1,16 @@
-<?php 
+<?php
 
 
 /**
                             *@package: newway
 *
-                       *@author: New way developer community
+                       *@author: Newway developer community
 *
                          *@category: file manager
 *
                       *@link http://github.com/naveen17797/newway
 *
-                   *#THIS FILE IS INTEGRAL COMPONENT OF NEW WAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
+                   *#THIS FILE IS INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
 *
 *
 *
@@ -31,7 +31,7 @@
 	font-family: ubuntu;
 	src: url("fonts/ubuntu.ttf");
 }
-	
+
 	body {
 		background: rgba(178, 0, 0, 0.9);
 		font-family: ubuntu;
@@ -50,7 +50,7 @@
 <h1>well this is embarassing</h1>
 <br/>
 <br/>
-<h2>you cant delete this folder or file because of file permissions</h2>
+<h2>you can't delete this folder or file because of file permissions</h2>
 <br/>
 <h2> make sure to set permissions to 777 for newway to operate smoothly</h2>
 </div>

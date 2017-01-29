@@ -6,7 +6,7 @@
   <!-- Compiled and minified JavaScript -->
 <div class="col-xs-3"></div>
   <div class="col-xs-6 text-center" id='box'>
-<?php 
+<?php
 /**
 *@author: Naveen
 *
@@ -158,7 +158,7 @@ if ($fo = fopen($filename, w)) {
 }
 else {
 
-	$file_Error = "the file cant be created due to no suitable permisisons";
+	$file_Error = "the file can't be created due to unsuitable permisisons";
 
 
 	echo $file_Error;
@@ -224,7 +224,7 @@ if (password_verify($email, $j_email)) {
 
 		header("location: index.php");
 
-	
+
 
 	}
 	else {

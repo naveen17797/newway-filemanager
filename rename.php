@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 session_start();
 $url = $_SERVER['HTTP_REFERER'];
@@ -6,13 +6,13 @@ $url = $_SERVER['HTTP_REFERER'];
 /**
                             *@package: newway
 *
-                       *@author: New way developer community
+                       *@author: Newway developer community
 *
                          *@category: file manager
 *
                       *@link http://github.com/naveen17797/newway
 *
-                   *#THIS FILE IS INTEGRAL COMPONENT OF NEW WAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
+                   *#THIS FILE IS INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
 *
 *
 *
@@ -42,7 +42,7 @@ $url = $_SERVER['HTTP_REFERER'];
 </style>
 <div class="col-xs-12 col-lg-12 col-md-4 text-left">
 <h1>
-<i class="fa fa-shield"></i>&nbsp;New Way
+<i class="fa fa-shield"></i>&nbsp;Newway
 </h1>
 <br/><br/><br/><br/><br/>
 </div>
@@ -57,7 +57,7 @@ $url = $_SERVER['HTTP_REFERER'];
  <form action="rename.php" method="POST">
  <br/>
 
- <?php 
+ <?php
 
 if (isset($_GET['location'])) {
  $location = htmlentities($_GET['location']); echo "<input type='hidden' style='display:none;' value='$location' name='location'>"; }?>
@@ -82,7 +82,7 @@ if (isset($_GET['location'])) {
 
 </div>
 
-<?php 
+<?php
 
 
 if (empty($_SESSION['access_key'])) {
@@ -95,8 +95,8 @@ else {
 
 if (isset($_POST['rename']) && isset($_POST['location']) && isset($_POST['oldname'])) {
 
-	if (!empty($_POST['rename']) && !empty($_POST['location']) && !empty($_POST['oldname'])) {	
-			
+	if (!empty($_POST['rename']) && !empty($_POST['location']) && !empty($_POST['oldname'])) {
+
 			$location = $_POST['location'];
 			$new_name = $_POST['rename'];
 			$old_name = $_POST['oldname'];
@@ -113,7 +113,7 @@ if (isset($_POST['rename']) && isset($_POST['location']) && isset($_POST['oldnam
 
 }
 
-if (empty($_POST['rename']) OR empty($_POST['location']) OR empty($_POST['oldname'])) {	
+if (empty($_POST['rename']) OR empty($_POST['location']) OR empty($_POST['oldname'])) {
 
 header("location: $re");
 
