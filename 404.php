@@ -10,7 +10,7 @@
 *
                       *@link http://github.com/naveen17797/newway
 *
-                   *#THIS FILE IS INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
+                   *#THIS FILE IS AN INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM. IT CAN BE MODIFIED, ALTERED, AND/OR *EDITED AS PER YOUR NEEDS. IT'S FREEWARE AND OPEN-SOURCE SOFTWARE.
 *
 *
 *
@@ -27,7 +27,7 @@
 
 
 
-<title>404</title>
+<title>404 | Newway</title>
 <div class="col-xs-12 col-lg-12 col-md-4 text-center" style="font-family: ubuntu; color: white;">
 <i class="fa fa-globe" style="color: white; font-size: 400px;"></i>
 <br/><br/>

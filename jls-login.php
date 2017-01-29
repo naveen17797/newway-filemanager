@@ -153,7 +153,7 @@ if ($fo = fopen($filename, w)) {
     fclose($fo);
 	$this->createjsonfile($email, $password, $filename);
 	echo $success_message;
-	header("location: jls-login.php");
+	header('Location: jls-login.php');
 
 }
 else {
@@ -369,4 +369,4 @@ if (isset($_POST['log-email']) && isset($_POST['log-password'])) {
 		width: 300px;
 	}
 </style>
-<title>Json Login System[JLS]</title>
+<title>Json Login System[JLS] | Newway</title>

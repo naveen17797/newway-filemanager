@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/materialize.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
-<title>create a folder | Newway File Manager</title>
+<title>Create a folder | Newway</title>
 <div class="col-xs-12 text-center">
 <h2><i class="fa fa-shield"></i>&nbsp;Newway</h2>
 </div>

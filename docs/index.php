@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="../css/font.css">
 <link rel="stylesheet" type="text/css" href="../css/materialize.css">
-<title>Newway Documentation</title>
+<title>Documentation | Newway</title>
 <style type="text/css">
 	@font-face {
 		font-family: ubuntu;

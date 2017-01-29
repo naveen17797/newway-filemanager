@@ -19,7 +19,7 @@ if (isset($_SERVER['HTTP_REFERER']))
                       *@link http://github.com/naveen17797/newway
 *
                       *
-                   *#THIS FILE IS INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
+                   *#THIS FILE IS AN INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM. IT CAN BE MODIFIED, ALTERED, AND/OR *EDITED AS PER YOUR NEEDS. IT'S FREEWARE AND OPEN-SOURCE SOFTWARE.
 *
 *
 *
@@ -33,7 +33,7 @@ $ff = new ff;
 
 if (empty($_SESSION['access_key'])) {
 
-header("location: jls-login.php");
+header('Location: jls-login.php');
 
 
 exit();
@@ -44,7 +44,7 @@ exit();
 
 ?>
 
-<title>upload | newway</title>
+<title>Upload | Newway</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <style type="text/css">

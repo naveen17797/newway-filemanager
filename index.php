@@ -6,7 +6,7 @@ session_start();
 
 if(empty($_SESSION['access_key'])) {
 
-	header("location: jls-login.php");
+	header('Location: jls-login.php');
 
 }
 
@@ -21,7 +21,7 @@ if(empty($_SESSION['access_key'])) {
 *
                       *@link http://github.com/naveen17797/newway
 *
-                   *#THIS FILE IS INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM, THIS CAN BE MODIFIED, ALTERED, OR *EDITED ACCORDING TO YOUR WISH. ITS A FREEWARE AND OPENSOURCE SOFTWARE
+                   *#THIS FILE IS AN INTEGRAL COMPONENT OF NEWWAY V.1.0.0.0 VIBRANIUM. IT CAN BE MODIFIED, ALTERED, AND/OR *EDITED AS PER YOUR NEEDS. IT'S FREEWARE AND OPEN-SOURCE SOFTWARE.
 *
 *
 *
@@ -63,7 +63,7 @@ $json = new parseJson;
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <link rel="stylesheet" type="text/css" href="css/materialize.css">
-<title>Newway File manager</title>
+<title>Newway</title>
 <div class="col-xs-12 col-lg-12 col-md-4 navbar navbar-fixed-top" id="header">
 <h4><a href="index.php"><i class='fa fa-shield'></i>&nbsp;Newway</a>
 
