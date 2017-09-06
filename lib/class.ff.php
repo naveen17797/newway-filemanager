@@ -47,18 +47,7 @@ return $input = htmlentities($input);
 
 
 
-public function displayFolderCreateForm($location) {
 
-
-$form_template = "<div class='col-xs-12 text-center'><br/><br/><br/><br/>
-enter the name of the folder you want to create
-<br/><br/>
-<form method='POST'><input type='text' placeholder=' name of the folder, ie:ABC' style='width: 500px;' name='folder'><input type='hidden' value=$location name='dir'><br/><br/><input type='submit' class='btn btn-large blue' value='create folder'></form>
-</div>";
-
-echo $form_template;
-
-}
 
 
 
@@ -127,7 +116,7 @@ echo "<div class='col-xs-3 folder text-left'><a href='view.php?dir=$location$fil
 echo $this->shortenName($file);
 
 
-echo "</a><br/><br/><a href='delete.php?dir=$location$file' style='font-size: 16px;' class='btn btn-danger'><i class='fa fa-trash'></i></a>&nbsp;&nbsp;<a href='rename.php?dir=$location$file&name=$file&location=$location' class='btn btn-info'><i class='fa fa-pencil'></i></a></div>";
+echo "</a><br/><br/><a href='confirm_delete.php?dir=$location$file&path=$location' style='font-size: 16px;' class='btn btn-danger'><i class='fa fa-trash'></i></a>&nbsp;&nbsp;<a href='rename.php?dir=$location$file&name=$file&location=$location' class='btn btn-info'><i class='fa fa-pencil'></i></a></div>";
 }
 
 }
@@ -153,7 +142,7 @@ echo "<div class='col-xs-3 file text-left'><a href='$attachment$location$file' i
 
 echo $this->shortenName($file);
 
-echo "</a><br/><br/><p><a href='delete.php?dir=$location$file'  class='btn btn-danger'><i class='fa fa-trash'></i></a>&nbsp;&nbsp;<a href='rename.php?dir=$location$file&name=$file&location=$location' class='btn btn-info'><i class='fa fa-pencil'></i></a></p></div>";
+echo "</a><br/><br/><p><a href='confirm_delete.php?dir=$location$file&path=$location'  class='btn btn-danger'><i class='fa fa-trash'></i></a>&nbsp;&nbsp;<a href='rename.php?dir=$location$file&name=$file&location=$location' class='btn btn-info'><i class='fa fa-pencil'></i></a></p></div>";
 
 
 
@@ -191,7 +180,7 @@ if ($logic == false) {
 }
 elseif($logic == true) {
   //redirect to same page with referrer url
-  header("location: $url");
+  header("location: view.php?dir=$url");
 }
 
 }
