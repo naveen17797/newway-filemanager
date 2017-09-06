@@ -30,23 +30,23 @@ require 'header.php';
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <style type="text/css">
 @font-face {
-	font-family: ubuntu;
-	src: url("fonts/ubuntu.ttf");
+    font-family: ubuntu;
+    src: url("fonts/ubuntu.ttf");
 }
-	body {
-		background-color: rgba(0,80,178,0.9);
-		font-family: ubuntu;
-		color: white;
-	}
-	.panel {
-		background: transparent;
-	}
+body {
+    background-color: rgba(0, 80, 178, 0.9);
+    font-family: ubuntu;
+    color: white;
+}
+.panel {
+    background: transparent;
+}
 </style>
 <div class="col-xs-12 col-lg-12 col-md-4 text-left">
 <h1>
 <i class="fa fa-shield"></i>&nbsp;<?php echo $newway['title']; ?>
 </h1>
-<br/><br/><br/><br/><br/>
+<br /><br /><br /><br /><br />
 </div>
 <div class="col-xs-4 col-lg-4 col-md-2"></div>
 <div class="col-xs-4 col-lg-4 col-md-2 text-center" style="border: 1px solid #eee; border-top: none;">
@@ -54,10 +54,10 @@ require 'header.php';
 <h1><i class='fa fa-pencil'></i>&nbsp;<?php echo $newway['rename']; ?></h1>
 
 <h3>
-<br/><br/>
- <?php echo $newway['rename_text']; ?> <br/><br/><?php if (isset($_GET['name'])) { echo htmlentities($_GET['name']); } ?><br/><br/><?php echo $newway['to']; ?>
+<br /><br />
+ <?php echo $newway['rename_text']; ?> <br /><br /><?php if (isset($_GET['name'])) { echo htmlentities($_GET['name']); } ?><br /><br /><?php echo $newway['to']; ?>
  <form action="rename.php" method="POST">
- <br/>
+ <br />
 
  <?php
 
@@ -72,8 +72,8 @@ if (isset($_GET['location'])) {
 
 
 <input type="text" class="form-control" <?php echo "placeholder='".$newway['rename_placeholder']."'"; ?> name="rename">
-<br/>
-<br/>
+<br />
+<br />
 
 
 
@@ -88,34 +88,32 @@ if (isset($_GET['location'])) {
 
 
 if (empty($_SESSION['access_key'])) {
-
-	header("location: 404.php");
-
+    header("location: 404.php");
 }
 
 else {
 
 if (isset($_POST['rename']) && isset($_POST['location']) && isset($_POST['oldname'])) {
 
-	if (!empty($_POST['rename']) && !empty($_POST['location']) && !empty($_POST['oldname'])) {
+    if (!empty($_POST['rename']) && !empty($_POST['location']) && !empty($_POST['oldname'])) {
 
-			$location = $_POST['location'];
-			$new_name = $_POST['rename'];
-			$old_name = $_POST['oldname'];
-			$redirect = $_POST['redirect'];
-			$old_name = $location.$old_name;
-			$new_name = $location.$new_name;
+            $location = $_POST['location'];
+            $new_name = $_POST['rename'];
+            $old_name = $_POST['oldname'];
+            $redirect = $_POST['redirect'];
+            $old_name = $location.$old_name;
+            $new_name = $location.$new_name;
 
-				if(rename($old_name, $new_name)) {
+                if(rename($old_name, $new_name)) {
 
-					header("location: view.php?dir=$redirect");
-					$date = date("d-m-Y h:i:s");
-					$message = "Rename function: the file $old_name has been renamed to $new_name at $date";
-					writeLog($message);
-				}
-					else {
-					header("location: chmod.php");
-					}
+                    header("location: view.php?dir=$redirect");
+                    $date = date("d-m-Y h:i:s");
+                    $message = "Rename function: the file $old_name has been renamed to $new_name at $date";
+                    writeLog($message);
+                }
+                    else {
+                    header("location: chmod.php");
+                    }
 
 }
 

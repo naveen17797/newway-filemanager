@@ -26,35 +26,35 @@ class search {
 public function searchFile($location, $chars, $string) {
 
 if ($opendir = opendir($location)) {
-echo "<br/><br/>";
+echo "<br /><br />";
 
-	while ($file = readdir($opendir)) {
+    while ($file = readdir($opendir)) {
 
 $string = strtolower($string);
 
      if ($string == strtolower(substr($file, 0,$chars))) {
 
-			if ($this->checkDir($location, $file)) {
+            if ($this->checkDir($location, $file)) {
 
-				echo "<a href='view.php?dir=$location$file/'><i class='fa fa-folder'></i>&nbsp;&nbsp;", $file;
+                echo "<a href='view.php?dir=$location$file/'><i class='fa fa-folder'></i>&nbsp;&nbsp;", $file;
 
-				echo "</a><br/><br/>";
+                echo "</a><br /><br />";
 
-			}
+            }
 
-			else {
+            else {
 
-				echo "<a href='$location$file' download><i class='fa fa-file'></i>&nbsp;&nbsp;", $file;
+                echo "<a href='$location$file' download><i class='fa fa-file'></i>&nbsp;&nbsp;", $file;
 
-				echo "</a><br/><br/>";
+                echo "</a><br /><br />";
 
-			}
-     
+            }
+
 
      }
 
 
-	}
+    }
 
 
 
@@ -66,58 +66,44 @@ $string = strtolower($string);
 
 
 public function checkDir($location, $file) {
-	$slash = "/";
-if (is_dir($location.$slash.$file) == true) {
-	return true;
-}
-
-else {
-	return false;
-}
-
+    $slash = "/";
+    if (is_dir($location.$slash.$file) == true) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
 
 
 }
-
-
 
 if (isset($_POST['location']) && isset($_POST['chars']) && isset($_POST['string']) && isset($_POST['key'])) {
 
-	if ($_POST['key'] == $_SESSION['access_key']) {
+    if ($_POST['key'] == $_SESSION['access_key']) {
 
-	if (!empty($_POST['location']) && !empty($_POST['chars']) && !empty($_POST['string']) && !empty($_POST['key'])) {
+    if (!empty($_POST['location']) && !empty($_POST['chars']) && !empty($_POST['string']) && !empty($_POST['key'])) {
 
-		
+            $location = $_POST['location'];
+
+            $string = htmlentities($_POST['string']);
+
+            $chars = $_POST['chars'];
+
+            $search = new search;
+
+            $search->searchFile($location, $chars, $string);
+
+            $message = "Search function: searched for $string at $date";
+
+            writeLog($message);
+
+        }
 
 
-
-
-			$location = $_POST['location'];
-
-			$string = htmlentities($_POST['string']);
-
-			$chars = $_POST['chars'];
-
-			$search = new search;
-
-			$search->searchFile($location, $chars, $string);
-
-			$message = "Search function: searched for $string at $date";
-
-			writeLog($message);
-
-		}
-		
-
-	}
-	else {
-			exit("your access_key does not match our key");
-		}
+    } else {
+        exit("your access_key does not match our key");
+    }
 
 }
-
-
-?>

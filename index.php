@@ -6,7 +6,7 @@ session_start();
 
 if(empty($_SESSION['access_key'])) {
 
-	header('Location: jls-login.php');
+    header('Location: jls-login.php');
 
 }
 
@@ -68,15 +68,15 @@ $json = new parseJson;
 
 <div class="navbar navbar-fixed-top" id="header">
 
-	<div class="col-xs-4">
+    <div class="col-xs-4">
 
-	<h4><i class="fa fa-shield"></i>&nbsp;Newway</h4>
+    <h4><i class="fa fa-shield"></i>&nbsp;Newway</h4>
 
-	</div>
+    </div>
 
 <div class="col-xs-8 text-right">
 <h4>
-	<a href="docs/" class="btn btn-large blue"><i class="fa fa-file"></i>&nbsp;&nbsp;Documentation</a>
+    <a href="docs/" class="btn btn-large blue"><i class="fa fa-file"></i>&nbsp;&nbsp;Documentation</a>
 
 <a href="language_manager.php" class="btn btn-large red"><i class="fa fa-language"></i>&nbsp;&nbsp;Language Manager</a>
 <a href="logs.php" class="btn btn-large red"><i class="fa fa-history"></i>&nbsp;&nbsp;Logs</a>
@@ -89,20 +89,20 @@ $json = new parseJson;
 
 
 <div class="col-xs-12 col-lg-12 col-md-4 text-left">
-<br/><br/>
+<br /><br />
 
-<br/><br/>
+<br /><br />
 </div>
 
 
 
 <div class="col-xs-12 col-lg-12 col-md-4 text-center">
 
-<br/><br/>
+<br /><br />
 
-<br/><br/><br/><br/>
+<br /><br /><br /><br />
 
-<br/><br/>
+<br /><br />
 
 
 
@@ -114,7 +114,7 @@ $json = new parseJson;
 </form>
 </div>
 
-<br/><br/>
+<br /><br />
 
 
 
@@ -122,7 +122,7 @@ $json = new parseJson;
 <div class="btn btn-large pink" style=" margin-top: 0px; padding-bottom: none;"><i class="fa fa-shield"></i>&nbsp;Tips</div>
 
 <div id="contents">
-<br/>
+<br />
 <li>use ../ if you are going to browse server home directory</li>
 
 <li>use /home/ if you are going to browse ubuntu home directory
@@ -130,7 +130,7 @@ $json = new parseJson;
 front and double slash is mandatory for <b>ubuntu</b> as well as <b>server</b></li>
 
 
-<br/>
+<br />
 
 
 </div>
@@ -140,7 +140,7 @@ front and double slash is mandatory for <b>ubuntu</b> as well as <b>server</b></
 <div class="btn btn-large green" style="">
 <i class="fa fa-tree"></i>&nbsp;&nbsp;Whats new?</div>
 <div id="contents">
-<br/>
+<br />
 <li><b style="color: rgba(0,0,0,1);"> bug</b> in using for ubuntu has been fixed</li>
 <li>fixed <b>renaming</b> bug in old version</li>
 <li>secure <b>authenciation</b> method added to protect your files, folders in your server</li>
@@ -157,7 +157,7 @@ front and double slash is mandatory for <b>ubuntu</b> as well as <b>server</b></
 <div class="btn btn-large black" style="">
 <i class="fa fa-floppy-o"></i>&nbsp;&nbsp;version information</div>
 <div id="contents">
-<br/>
+<br />
 <li>author info:   &nbsp;&nbsp;<b><?php $json->display("author name"); ?></b></li>
 <li>version:&nbsp;&nbsp; <b><?php $json->display("version"); ?></b></li>
 <li>version name: &nbsp;&nbsp;<b><?php $json->display("codename"); ?></b></li>
@@ -179,30 +179,30 @@ front and double slash is mandatory for <b>ubuntu</b> as well as <b>server</b></
 
 @font-face {
 
-	font-family: ubuntu;
-	src: url("fonts/ubuntu.ttf");
+    font-family: ubuntu;
+    src: url("fonts/ubuntu.ttf");
 }
 
 
 #footer {
-	background-color: #2165c1;
-	height: 150px;
-	font-family: ubuntu;
-	font-size: 24px;
-	color: white;
+    background-color: #2165c1;
+    height: 150px;
+    font-family: ubuntu;
+    font-size: 24px;
+    color: white;
 }
 
 .folder, .file {
 
 cursor: pointer;
-	padding: 30px;
-	font-family: ubuntu;
-	font-size: 20px;
+    padding: 30px;
+    font-family: ubuntu;
+    font-size: 20px;
 
-	border: 1px solid #eee;
+    border: 1px solid #eee;
 
-		color: #2165c1;
-		border-right: none;
+        color: #2165c1;
+        border-right: none;
 }
 
 .folder:hover, .file:hover {
@@ -219,31 +219,31 @@ background-color: #2165c1;
 
 
 #options {
-	padding-left: 80px;
-	padding-right: 80px;
+    padding-left: 80px;
+    padding-right: 80px;
 }
 .blue {
-	margin-bottom: 0px;
-	padding-bottom: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }
 
 #header {
 
-	background-color: rgba(0,0,0,0.8);
-	font-family: ubuntu;
-	color: white;
+    background-color: rgba(0,0,0,0.8);
+    font-family: ubuntu;
+    color: white;
 
-	padding-bottom: 0px;
-	margin-bottom: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 body {
-	background-color: #fff;
+    background-color: #fff;
 }
 th,td {
 
-	background-color: #2165c1;
-	color: white;
+    background-color: #2165c1;
+    color: white;
 padding: 80px;
 padding-bottom: 10px;
 padding-top: 10px;
@@ -253,12 +253,12 @@ td {
 
 }
 table {
-	font-family: ubuntu;
-	font-size: 30px;
+    font-family: ubuntu;
+    font-size: 30px;
 }
 tr {
-	background-color: transparent;
-	color: #2165c1;
+    background-color: transparent;
+    color: #2165c1;
 }
 a {
 text-decoration: none;
@@ -278,13 +278,13 @@ color: white;
 }
 
 a:active {
-	text-decoration: none;
-	color: white;
+    text-decoration: none;
+    color: white;
 }
 .panel {
 
-	font-family: ubuntu;
-	font-size: 20px;
+    font-family: ubuntu;
+    font-size: 20px;
 }
 #contents {
 
@@ -304,19 +304,19 @@ font-family: ubuntu;
 
 }
 b{
-	color: rgba(0,0,0,1);
+    color: rgba(0,0,0,1);
 }
 #updates {
-	display: none;
-	font-family: ubuntu;
+    display: none;
+    font-family: ubuntu;
 }
 </style>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function () {
+    $(document).ready(function () {
 
-		$('#updates').fadeIn("slow");
+        $('#updates').fadeIn("slow");
 
-	});
+    });
 </script>

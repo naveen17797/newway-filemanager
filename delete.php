@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require 'functions.php';
 session_start();
@@ -31,30 +31,30 @@ session_start();
 <style>
 @font-face {
 
-	font-family: ubuntu;
-	src: url("fonts/ubuntu.ttf");
+    font-family: ubuntu;
+    src: url("fonts/ubuntu.ttf");
 }
-	
-	body {
 
-		background-color: rgba(134, 0, 0, 0.9);
-		color: white;
-		font-family: ubuntu;
+    body {
 
-	}
+        background-color: rgba(134, 0, 0, 0.9);
+        color: white;
+        font-family: ubuntu;
+
+    }
 </style>
 
 
 
 
-<?php 
+<?php
 
 include 'lib/class.ff.php';
 
 
 if (empty($_GET['dir']) && empty($_SESSION['access_key'])) {
 //making sue no acess without security key and paramaters
-	header("location: 404.php");
+    header("location: 404.php");
 }
 
 if (!empty($_GET['dir']) && !empty($_SESSION['access_key'])) {

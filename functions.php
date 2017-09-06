@@ -4,53 +4,53 @@ $date = date("d-m-Y h:i:s A");
 
 function createFile($condition, $data, $argument, $filename) {
 
-	if ($condition) {
+    if ($condition) {
 
-		return false;
+        return false;
 
-	}
-	else {
+    }
+    else {
 
-		$array = array($argument=>$data);
+        $array = array($argument=>$data);
 
-		$data = json_encode($array);
+        $data = json_encode($array);
 
-		$fp = fopen($filename, "w");
+        $fp = fopen($filename, "w");
 
-		fwrite($fp, $data);
+        fwrite($fp, $data);
 
-		fclose($fp);
+        fclose($fp);
 
-		return true;
+        return true;
 
 
 
-	}
+    }
 
 }
 
 function editLanguage($data, $argument, $folder) {
 
-	$php = ".php";
+    $php = ".php";
 
-	
 
-	if (file_exists($folder.$data.$php)) 
-	{
 
-	
-		unlink("language_conf.json");
-		$handle = fopen("language_conf.json", "w");
-		$array = array($argument=>$data);
-		$json = json_encode($array);
-		fwrite($handle, $json);
-		fclose($handle);
-		return true;
-	}
-	else {
-		return false;
-	}
-	
+    if (file_exists($folder.$data.$php))
+    {
+
+
+        unlink("language_conf.json");
+        $handle = fopen("language_conf.json", "w");
+        $array = array($argument=>$data);
+        $json = json_encode($array);
+        fwrite($handle, $json);
+        fclose($handle);
+        return true;
+    }
+    else {
+        return false;
+    }
+
 
 
 
@@ -59,12 +59,12 @@ function editLanguage($data, $argument, $folder) {
 function getCurrentLanguage($filename) {
 
 
-	$json = file_get_contents($filename);
+    $json = file_get_contents($filename);
 
-	$array = json_decode($json, true);
+    $array = json_decode($json, true);
 
 
-	return $array['language'];
+    return $array['language'];
 
 
 }
@@ -114,27 +114,27 @@ return $language;
 
 function writeLog($message) {
 
-	$date = date("d-m-Y h:i:s A");
+    $date = date("d-m-Y h:i:s A");
 
-	if(file_exists("logs.txt")) {
+    if(file_exists("logs.txt")) {
 
 
 
-	$fp = fopen("logs.txt", "a");
+    $fp = fopen("logs.txt", "a");
 
-	}
+    }
 
-	else {
-		$fp = fopen("logs.txt", "w");
-	}
+    else {
+        $fp = fopen("logs.txt", "w");
+    }
 
-	$newline = "\n";
+    $newline = "\n";
 
-	$message = $message.$newline;
+    $message = $message.$newline;
 
-	fwrite($fp, $message);
+    fwrite($fp, $message);
 
-	fclose($fp);
+    fclose($fp);
 
 
 }

@@ -6,7 +6,7 @@ if (isset($_SERVER['HTTP_REFERER']))
 
 {
 
-		$url = $_SERVER['HTTP_REFERER'];
+        $url = $_SERVER['HTTP_REFERER'];
 
 }
 /**
@@ -49,12 +49,12 @@ exit();
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <style type="text/css">
 @font-face {
-	font-family: ubuntu;
-	src: url("fonts/ubuntu.ttf");
+    font-family: ubuntu;
+    src: url("fonts/ubuntu.ttf");
 }
 body {
 
-	background-color: rgba(0,0,103,0.9);
+    background-color: rgba(0,0,103,0.9);
 font-family: ubuntu;
 color: white;
 
@@ -66,50 +66,50 @@ color: white;
 <h1>
 <i class="fa fa-shield"></i>&nbsp;<?php echo $newway['title']; ?>
 </h1>
-<br/><br/><br/><br/><br/>
+<br /><br /><br /><br /><br />
 </div>
 
 <div class="col-xs-2"></div>
 <div class="col-xs-8  col-lg-8 text-center" style="border: 1px solid #eee; border-top: none;">
 <h1><i class="fa fa-upload"></i>&nbsp;<?php echo $newway['upload_files']; ?></h1><hr/>
-<br/>
-<br/>
-	<h2><?php echo $newway['destination']; ?>: &nbsp;&nbsp;&nbsp;<b>
-	<?php
+<br />
+<br />
+    <h2><?php echo $newway['destination']; ?>: &nbsp;&nbsp;&nbsp;<b>
+    <?php
 
-	if (isset($_GET['dir']))
+    if (isset($_GET['dir']))
 {
 
-	  $dir = $_GET['dir'];
+      $dir = $_GET['dir'];
 }
-	  ?>
-	  
-	  </b></h2>
-	<br/><br/>
-	<form action="upload.php" enctype="multipart/form-data" method="POST">
+      ?>
+
+      </b></h2>
+    <br /><br />
+    <form action="upload.php" enctype="multipart/form-data" method="POST">
 
 
 <?php
 
-	if (isset($_GET['dir']))
-	{
+    if (isset($_GET['dir']))
+    {
 
-		echo "<input type='hidden' name='location' value=$dir>";
+        echo "<input type='hidden' name='location' value=$dir>";
 
 
-	}
+    }
 
 ?>
 
 
 <input type="file" class='btn btn-warning' style="background: transparent; margin-left: 19.5em;" name="file[]" multiple="true">
-<br/><br/>
+<br /><br />
 <button type="submit" name="submit" class="btn btn-primary"><?php echo $newway['upload_button_text']; ?></button>
 
 
-	</form>
-	<br/>
-<br/>
+    </form>
+    <br />
+<br />
 </div>
 
 <?php
@@ -124,46 +124,46 @@ if (isset($_FILES['file'])) {
 
 
 
-   		$redirect_url = $_POST['redirect_url'];
+           $redirect_url = $_POST['redirect_url'];
 
 
-   		$dir = $_POST['location'];
+           $dir = $_POST['location'];
 
 
 
 
 
-   		for ($i = 0; $i<count($_FILES['file']['name']); $i++) {
-
-   
-
-   		$tmp_name = $_FILES['file']['tmp_name'][$i];
-
-   		$name = $_FILES['file']['name'][$i];
-
-   		$location = $dir.$name;
-
-   		 $date = date("d-m-y h:i:s A");
-
-   		 $message = "Upload Function: uploaded $name to $dir at $date";
-
-   		 writeLog($message);
+           for ($i = 0; $i<count($_FILES['file']['name']); $i++) {
 
 
-   		$logic = $ff->uploadFile($tmp_name, $location);
 
-   
-   		}
+           $tmp_name = $_FILES['file']['tmp_name'][$i];
 
-   		if ($logic == false) {
+           $name = $_FILES['file']['name'][$i];
 
-   			header("location: view.php?dir=$dir");
+           $location = $dir.$name;
 
-   		}
-   
+            $date = date("d-m-y h:i:s A");
+
+            $message = "Upload Function: uploaded $name to $dir at $date";
+
+            writeLog($message);
 
 
-   
+           $logic = $ff->uploadFile($tmp_name, $location);
+
+
+           }
+
+           if ($logic == false) {
+
+               header("location: view.php?dir=$dir");
+
+           }
+
+
+
+
 
    }
 
