@@ -1,4 +1,6 @@
-  <?php session_start(); ?>
+  <?php session_start();
+require 'functions.php';
+   ?>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <link rel="stylesheet" type="text/css" href="css/materialize.css">
@@ -215,10 +217,19 @@ $j_email = $json['email'];
 $j_password = $json['password'];
 
 
+		$date = date("d-m-y h:i:s A");
+
+
+
 if (password_verify($email, $j_email)) {
 
 	if (password_verify($password, $j_password)) {
 
+		$message = "Login Success: logged in at ";
+
+		$message = $message.$date;
+
+		writeLog($message);
 
 		$_SESSION['access_key'] = $j_password;
 
@@ -228,6 +239,14 @@ if (password_verify($email, $j_email)) {
 
 	}
 	else {
+
+
+		$message = "Login Failure : Some one  tried to login at ";
+
+		$message = $message.$date;
+
+
+		writeLog($message);
 
 		echo "the password is incorrect";
 	}

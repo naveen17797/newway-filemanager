@@ -1,7 +1,9 @@
 <?php
-
 session_start();
-$url = $_SERVER['HTTP_REFERER'];
+
+$url = $_GET['location'];
+
+require 'header.php';
 
 /**
                             *@package: newway
@@ -23,7 +25,7 @@ $url = $_SERVER['HTTP_REFERER'];
 
 
 ?>
-<title>rename | Newway</title>
+<title><?php echo $newway['rename_title']; ?></title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <style type="text/css">
@@ -42,18 +44,18 @@ $url = $_SERVER['HTTP_REFERER'];
 </style>
 <div class="col-xs-12 col-lg-12 col-md-4 text-left">
 <h1>
-<i class="fa fa-shield"></i>&nbsp;Newway
+<i class="fa fa-shield"></i>&nbsp;<?php echo $newway['title']; ?>
 </h1>
 <br/><br/><br/><br/><br/>
 </div>
 <div class="col-xs-4 col-lg-4 col-md-2"></div>
 <div class="col-xs-4 col-lg-4 col-md-2 text-center" style="border: 1px solid #eee; border-top: none;">
 
-<h1><i class='fa fa-pencil'></i>&nbsp;rename</h1>
+<h1><i class='fa fa-pencil'></i>&nbsp;<?php echo $newway['rename']; ?></h1>
 
 <h3>
 <br/><br/>
- rename <br/><br/><?php if (isset($_GET['name'])) { echo htmlentities($_GET['name']); } ?><br/><br/>to
+ <?php echo $newway['rename_text']; ?> <br/><br/><?php if (isset($_GET['name'])) { echo htmlentities($_GET['name']); } ?><br/><br/><?php echo $newway['to']; ?>
  <form action="rename.php" method="POST">
  <br/>
 
@@ -69,13 +71,13 @@ if (isset($_GET['location'])) {
 <?php  echo "<input type='hidden' style='display:none;' value='$url' name='redirect'>"; ?>
 
 
-<input type="text" class="form-control" placeholder="new name" name="rename">
+<input type="text" class="form-control" <?php echo "placeholder='".$newway['rename_placeholder']."'"; ?> name="rename">
 <br/>
 <br/>
 
 
 
-<input type="submit" class="btn btn-success" value="Rename">
+<input type="submit" class="btn btn-success" value=<?php echo $newway['rename_button_text']; ?>>
 
  </form>
 </h3>
@@ -105,7 +107,11 @@ if (isset($_POST['rename']) && isset($_POST['location']) && isset($_POST['oldnam
 			$new_name = $location.$new_name;
 
 				if(rename($old_name, $new_name)) {
-					header("location: $redirect");
+
+					header("location: view.php?dir=$redirect");
+					$date = date("d-m-Y h:i:s");
+					$message = "Rename function: the file $old_name has been renamed to $new_name at $date";
+					writeLog($message);
 				}
 					else {
 					header("location: chmod.php");

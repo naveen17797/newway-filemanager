@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require 'header.php';
 
 if (isset($_SERVER['HTTP_REFERER']))
 
@@ -44,7 +44,7 @@ exit();
 
 ?>
 
-<title>Upload | Newway</title>
+<title><?php echo $newway['upload_title']; ?></title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <style type="text/css">
@@ -64,17 +64,17 @@ color: white;
 </style>
 <div class="col-xs-12 col-lg-12 col-md-4 text-left">
 <h1>
-<i class="fa fa-shield"></i>&nbsp;Newway
+<i class="fa fa-shield"></i>&nbsp;<?php echo $newway['title']; ?>
 </h1>
 <br/><br/><br/><br/><br/>
 </div>
 
 <div class="col-xs-2"></div>
 <div class="col-xs-8  col-lg-8 text-center" style="border: 1px solid #eee; border-top: none;">
-<h1><i class="fa fa-upload"></i>&nbsp;UPLOAD FILES</h1><hr/>
+<h1><i class="fa fa-upload"></i>&nbsp;<?php echo $newway['upload_files']; ?></h1><hr/>
 <br/>
 <br/>
-	<h2>Destination: &nbsp;&nbsp;&nbsp;<b>
+	<h2><?php echo $newway['destination']; ?>: &nbsp;&nbsp;&nbsp;<b>
 	<?php
 
 	if (isset($_GET['dir']))
@@ -104,7 +104,7 @@ color: white;
 
 <input type="file" class='btn btn-warning' style="background: transparent; margin-left: 19.5em;" name="file[]" multiple="true">
 <br/><br/>
-<button type="submit" name="submit" class="btn btn-primary">upload</button>
+<button type="submit" name="submit" class="btn btn-primary"><?php echo $newway['upload_button_text']; ?></button>
 
 
 	</form>
@@ -142,6 +142,13 @@ if (isset($_FILES['file'])) {
    		$name = $_FILES['file']['name'][$i];
 
    		$location = $dir.$name;
+
+   		 $date = date("d-m-y h:i:s A");
+
+   		 $message = "Upload Function: uploaded $name to $dir at $date";
+
+   		 writeLog($message);
+
 
    		$logic = $ff->uploadFile($tmp_name, $location);
 

@@ -64,13 +64,29 @@ $json = new parseJson;
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <link rel="stylesheet" type="text/css" href="css/materialize.css">
 <title>Newway</title>
-<div class="col-xs-12 col-lg-12 col-md-4 navbar navbar-fixed-top" id="header">
-<h4><a href="index.php"><i class='fa fa-shield'></i>&nbsp;Newway</a>
 
-<a href="docs/" class="btn btn-large blue" style="margin-left: 56em; width: 20%;">Documentation</a>
+
+<div class="navbar navbar-fixed-top" id="header">
+
+	<div class="col-xs-4">
+
+	<h4><i class="fa fa-shield"></i>&nbsp;Newway</h4>
+
+	</div>
+
+<div class="col-xs-8 text-right">
+<h4>
+	<a href="docs/" class="btn btn-large blue"><i class="fa fa-file"></i>&nbsp;&nbsp;Documentation</a>
+
+<a href="language_manager.php" class="btn btn-large red"><i class="fa fa-language"></i>&nbsp;&nbsp;Language Manager</a>
+<a href="logs.php" class="btn btn-large red"><i class="fa fa-history"></i>&nbsp;&nbsp;Logs</a>
+
 </h4>
+</div>
+
 
 </div>
+
 
 <div class="col-xs-12 col-lg-12 col-md-4 text-left">
 <br/><br/>

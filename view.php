@@ -1,10 +1,12 @@
-<title>View | Newway</title>
+<?php require 'header.php'; ?>
+<meta charset="utf-8">
+<title><?php echo $newway['view_page_title']; ?></title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <div class="col-xs-12 col-lg-12 col-md-4" id="header">
 <div class="form-group">
 <form action="view.php" method="GET" class="form-inline">
-<h2><a href="index.php" style="text-decoration: none;" id="h"><i class='fa fa-shield'></i>&nbsp;Newway
+<h2><a href="index.php" style="text-decoration: none;" id="h"><i class='fa fa-shield'></i>&nbsp;<?php echo $newway['title'];?>
 </a>&nbsp;
 <?php
 
@@ -18,16 +20,38 @@ $http = $_SERVER['HTTP_REFERER'];
 <style type="text/css">
 
 </style>
-<select type='text' name='dir'  class="form-control" style='margin-left: 2em; width: 400px; font-family: ubuntu; font-size:13px; background: transparent; color: white' placeholder="enter any directory to go" id="search_query">
-<option value="../">server home</option>
+<select type='text' name='dir'  class="form-control" style='margin-left: 3em; width: 200px; font-family: ubuntu; font-size:13px; background: transparent; color: white' placeholder="enter any directory to go" id="search_query">
+<option value="../"><?php echo $newway['server_home']; ?></option>
 
-<option value="/home/">ubuntu home</option>
+<option value="/home/"><?php echo $newway['ubuntu_home']; ?></option>
 
 </select>
 &nbsp;
 
-<button type="submit" class="btn btn-info" style='background: transparent;'><i class="fa fa-search"></i>&nbsp;browse</button>
-<?php $diro = $_GET['dir']; echo "<a href=upload.php?dir=$diro class='btn btn-info' style=' margin-left: 2em; background: transparent;'><i class='fa fa-upload'></i>&nbsp;upload files</a>&nbsp;&nbsp;<a href=create_folder.php?dir=$diro class='btn btn-info' style=' margin-left: 2em; background: transparent;'><i class='fa fa-folder'></i>&nbsp;&nbsp;create folder</a>";?>
+<button type="submit" class="btn btn-info nav-buttons"><i class="fa fa-search"></i>&nbsp;<?php echo $newway['browse_button']; ?></button>
+<?php $diro = $_GET['dir']; ?>
+
+<?php 
+echo "
+<a class='btn btn-info nav-buttons' href='upload.php?dir=$diro' ><i class='fa fa-folder-open'></i>&nbsp;";echo $newway['upload_files'];
+
+echo "</a>
+<a class='btn btn-info nav-buttons' href='create_folder.php?dir=$diro' ><i class='fa fa-folder-open'></i>&nbsp;";echo $newway['create_folder'];
+
+echo"</a> 
+<a class='btn btn-info nav-buttons' href=logout.php ><i class='fa fa-sign-out'></i>&nbsp;";
+ echo $newway['log_out'];
+ echo "</a>&nbsp;&nbsp;";
+
+
+
+echo"
+<a class='btn btn-info nav-buttons' href=language_manager.php ><i class='fa fa-language'></i>&nbsp;";
+ echo $newway['language_manager'];
+ echo "</a>&nbsp;&nbsp;";
+
+?>
+
 
 </form>
 
@@ -43,11 +67,12 @@ $http = $_SERVER['HTTP_REFERER'];
 </div>
 
 <div class="col-xs-3 text-center" id="searchbar">
-<h3><i class="fa fa-search"></i>&nbsp;&nbsp;<b>search</b></h3>
+<h3><i class="fa fa-search"></i>&nbsp;&nbsp;<?php echo $newway['search']; ?></h3>
 		<br/><br/>
 			<div class="form-group">
 				<div class="form-inline">
-					<input type="text" name="search" class="form-control" style="width: 230px" placeholder="search files or folders in this directory" id="string" <?php
+					<input type="text" name="search" class="form-control" style="width: 230px" <?php echo "placeholder='".$newway['search_placeholder']. "'";?> id="string"
+					 <?php
 					if (!empty($_GET['search'])) {
 						$search = $_GET['search'];
 						echo "value=$search";
@@ -97,6 +122,7 @@ $http = $_SERVER['HTTP_REFERER'];
 
 session_start();
 
+$date = date("d-m-y h:i:s A");
 
 
 include 'lib/class.ff.php';
@@ -133,6 +159,11 @@ $ff = new ff;
 $ff->viewFolder($dir);
 
 $ff->viewFile($dir, $if_ubuntu);
+
+$message = "View function: viewed $dir at $date";
+
+writeLog($message);
+
 }
 elseif(empty($_SESSION['access_key'])) {
 	header('Location: jls-login.php');
@@ -186,7 +217,10 @@ opacity: 1;
 .btn {
 	font-size: 14px;
 }
-
+.nav-buttons {
+	background: transparent;
+	padding-left: 20px;
+}
 
 
 
@@ -307,7 +341,9 @@ var chars  = string.length;
 
 var location = "<?php echo $_GET['dir']; ?>";
 
-$.post("ajax_search.php", {location: location, chars: chars, string: string}, function (data) {
+var key = "<?php echo $_SESSION['access_key']; ?>";
+
+$.post("ajax_search.php", {location: location, chars: chars, string: string, key:key}, function (data) {
 
 $('#search_feed').html(data).animate({bottom: '10px',});
 

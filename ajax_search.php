@@ -1,5 +1,7 @@
+<meta charset="utf-8">
 <?php
-
+session_start();
+require 'functions.php';
 /**
                             *@package: newway
 *
@@ -82,9 +84,15 @@ else {
 
 
 
-if (isset($_POST['location']) && isset($_POST['chars']) && isset($_POST['string'])) {
+if (isset($_POST['location']) && isset($_POST['chars']) && isset($_POST['string']) && isset($_POST['key'])) {
 
-	if (!empty($_POST['location']) && !empty($_POST['chars']) && !empty($_POST['string'])) {
+	if ($_POST['key'] == $_SESSION['access_key']) {
+
+	if (!empty($_POST['location']) && !empty($_POST['chars']) && !empty($_POST['string']) && !empty($_POST['key'])) {
+
+		
+
+
 
 
 			$location = $_POST['location'];
@@ -97,10 +105,18 @@ if (isset($_POST['location']) && isset($_POST['chars']) && isset($_POST['string'
 
 			$search->searchFile($location, $chars, $string);
 
+			$message = "Search function: searched for $string at $date";
 
+			writeLog($message);
 
+		}
+		
 
 	}
+	else {
+			exit("your access_key does not match our key");
+		}
+
 }
 
 
