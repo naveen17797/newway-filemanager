@@ -1,0 +1,20 @@
+{
+    "name": "naveen17797/newway-file-manager",
+    "type": "filemanager",
+    "description": "Logging for PHP 5.3",
+    "keywords": ["filemanager","filemanager for server", "filemanager in php"],
+    "homepage": "https://github.com/naveen17797/newway-filemanager",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Naveen Muthusamy",
+            "email": "kmnaveen101@gmail.com",
+            "homepage": "https://github.com/naveen17797",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0"
+    },
+    
+}
