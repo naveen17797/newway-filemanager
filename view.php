@@ -11,9 +11,7 @@
 <?php
 
 if(isset($_SERVER['HTTP_REFERER'])) {
-
-$http = $_SERVER['HTTP_REFERER'];
-
+    $http = $_SERVER['HTTP_REFERER'];
 }
 
 ?>
@@ -31,21 +29,21 @@ $http = $_SERVER['HTTP_REFERER'];
 <button type="submit" class="btn btn-info nav-buttons"><i class="fa fa-search"></i>&nbsp;<?php echo $newway['browse_button']; ?></button>
 <?php $diro = $_GET['dir']; ?>
 
-<?php 
+<?php
 echo "
 <a class='btn btn-info nav-buttons' href='upload.php?dir=$diro' ><i class='fa fa-folder-open'></i>&nbsp;";echo $newway['upload_files'];
 
 echo "</a>
 <a class='btn btn-info nav-buttons' href='create_folder.php?dir=$diro' ><i class='fa fa-folder-open'></i>&nbsp;";echo $newway['create_folder'];
 
-echo"</a> 
+echo "</a>
 <a class='btn btn-info nav-buttons' href=logout.php ><i class='fa fa-sign-out'></i>&nbsp;";
  echo $newway['log_out'];
  echo "</a>&nbsp;&nbsp;";
 
 
 
-echo"
+echo "
 <a class='btn btn-info nav-buttons' href=language_manager.php ><i class='fa fa-language'></i>&nbsp;";
  echo $newway['language_manager'];
  echo "</a>&nbsp;&nbsp;";
@@ -63,36 +61,36 @@ echo"
 
 </div>
 <div class="col-xs-12">
-<br/>
+<br />
 </div>
 
 <div class="col-xs-3 text-center" id="searchbar">
 <h3><i class="fa fa-search"></i>&nbsp;&nbsp;<?php echo $newway['search']; ?></h3>
-		<br/><br/>
-			<div class="form-group">
-				<div class="form-inline">
-					<input type="text" name="search" class="form-control" style="width: 230px" <?php echo "placeholder='".$newway['search_placeholder']. "'";?> id="string"
-					 <?php
-					if (!empty($_GET['search'])) {
-						$search = $_GET['search'];
-						echo "value=$search";
+        <br /><br />
+            <div class="form-group">
+                <div class="form-inline">
+                    <input type="text" name="search" class="form-control" style="width: 230px" <?php echo "placeholder='".$newway['search_placeholder']. "'";?> id="string"
+                     <?php
+                    if (!empty($_GET['search'])) {
+                        $search = $_GET['search'];
+                        echo "value=$search";
 
-					}
-					else {
-						echo "value=";
-					}
+                    }
+                    else {
+                        echo "value=";
+                    }
 
-						?>  >
-					&nbsp;<button type="submit" id="search" style="height: 35px;" class="btn btn-primary"><i class="fa fa-search"></i></button>
-	<br/><br/>
+                        ?>  >
+                    &nbsp;<button type="submit" id="search" style="height: 35px;" class="btn btn-primary"><i class="fa fa-search"></i></button>
+    <br /><br />
 <div id="query" style=" height: 300px;">
 
 
-					<div id="search_feed" class="text-left" style="font-family: ubuntu; font-size: 14px; height: 100px;">
-					</div>
+                    <div id="search_feed" class="text-left" style="font-family: ubuntu; font-size: 14px; height: 100px;">
+                    </div>
 
-				</div>
-			</div>
+                </div>
+            </div>
 </div>
 
 
@@ -100,8 +98,8 @@ echo"
 
 </div>
 <div class="col-xs-9" id="newway_files">
-<br/><br/><br/>
-<br/>
+<br /><br /><br />
+<br />
 <?php
 
 /**
@@ -129,8 +127,8 @@ include 'lib/class.ff.php';
 
 
 if (empty($_GET['dir'])) {
-	header("location: 404.php");
-	exit();
+    header("location: 404.php");
+    exit();
 }
 
 
@@ -146,7 +144,7 @@ $if_ubuntu = "file://";
 
 }
 else {
-	$if_ubuntu = "";
+    $if_ubuntu = "";
 }
 
 
@@ -166,7 +164,7 @@ writeLog($message);
 
 }
 elseif(empty($_SESSION['access_key'])) {
-	header('Location: jls-login.php');
+    header('Location: jls-login.php');
 }
 
 
@@ -177,186 +175,155 @@ elseif(empty($_SESSION['access_key'])) {
 
 
 <style type="text/css">
-
-	#searchbar {
-		color: white;
-		font-family: ubuntu;
-	}
-
+#searchbar {
+    color: white;
+    font-family: ubuntu;
+}
 #footer {
-	background-color: #2165c1;
-	height: 150px;
-	font-family: ubuntu;
-	font-size: 24px;
-	color: white;
+    background-color: #2165c1;
+    height: 150px;
+    font-family: ubuntu;
+    font-size: 24px;
+    color: white;
 }
-
-.folder, .file {
-
-cursor: pointer;
-	padding: 30px;
-	font-family: ubuntu;
-	font-size: 16px;
-
-
-
-		color: white;
-
+.folder,
+.file {
+    cursor: pointer;
+    padding: 30px;
+    font-family: ubuntu;
+    font-size: 16px;
+    color: white;
 }
-
 @font-face {
-
-	font-family: ubuntu;
-	src: url("fonts/ubuntu.ttf");
+    font-family: ubuntu;
+    src: url("fonts/ubuntu.ttf");
 }
-.folder:hover, .file:hover {
-color: white;
-opacity: 1;
-
+.folder:hover,
+.file:hover {
+    color: white;
+    opacity: 1;
 }
 .btn {
-	font-size: 14px;
+    font-size: 14px;
 }
 .nav-buttons {
-	background: transparent;
-	padding-left: 20px;
+    background: transparent;
+    padding-left: 20px;
 }
-
-
-
-
-
 #options {
-	padding-left: 80px;
-	padding-right: 80px;
+    padding-left: 80px;
+    padding-right: 80px;
 }
-
 #header {
-
-background-color: rgba(0,0,0,1);
-	height: 70px;
-	font-family: ubuntu;
-	color: white;
+    background-color: rgba(0, 0, 0, 1);
+    height: 70px;
+    font-family: ubuntu;
+    color: white;
 }
-
 body {
-	background-color: rgba(30,30,30,1);
+    background-color: rgba(30, 30, 30, 1);
 }
-th,td {
-
-	background-color: #2165c1;
-	color: white;
-padding: 80px;
-padding-bottom: 10px;
-padding-top: 10px;
-padding-left: 20px;
-}
+th,
 td {
-
+    background-color: #2165c1;
+    color: white;
+    padding: 80px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 20px;
 }
-table {
-	font-family: ubuntu;
-	font-size: 30px;
+td {} table {
+    font-family: ubuntu;
+    font-size: 30px;
 }
 tr {
-	background-color: transparent;
-	color: #2165c1;
+    background-color: transparent;
+    color: #2165c1;
 }
 a {
-text-decoration: none;
-color: inherit;
-
+    text-decoration: none;
+    color: inherit;
 }
 a:hover {
-
-text-decoration: none;
-color: inherit;
-
+    text-decoration: none;
+    color: inherit;
 }
 a:visited {
-text-decoration: none;
-color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 a:active {
-	color: white;
+    color: white;
 }
-#h, #h:visited, #h:active {
-	color: white
+#h,
+#h:visited,
+#h:active {
+    color: white
 }
-
 </style>
 
-	<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function() {
 
-		<script type="text/javascript">
-
-				$(document).ready(function () {
-
-
-					$('#newway_files').animate({
-
-						bottom: '10px',
-
-						opacity: '1',
-
-
-
-
-
-					});
-
-
-
-				});
-
-
-
-
-
-$(document).ready(function () {
-
-var string = $('#string').val();
-
-var chars  = string.length;
-
-var location = "<?php echo $_GET['dir']; ?>";
-
-$.post("ajax_search.php", {location: location, chars: chars, string: string}, function (data) {
-
-$('#search_feed').html(data).animate({bottom: '10px',});
-
+    $('#newway_files').animate({
+        bottom: '10px',
+        opacity: '1',
+    });
 
 });
+
+$(document).ready(function() {
+
+    var string = $('#string').val();
+
+    var chars = string.length;
+
+    var location = "<?php echo $_GET['dir']; ?>";
+
+    $.post("ajax_search.php", {
+        location: location,
+        chars: chars,
+        string: string
+    }, function(data) {
+
+        $('#search_feed').html(data).animate({
+            bottom: '10px',
+        });
+
+
+    });
 
 
 
 });
 
-$('#string').keyup(function () {
+$('#string').keyup(function() {
 
-var string = $('#string').val();
+    var string = $('#string').val();
 
-var chars  = string.length;
+    var chars = string.length;
 
-var location = "<?php echo $_GET['dir']; ?>";
+    var location = "<?php echo $_GET['dir']; ?>";
 
-var key = "<?php echo $_SESSION['access_key']; ?>";
+    var key = "<?php echo $_SESSION['access_key']; ?>";
 
-$.post("ajax_search.php", {location: location, chars: chars, string: string, key:key}, function (data) {
+    $.post("ajax_search.php", {
+        location: location,
+        chars: chars,
+        string: string,
+        key: key
+    }, function(data) {
 
-$('#search_feed').html(data).animate({bottom: '10px',});
+        $('#search_feed').html(data).animate({
+            bottom: '10px',
+        });
+
+
+    });
+
 
 
 });
-
-
-
-});
-
-
-
-
-
-
-		</script>
+</script>

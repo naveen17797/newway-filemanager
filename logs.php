@@ -8,13 +8,13 @@ require 'header.php';?>
 <h2><i class="fa fa-shield"></i>&nbsp;<?php echo $newway['title']; ?></h2>
 </div>
 <div class="col-xs-12">
-<br/><br/>
+<br /><br />
 <h4 class="btn btn-large red"><?php echo $newway['newway_logs'];?></h4>
-<br/><br/>
+<br /><br />
 </div>
 
 <style type="text/css">
-	
+
 </style>
 <?php
 
@@ -30,7 +30,7 @@ $file1 = "logs.txt";
 $lines = file($file1);
 foreach($lines as $line_num => $line)
 {
-echo "<br/>";	
+echo "<br />";
 echo $line;
 echo "<br>";
 }

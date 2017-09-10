@@ -27,30 +27,31 @@
 
 <style type="text/css">
 @font-face {
-
-	font-family: ubuntu;
-	src: url("fonts/ubuntu.ttf");
+    font-family: ubuntu;
+    src: url("fonts/ubuntu.ttf");
 }
-
-	body {
-		background: rgba(178, 0, 0, 0.9);
-		font-family: ubuntu;
-		color: white;
-	}
-	a, a:hover, a:visited, a:active {
-		color: white;
-		cursor: pointer;
-	}
+body {
+    background: rgba(178, 0, 0, 0.9);
+    font-family: ubuntu;
+    color: white;
+}
+a,
+a:hover,
+a:visited,
+a:active {
+    color: white;
+    cursor: pointer;
+}
 </style>
 <div class="col-xs-12 col-lg-12 col-md-4 text-center">
-<br/>
-<br/>
+<br />
+<br />
 <i class="fa fa-exclamation-triangle" style="font-size: 300px; color: white;"></i>
-<br/>
+<br />
 <h1>well this is embarassing</h1>
-<br/>
-<br/>
+<br />
+<br />
 <h2>you can't delete this folder or file because of file permissions</h2>
-<br/>
-<h2> make sure to set permissions to 777 for newway to operate smoothly</h2>
+<br />
+<h2>make sure to set permissions to 777 for newway to operate smoothly</h2>
 </div>

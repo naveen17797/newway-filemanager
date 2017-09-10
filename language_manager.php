@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <link rel="stylesheet" type="text/css" href="css/materialize.css">
 <title>Language Manager | Newway</title>
-<?php 
+<?php
 session_start();
 
 if (empty($_SESSION['access_key'])) {
@@ -30,14 +30,14 @@ $filename = "language_conf.json";
 $condition = file_exists($filename);
 
 
-		if ($condition) {
-			
-		}
-		else {
+        if ($condition) {
 
-			
-			createFile($condition, $data, $argument, $filename);
-		}
+        }
+        else {
+
+
+            createFile($condition, $data, $argument, $filename);
+        }
 
 
 ?>
@@ -46,31 +46,31 @@ $condition = file_exists($filename);
 </div>
 <div class="col-xs-12 text-center" style="border: 10px solid #eee;">
 <h4>Welcome to Newway Language Manager</h4>
-<br/><h5 class="btn btn-large blue full"><i class='fa fa-gear'></i>&nbsp;choose your language</h5>
-<br/><br/>
+<br /><h5 class="btn btn-large blue full"><i class='fa fa-gear'></i>&nbsp;choose your language</h5>
+<br /><br />
 <form method="POST">
 your current language: <?php echo  getCurrentLanguage($filename); ?>
-<br/><br/>
-choose your language: 
+<br /><br />
+choose your language:
 <select name="language">
 <?php languagesAvailable($languages_available); ?>
 </select>
-<br/><br/>
+<br /><br />
 <input type="submit" class="btn btn-large yellow darken-3" value="save settings">
 </form>
 </div>
 <style type="text/css">
-	@font-face {
-		font-family: ubu;
-		src: url("fonts/ubuntu.ttf");
-	}
-	body {
-		font-family: ubu;
+    @font-face {
+        font-family: ubu;
+        src: url("fonts/ubuntu.ttf");
+    }
+    body {
+        font-family: ubu;
 
-	}
-	.full {
-		width: 100%;
-	}
+    }
+    .full {
+        width: 100%;
+    }
 </style>
 
 
@@ -78,24 +78,24 @@ choose your language:
 if (isset($_POST)) {
 
 
-	if (!empty($_POST)) {
+    if (!empty($_POST)) {
 
-		$language = $_POST['language'];
+        $language = $_POST['language'];
 
-		$folder = "languages/";
+        $folder = "languages/";
 
-		$data = $_POST['language'];
+        $data = $_POST['language'];
 
-		$argument = "language";
+        $argument = "language";
 
-		if (editLanguage($data, $argument, $folder)) {
-			header("location: language_manager.php");
-		}
-		else {
-			alert("failed to change the language");
-		}
+        if (editLanguage($data, $argument, $folder)) {
+            header("location: language_manager.php");
+        }
+        else {
+            alert("failed to change the language");
+        }
 
-	}
+    }
 }
 
 

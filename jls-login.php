@@ -4,7 +4,7 @@ require 'functions.php';
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
 <link rel="stylesheet" type="text/css" href="css/materialize.css">
-          <div><br/><br/><br/><br/><br/><br/></div>
+          <div><br /><br /><br /><br /><br /><br /></div>
   <!-- Compiled and minified JavaScript -->
 <div class="col-xs-3"></div>
   <div class="col-xs-6 text-center" id='box'>
@@ -23,14 +23,14 @@ public function checkUserAlreadyRegistered () {
   if (file_exists("jls-login.json"))
    {
 
-	return true;
+    return true;
 
 
     }
 
   else {
 
-	  return false;
+      return false;
 
     }
 
@@ -45,7 +45,7 @@ public function checkUserAlreadyRegistered () {
 
 
 private function loadloginform() {
-	$this->displaylogintemplate();
+    $this->displaylogintemplate();
 }
 
 
@@ -56,10 +56,10 @@ private function displaylogintemplate() {
 
 $logintemplate = "
 <h4>Login</h4>
-<br/><br/><br/>
+<br /><br /><br />
 <form method='POST'>
-<input type='text' name='log-email' placeholder='enter your email id'><br/><br/>
-<input type='password' name='log-password' placeholder='enter your password'><br/><br/>
+<input type='text' name='log-email' placeholder='enter your email id'><br /><br />
+<input type='password' name='log-password' placeholder='enter your password'><br /><br />
 <input type='submit' class='btn btn-large purple' value='log in'>
 
 
@@ -120,13 +120,13 @@ private function displayregistrationtemplate() {
 
 $template = "
 <h4>Register</h4>
-<br/><br/>
+<br /><br />
 <form method='POST'>
-<input type='text' name='email' placeholder='enter your email id'><br/><br/>
+<input type='text' name='email' placeholder='enter your email id'><br /><br />
 <input type='password' name='password' placeholder='password' placeholder='enter your password'>
-<br/><br/>
+<br /><br />
 <input type='password' name='repassword' placeholder='renenter your password'>
-<br/><br/>
+<br /><br />
 <input type='submit' class='btn btn-large red' value='register'>
 </form>
 
@@ -153,17 +153,17 @@ public function createuserentry($email, $password, $filename, $success_message) 
 if ($fo = fopen($filename, w)) {
 
     fclose($fo);
-	$this->createjsonfile($email, $password, $filename);
-	echo $success_message;
-	header('Location: jls-login.php');
+    $this->createjsonfile($email, $password, $filename);
+    echo $success_message;
+    header('Location: jls-login.php');
 
 }
 else {
 
-	$file_Error = "the file can't be created due to unsuitable permisisons";
+    $file_Error = "the file can't be created due to unsuitable permisisons";
 
 
-	echo $file_Error;
+    echo $file_Error;
 
 
 }
@@ -217,39 +217,39 @@ $j_email = $json['email'];
 $j_password = $json['password'];
 
 
-		$date = date("d-m-y h:i:s A");
+        $date = date("d-m-y h:i:s A");
 
 
 
 if (password_verify($email, $j_email)) {
 
-	if (password_verify($password, $j_password)) {
+    if (password_verify($password, $j_password)) {
 
-		$message = "Login Success: logged in at ";
+        $message = "Login Success: logged in at ";
 
-		$message = $message.$date;
+        $message = $message.$date;
 
-		writeLog($message);
+        writeLog($message);
 
-		$_SESSION['access_key'] = $j_password;
+        $_SESSION['access_key'] = $j_password;
 
-		header("location: index.php");
-
-
-
-	}
-	else {
+        header("location: index.php");
 
 
-		$message = "Login Failure : Some one  tried to login at ";
 
-		$message = $message.$date;
+    }
+    else {
 
 
-		writeLog($message);
+        $message = "Login Failure : Some one  tried to login at ";
 
-		echo "the password is incorrect";
-	}
+        $message = $message.$date;
+
+
+        writeLog($message);
+
+        echo "the password is incorrect";
+    }
 
 }
 
@@ -293,30 +293,30 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['repassw
 
   if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['repassword'])) {
 
-  		if ($jls->checkUserAlreadyRegistered()) {
+          if ($jls->checkUserAlreadyRegistered()) {
 
-  			echo "a user has been already registered, no users can be added further";
-  		}
+              echo "a user has been already registered, no users can be added further";
+          }
 
-  		else {
+          else {
 
-  		$password = $_POST['password'];
+          $password = $_POST['password'];
 
-  		$repassword = $_POST['repassword'];
+          $repassword = $_POST['repassword'];
 
-  		$email = $_POST['email'];
+          $email = $_POST['email'];
 
-  		$success_message = "success , your email id has been registered";
+          $success_message = "success , your email id has been registered";
 
-  		$filename = "jls-login.json";
+          $filename = "jls-login.json";
 
       if ($password == $repassword) {
-  	    $jls->createuserentry($email, $password, $filename, $success_message);
-  	   }
-  	   else {
-  	   	echo "both passwords are not same, retype and submit";
-  	   }
-  	}
+          $jls->createuserentry($email, $password, $filename, $success_message);
+         }
+         else {
+             echo "both passwords are not same, retype and submit";
+         }
+      }
   }
 
 }
@@ -325,22 +325,22 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['repassw
 
 if (isset($_POST['log-email']) && isset($_POST['log-password'])) {
 
-	if (!empty($_POST['log-email']) && !empty($_POST['log-password'])) {
+    if (!empty($_POST['log-email']) && !empty($_POST['log-password'])) {
 
-		$log_email = $_POST['log-email'];
+        $log_email = $_POST['log-email'];
 
-		$log_password = $_POST['log-password'];
+        $log_password = $_POST['log-password'];
 
-			if ($jls->checkUserAlreadyRegistered()) {
+            if ($jls->checkUserAlreadyRegistered()) {
 
-				$jls->login($log_email, $log_password);
-			}
+                $jls->login($log_email, $log_password);
+            }
 
-			else {
+            else {
 
-			}
+            }
 
-	}
+    }
 
 
 }
@@ -377,15 +377,15 @@ if (isset($_POST['log-email']) && isset($_POST['log-password'])) {
 ?>
 </div>
 <style type="text/css">
-	#box {
-		border: 40px solid #eee;
-		background-color: #fff;
-	}
-	body {
-		background-color: #eee;
-	}
-	input[type='text'], input[type='password']{
-		width: 300px;
-	}
+    #box {
+        border: 40px solid #eee;
+        background-color: #fff;
+    }
+    body {
+        background-color: #eee;
+    }
+    input[type='text'], input[type='password']{
+        width: 300px;
+    }
 </style>
 <title>Json Login System[JLS] | Newway</title>

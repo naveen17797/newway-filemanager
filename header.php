@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<?php 
+<?php
 
 require 'functions.php';
 

@@ -11,17 +11,17 @@ require 'header.php';
 <style type="text/css">
 
 @font-face {
-	font-family: ubuntu;
-	src: url("fonts/ubuntu.ttf");
+    font-family: ubuntu;
+    src: url("fonts/ubuntu.ttf");
 }
-	body {
-		background-color: rgba(0,80,178,0.9);
-		font-family: ubuntu;
-		color: white;
-	}
-	.panel {
-		background: transparent;
-	}
+    body {
+        background-color: rgba(0,80,178,0.9);
+        font-family: ubuntu;
+        color: white;
+    }
+    .panel {
+        background: transparent;
+    }
 </style>
 <?php
 
@@ -51,11 +51,11 @@ $location = $_GET['dir'];
 
 
 ?>
-<div class='col-xs-12 text-center'><br/><br/><br/><br/>
+<div class='col-xs-12 text-center'><br /><br /><br /><br />
 
-<br/><br/>
+<br /><br />
 <?php echo $newway['enter_folder_name']; ?>
-<form method='POST'><input type='text' placeholder=' name of the folder, ie:ABC' style='width: 500px;' name='folder'><input type='hidden' value=<?php echo $location;?> name='dir'><br/><br/><input type='submit' class='btn btn-large blue' <?php echo "value='".$newway['create_folder']."'"; ?>></form>
+<form method='POST'><input type='text' placeholder=' name of the folder, ie:ABC' style='width: 500px;' name='folder'><input type='hidden' value=<?php echo $location;?> name='dir'><br /><br /><input type='submit' class='btn btn-large blue' <?php echo "value='".$newway['create_folder']."'"; ?>></form>
 </div>
 
 
@@ -66,29 +66,29 @@ $location = $_GET['dir'];
 
 
 if (isset($_POST['folder']) && isset($_POST['dir'])) {
-	if (!empty($_POST['folder']) && !empty($_POST['dir'])) {
+    if (!empty($_POST['folder']) && !empty($_POST['dir'])) {
 
 
-		$folder_name = $_POST['folder'];
+        $folder_name = $_POST['folder'];
 
-		$path = $_POST['dir'];
+        $path = $_POST['dir'];
 
-		if (is_dir($path.$folder_name)) {
+        if (is_dir($path.$folder_name)) {
 
-			echo "<div><br/><br/><br/><br/><br/><br/></div><div class='col-xs-12 text-center'><h2>";echo $newway['failure']; echo "</h2><p style='color: white;'>";echo $newway['folder_failure_message']; echo "</p></div>";
-		}
-		else {
-			mkdir($path.$folder_name);
-			$message = "Create Folder Function: the folder $foldername has been created at $path at $date";
-			writeLog($message);
-			header("location: view.php?dir=$path&search=$folder_name");
-			exit();
+            echo "<div><br /><br /><br /><br /><br /><br /></div><div class='col-xs-12 text-center'><h2>";echo $newway['failure']; echo "</h2><p style='color: white;'>";echo $newway['folder_failure_message']; echo "</p></div>";
+        }
+        else {
+            mkdir($path.$folder_name);
+            $message = "Create Folder Function: the folder $foldername has been created at $path at $date";
+            writeLog($message);
+            header("location: view.php?dir=$path&search=$folder_name");
+            exit();
 
-		}
+        }
 
 
 
-	}
+    }
 }
 
 
