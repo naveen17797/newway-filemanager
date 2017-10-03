@@ -122,6 +122,18 @@ echo "</a><br/><br/><a href='confirm_delete.php?dir=$location$file&path=$locatio
 }
 
 
+public function formatFileSize($bytes, $precision = 2) {
+  $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+  $i = 0;
+
+  while($bytes > 1024) {
+      $bytes /= 1024;
+      $i++;
+  }
+  return round($bytes, $precision) . ' ' . $units[$i];
+}
+
+
 
 public function isFile($location, $file, $if_ubuntu) {
 
@@ -137,8 +149,8 @@ else {
 }
 
 
-
-echo "<div class='col-xs-3 file text-left'><a href='$attachment$location$file' id='$location$file/'><i class='fa fa-file'></i>&nbsp;&nbsp;";
+$formatedFileSize = $this->formatFileSize(filesize($location . $file));
+echo "<div class='col-xs-3 file text-left'><a href='$attachment$location$file' id='$location$file/' title='$formatedFileSize'><i class='fa fa-file'></i>&nbsp;&nbsp;";
 
 echo $this->shortenName($file);
 
