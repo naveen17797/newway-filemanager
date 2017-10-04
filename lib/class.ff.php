@@ -110,7 +110,7 @@ else {
 //function to show files
 public function isDir($location, $file) {
 if ($file != "." AND $file != "..") {
-echo "<div class='col-xs-3 folder text-left'><a href='view.php?dir=$location$file/' id='$location$file/'><i class='fa fa-folder'></i>&nbsp;&nbsp;";
+echo "<div class='col-xs-4 folder text-left'><a href='view.php?dir=$location$file/' id='$location$file/'><i class='fa fa-folder'></i>&nbsp;&nbsp;";
 //folder name prints in this
 
 echo $this->shortenName($file);
@@ -149,7 +149,7 @@ else {
 }
 
 
-echo "<div class='col-xs-3 file text-left'><a href='$attachment$location$file' id='$location$file/'><i class='fa fa-file'></i>&nbsp;&nbsp;";
+echo "<div class='col-xs-4 file text-left'><a href='$attachment$location$file' id='$location$file/'><i class='fa fa-file'></i>&nbsp;&nbsp;";
 
 echo $this->shortenName($file), ' (', $this->formatFileSize(filesize($location . $file)), ')';
 
