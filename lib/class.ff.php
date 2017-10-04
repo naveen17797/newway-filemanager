@@ -110,7 +110,7 @@ else {
 //function to show files
 public function isDir($location, $file) {
 if ($file != "." AND $file != "..") {
-echo "<div class='col-xs-3 folder text-left'><a href='view.php?dir=$location$file/' id='$location$file/'><i class='fa fa-folder'></i>&nbsp;&nbsp;";
+echo "<div class='col-xs-4 folder text-left'><a href='view.php?dir=$location$file/' id='$location$file/'><i class='fa fa-folder'></i>&nbsp;&nbsp;";
 //folder name prints in this
 
 echo $this->shortenName($file);
@@ -119,6 +119,18 @@ echo $this->shortenName($file);
 echo "</a><br/><br/><a href='confirm_delete.php?dir=$location$file&path=$location' style='font-size: 16px;' class='btn btn-danger'><i class='fa fa-trash'></i></a>&nbsp;&nbsp;<a href='rename.php?dir=$location$file&name=$file&location=$location' class='btn btn-info'><i class='fa fa-pencil'></i></a></div>";
 }
 
+}
+
+
+public function formatFileSize($bytes, $precision = 2) {
+  $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+  $i = 0;
+
+  while($bytes > 1024) {
+      $bytes /= 1024;
+      $i++;
+  }
+  return round($bytes, $precision) . ' ' . $units[$i];
 }
 
 
@@ -137,10 +149,9 @@ else {
 }
 
 
+echo "<div class='col-xs-4 file text-left'><a href='$attachment$location$file' id='$location$file/'><i class='fa fa-file'></i>&nbsp;&nbsp;";
 
-echo "<div class='col-xs-3 file text-left'><a href='$attachment$location$file' id='$location$file/'><i class='fa fa-file'></i>&nbsp;&nbsp;";
-
-echo $this->shortenName($file);
+echo $this->shortenName($file), ' (', $this->formatFileSize(filesize($location . $file)), ')';
 
 echo "</a><br/><br/><p><a href='confirm_delete.php?dir=$location$file&path=$location'  class='btn btn-danger'><i class='fa fa-trash'></i></a>&nbsp;&nbsp;<a href='rename.php?dir=$location$file&name=$file&location=$location' class='btn btn-info'><i class='fa fa-pencil'></i></a></p></div>";
 
