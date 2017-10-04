@@ -69,8 +69,6 @@ $newway['rename_text'] = "rename";
 
 $newway['upload_title'] = "Upload | Newway";
 
-$newway['upload_files'] = "UPLOAD FILES";
-
 $newway['upload_button_text'] = "upload files";
 
 
