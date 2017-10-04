@@ -69,8 +69,6 @@ $newway['rename_text'] = "renomear";
 
 $newway['upload_title'] = "Upload | Newway";
 
-$newway['upload_filer'] = "UPLOAD FICHEIROS";
-
 $newway['upload_button_text'] = "upload ficheiros";
 
 
@@ -88,6 +86,6 @@ $newway['language_manager'] = "gestão de idioma";
 
 
 //logs
-$newway['newway_logs'] = "Newway Logs";
+$newway['newway_logs'] = "Newway Lux";
 
 ?>
