@@ -1,5 +1,5 @@
 # NEWWAY FILE MANAGER
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)]
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)]()
 
 ## Functions
 
