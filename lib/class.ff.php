@@ -149,10 +149,9 @@ else {
 }
 
 
-$formatedFileSize = $this->formatFileSize(filesize($location . $file));
-echo "<div class='col-xs-3 file text-left'><a href='$attachment$location$file' id='$location$file/' title='$formatedFileSize'><i class='fa fa-file'></i>&nbsp;&nbsp;";
+echo "<div class='col-xs-3 file text-left'><a href='$attachment$location$file' id='$location$file/'><i class='fa fa-file'></i>&nbsp;&nbsp;";
 
-echo $this->shortenName($file);
+echo $this->shortenName($file), ' (', $this->formatFileSize(filesize($location . $file)), ')';
 
 echo "</a><br/><br/><p><a href='confirm_delete.php?dir=$location$file&path=$location'  class='btn btn-danger'><i class='fa fa-trash'></i></a>&nbsp;&nbsp;<a href='rename.php?dir=$location$file&name=$file&location=$location' class='btn btn-info'><i class='fa fa-pencil'></i></a></p></div>";
 
