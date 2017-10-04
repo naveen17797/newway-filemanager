@@ -24,7 +24,6 @@ $newway['title'] = "புதிய வழி";
 
 $newway['browse_button'] = "உலாவ";
 
-$newway['upload_files'] = "கோப்பு பதிவேற்ற";
 
 $newway['create_folder'] = "கோப்புறையை உருவாக்கு";
 
