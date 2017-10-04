@@ -1,5 +1,5 @@
 # NEWWAY FILE MANAGER
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)[![GitHub forks](https://img.shields.io/github/forks/badges/shields.svg?style=social&label=Fork)]()[![GitHub stars](https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Stars)]()
 
 ## Functions
 
