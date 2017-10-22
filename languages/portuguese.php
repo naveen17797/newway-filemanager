@@ -88,4 +88,17 @@ $newway['language_manager'] = "gestão de idioma";
 //logs
 $newway['newway_logs'] = "Newway Lux";
 
+$newway['back'] = "volte";
+
+$newway['clear_logs'] = "excluir Lux";
+
+$newway['are_you_sure'] = "você tem certeza";
+
+$newway['logs_yes'] = "sim";
+
+$newway['logs_no'] = "não";
+
+$newway['logs_deleted'] = "Successfully Deleted Logs";
+
+$newway['logs_not_deleted'] = "Unable To Delete Logs";
 ?>
