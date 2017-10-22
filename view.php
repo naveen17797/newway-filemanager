@@ -20,7 +20,7 @@ $http = $_SERVER['HTTP_REFERER'];
 <style type="text/css">
 
 </style>
-<select type='text' name='dir'  class="form-control" style='margin-left: 3em; width: 200px; font-family: ubuntu; font-size:13px; background: transparent; color: white' placeholder="enter any directory to go" id="search_query">
+<select type='text' name='dir'  class="form-control" style='margin-left: 3em; width: 200px; font-family: ubuntu; font-size:13px; background: #000; color: white' placeholder="enter any directory to go" id="search_query">
 <option value="../"><?php echo $newway['server_home']; ?></option>
 
 <option value="/home/"><?php echo $newway['ubuntu_home']; ?></option>
