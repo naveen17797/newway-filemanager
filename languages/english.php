@@ -88,4 +88,17 @@ $newway['language_manager'] = "language manager";
 //logs
 $newway['newway_logs'] = "Newway Logs";
 
+$newway['back'] = "Go Back";
+
+$newway['clear_logs'] = "Clear Logs";
+
+$newway['are_you_sure'] = "Are you sure?";
+
+$newway['logs_yes'] = "Yes";
+
+$newway['logs_no'] = "No";
+
+$newway['logs_deleted'] = "Successfully Deleted Logs";
+
+$newway['logs_not_deleted'] = "Unable To Delete Logs";
 ?>
