@@ -31,14 +31,14 @@ $http = $_SERVER['HTTP_REFERER'];
 <button type="submit" class="btn btn-info nav-buttons"><i class="fa fa-search"></i>&nbsp;<?php echo $newway['browse_button']; ?></button>
 <?php $diro = $_GET['dir']; ?>
 
-<?php 
+<?php
 echo "
 <a class='btn btn-info nav-buttons' href='upload.php?dir=$diro' ><i class='fa fa-folder-open'></i>&nbsp;";echo $newway['upload_files'];
 
 echo "</a>
 <a class='btn btn-info nav-buttons' href='create_folder.php?dir=$diro' ><i class='fa fa-folder-open'></i>&nbsp;";echo $newway['create_folder'];
 
-echo"</a> 
+echo"</a>
 <a class='btn btn-info nav-buttons' href=logout.php ><i class='fa fa-sign-out'></i>&nbsp;";
  echo $newway['log_out'];
  echo "</a>&nbsp;&nbsp;";
@@ -99,6 +99,7 @@ echo"
 
 
 </div>
+<div class="col-xs-3 text center" id="dirname"><h3><i class="fa fa-folder" aria-hidden="true"></i><?php echo trim($diro, "../") ?></h3></div>
 <div class="col-xs-9" id="newway_files">
 <br/><br/><br/>
 <br/>
@@ -178,6 +179,14 @@ elseif(empty($_SESSION['access_key'])) {
 
 <style type="text/css">
 
+  #dirname {
+    text-align: center;
+  }
+
+  h3 {
+    color:white;
+  }
+
 	#searchbar {
 		color: white;
 		font-family: ubuntu;
@@ -222,7 +231,9 @@ opacity: 1;
 	padding-left: 20px;
 }
 
-
+.fa-folder {
+  padding-right: 10px;
+}
 
 
 
