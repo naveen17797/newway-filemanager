@@ -86,4 +86,17 @@ $newway['language_manager'] = "மொழி நிர்வாகி";
 
 $newway['newway_logs'] = "புதிய வழி பதிவுகள்";
 
+$newway['back'] = "பின் செல்க";
+
+$newway['clear_logs'] = "பதிவுகளை அழிக்கவும்";
+
+$newway['are_you_sure'] = "நீங்கள் உறுதியாக கூறுகின்றீர்களா?";
+
+$newway['logs_yes'] = "ஆம்";
+
+$newway['logs_no'] = "இல்லை";
+
+$newway['logs_deleted'] = "பதிவுகள் வெற்றிகரமாக நீக்கப்பட்டுள்ளது";
+
+$newway['logs_not_deleted'] = "பதிவுகளை நீக்க முடியாதுள்ளது";
 ?>
