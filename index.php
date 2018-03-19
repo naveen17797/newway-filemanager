@@ -76,7 +76,6 @@ $json = new parseJson;
 
 <div class="col-xs-8 text-right">
 <h4>
-	<a href="docs/" class="btn btn-large blue"><i class="fa fa-file"></i>&nbsp;&nbsp;Documentation</a>
 
 <a href="language_manager.php" class="btn btn-large red"><i class="fa fa-language"></i>&nbsp;&nbsp;Language Manager</a>
 <a href="logs.php" class="btn btn-large red"><i class="fa fa-history"></i>&nbsp;&nbsp;Logs</a>
