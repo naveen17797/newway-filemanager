@@ -7,7 +7,7 @@ session_start();
 if(empty($_SESSION['access_key'])) {
 
 	header('Location: jls-login.php');
-
+	die();
 }
 
 
