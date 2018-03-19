@@ -42,14 +42,14 @@ $condition = file_exists($filename);
 
 ?>
 <div class="col-xs-12 black" style="color: white;">
-<h3><i class="fa fa-shield"></i>&nbsp;Newway</h3>
+<h3><a href="index.php"><i class="fa fa-shield"></i>&nbsp;Newway</a></h3>
 </div>
 <div class="col-xs-12 text-center" style="border: 10px solid #eee;">
 <h4>Welcome to Newway Language Manager</h4>
 <br/><h5 class="btn btn-large blue full"><i class='fa fa-gear'></i>&nbsp;choose your language</h5>
 <br/><br/>
 <form method="POST">
-your current language: <?php echo  getCurrentLanguage($filename); ?>
+your current language: <b><?php echo  getCurrentLanguage($filename); ?></b>
 <br/><br/>
 choose your language: 
 <select name="language">
@@ -70,6 +70,10 @@ choose your language:
 	}
 	.full {
 		width: 100%;
+	}
+	a, a:hover, a:visited {
+		text-decoration: none;
+		color: white;
 	}
 </style>
 

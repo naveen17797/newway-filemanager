@@ -1,6 +1,12 @@
 <meta charset="utf-8">
 <?php
 session_start();
+if(empty($_SESSION['access_key'])) {
+
+	header('Location: jls-login.php');
+	die();
+
+}
 require 'functions.php';
 /**
                             *@package: newway
