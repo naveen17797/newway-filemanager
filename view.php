@@ -3,11 +3,13 @@
 <title><?php echo $newway['view_page_title']; ?></title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/font.css">
-<div class="col-xs-12 col-lg-12 col-md-4" id="header">
+<div class="col-lg-12 col-md-12" id="header">
 <div class="form-group">
 <form action="view.php" method="GET" class="form-inline">
+<ul class="list-inline">
+<li>
 <h2><a href="index.php" style="text-decoration: none;" id="h"><i class='fa fa-shield'></i>&nbsp;<?php echo $newway['title'];?>
-</a>&nbsp;
+</a></h2></li>&nbsp;
 <?php
 
 if(isset($_SERVER['HTTP_REFERER'])) {
@@ -20,35 +22,37 @@ $http = $_SERVER['HTTP_REFERER'];
 <style type="text/css">
 
 </style>
-<select type='text' name='dir'  class="form-control" style='margin-left: 3em; width: 200px; font-family: ubuntu; font-size:13px; background: #000; color: white' placeholder="enter any directory to go" id="search_query">
-<option value="../"><?php echo $newway['server_home']; ?></option>
 
-<option value="/home/"><?php echo $newway['ubuntu_home']; ?></option>
+<li>
+	<select type='text' name='dir'  class="form-control" style='margin-left: 3em; width: 200px; font-family: ubuntu; font-size:13px; background: #000; color: white' placeholder="enter any directory to go" id="search_query">
+	<option value="../"><?php echo $newway['server_home']; ?></option>
 
-</select>
-&nbsp;
+	<option value="/home/"><?php echo $newway['ubuntu_home']; ?></option>
 
-<button type="submit" class="btn btn-info nav-buttons"><i class="fa fa-search"></i>&nbsp;<?php echo $newway['browse_button']; ?></button>
+	</select>
+</li>
+
+<li><button type="submit" class="btn btn-info nav-buttons"><i class="fa fa-search"></i>&nbsp;<?php echo $newway['browse_button']; ?></button></li>
 <?php $diro = $_GET['dir']; ?>
 
 <?php
 echo "
-<a class='btn btn-info nav-buttons' href='upload.php?dir=$diro' ><i class='fa fa-folder-open'></i>&nbsp;";echo $newway['upload_files'];
+<li><a class='btn btn-info nav-buttons' href='upload.php?dir=$diro' ><i class='fa fa-folder-open'></i>&nbsp;";echo $newway['upload_files'];
 
-echo "</a>
+echo "</a></li><li>
 <a class='btn btn-info nav-buttons' href='create_folder.php?dir=$diro' ><i class='fa fa-folder-open'></i>&nbsp;";echo $newway['create_folder'];
 
-echo"</a>
+echo"</a></li><li>
 <a class='btn btn-info nav-buttons' href=logout.php ><i class='fa fa-sign-out'></i>&nbsp;";
  echo $newway['log_out'];
- echo "</a>&nbsp;&nbsp;";
+ echo "</a></li><li>";
 
 
 
 echo"
 <a class='btn btn-info nav-buttons' href=language_manager.php ><i class='fa fa-language'></i>&nbsp;";
  echo $newway['language_manager'];
- echo "</a>&nbsp;&nbsp;";
+ echo "</a></li>";
 
 ?>
 
@@ -71,7 +75,7 @@ echo"
 		<br/><br/>
 			<div class="form-group">
 				<div class="form-inline">
-					<input type="text" name="search" class="form-control" style="width: 230px" <?php echo "placeholder='".$newway['search_placeholder']. "'";?> id="string"
+					<input type="text" name="search" class="form-control" style="width: 190px" <?php echo "placeholder='".$newway['search_placeholder']. "'";?> id="string"
 					 <?php
 					if (!empty($_GET['search'])) {
 						$search = $_GET['search'];
@@ -100,7 +104,7 @@ echo"
 
 </div>
 <div class="col-xs-3 text center" id="dirname"><h3><i class="fa fa-folder" aria-hidden="true"></i><?php echo trim($diro, "../") ?></h3></div>
-<div class="col-xs-9" id="newway_files">
+<div class="col-xs-9 " id="newway_files">
 <br/><br/><br/>
 <br/>
 <?php
