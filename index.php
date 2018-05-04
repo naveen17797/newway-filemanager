@@ -87,7 +87,7 @@ $json = new parseJson;
 </div>
 
 
-<div class="col-xs-12 col-lg-12 col-md-4 text-left">
+<div class="col-xs-12 col-lg-12 col-md-12 text-left">
 <br/><br/>
 
 <br/><br/>
@@ -95,7 +95,7 @@ $json = new parseJson;
 
 
 
-<div class="col-xs-12 col-lg-12 col-md-4 text-center">
+<div class="col-xs-12 col-lg-12 col-md-12 text-center">
 
 <br/><br/>
 
@@ -135,7 +135,7 @@ front and double slash is mandatory for <b>ubuntu</b> as well as <b>server</b></
 </div>
 </div>
 
-<div class="col-xs-4">
+<div class="col-xs-4 col-lg-4 col-md-4">
 <div class="btn btn-large green" style="">
 <i class="fa fa-tree"></i>&nbsp;&nbsp;Whats new?</div>
 <div id="contents">
@@ -152,7 +152,7 @@ front and double slash is mandatory for <b>ubuntu</b> as well as <b>server</b></
 
 
 
-<div class="col-xs-4">
+<div class="col-xs-4 col-lg-4 col-md-4">
 <div class="btn btn-large black" style="">
 <i class="fa fa-floppy-o"></i>&nbsp;&nbsp;version information</div>
 <div id="contents">
@@ -166,6 +166,7 @@ front and double slash is mandatory for <b>ubuntu</b> as well as <b>server</b></
 </div>
 </div>
 
+</div>
 
 
 
