@@ -1,3 +1,4 @@
+#REPO UNUSABLE FOR NOW, DONT SUBMIT PRs OR CREATE ISSUES
 # NEWWAY FILE MANAGER
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)]()   [<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Facebook.svg" width="80">](https://www.facebook.com/newwayfilemanager)
 
