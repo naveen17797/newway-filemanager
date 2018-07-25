@@ -1,4 +1,58 @@
-<div class="col-md-12 col-lg-12 col-sm-12 col-sm-12 text-left navbar navbar-fixed-top">
-<h3><i class="fa fa-shield"></i> NEWWAY FILEMANAGER</h3>
-<small>secure, simple and fast</small>
-</div>
+<html>
+<title>Setup</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+	<body >
+		<div class="col-md-12 col
+		{WRITE_ACCESS_FAILED_MESSAGE}-lg-12 col-sm-12 text-left navbar  primary text-center">
+		<h4><i class="fa fa-shield"></i> NEWWAY FILEMANAGER</h4>
+		<small><h5>secure, simple and fast</h5></small>
+		</div>
+
+		<div class="col-md-6 col-lg-6 col-sm-6 col-md-offset-3 col-lg-offset-3 col-sm-offset-3">
+		<h5>Checking Requirements</h5>
+			<table class="table table-striped">
+				<tr>
+					<td>
+						checking for write access on server
+					</td>
+					<td>
+						{WRITE_ACCESS_BOOL}
+					</td>
+				</tr>
+				{WRITE_ACCESS_FAILED_MESSAGE}
+			</table>
+		<h5>Introduce yourself to Newway Filemanager</h5>
+		<form method="POST" class="form-group">
+			<table class="table table-striped">
+				<tr>
+					<td>
+						Email 
+					</td>
+					<td>
+						<input type="email" name="email" placeholder="abc@example.com" class="form-control">
+					</td>
+				</tr>
+				<tr>	
+					<td>
+						Password 
+					</td>
+					<td>
+						<input type="password" name="password" placeholder="password" class="form-control">
+						<p>If you forget the password then only way to recovery is by deleting the users.json file in your root directory</p>
+					</td>
+				</tr>
+			</table>
+			
+		<div class="text-right">
+			<input type="submit" class="btn blue" value="next" {WRITE_ACCESS_BUTTON_DISABLED}>
+			<br/><br/>
+			<p><b style="color:red;">*</b>This user will be treated as admin user, it has all the access to the server and adding other users.</b>
+		</form>	
+		</div>
+		
+
+		</div>
+		
+	</body>
+</html>
