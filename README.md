@@ -1,4 +1,6 @@
-#REPO UNUSABLE FOR NOW, DONT SUBMIT PRs OR CREATE ISSUES
+# REPO UNUSABLE FOR NOW, DONT SUBMIT PRs OR CREATE ISSUES
+## REASON:
+### This application has many bugs which needs to be fixed immediately, taking it down now and i am sure i will build a better version of it
 # NEWWAY FILE MANAGER
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)]()   [<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Facebook.svg" width="80">](https://www.facebook.com/newwayfilemanager)
 
