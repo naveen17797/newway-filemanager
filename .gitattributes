@@ -1,0 +1,11 @@
+# Refer to:
+# https://help.github.com/articles/dealing-with-line-endings/
+
+* text auto
+*.ico binary
+*.png binary
+
+# Refer to:
+# https://github.com/github/linguist
+
+*.md linguist-documentation
