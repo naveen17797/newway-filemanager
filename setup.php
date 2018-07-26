@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Setup for newway updater
  *
@@ -28,7 +28,7 @@ if(!file_exists("../../users.json")) {
 
 }
 else {
-	header("location: index.php");
+	header("location: login.php");
 	exit();
 }
 
@@ -62,15 +62,15 @@ if (isset($_POST)) {
 			$email = $_POST['email'];
 			$password = $_POST['password'];
 			$jsonHandler = new jsonHandler("../../users.json");
-			$value = array("password"=>$password, "r"=>"1", "c"=>"1", "d"=>"1", "is_admin"=>"true");
+			$value = array("password"=>password_hash($password,PASSWORD_BCRYPT), "r"=>"1", "c"=>"1", "d"=>"1", "is_admin"=>"true");
 			$value = json_encode($value);
 
 			$jsonHandler->create_key_value($email, $value);
-			header("location: index.php");
+			header("location: login.php");
 			exit();
 		}
 		else {
-			header("location: index.php");
+			header("location: login.php");
 			exit();
 		}
 	}

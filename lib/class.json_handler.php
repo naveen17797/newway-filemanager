@@ -30,7 +30,7 @@ class jsonHandler {
 		return $index;
 	}
 
-	private function check_if_key_exists($key) {
+	public function check_if_key_exists($key) {
 		if (in_array($key, $this->keys)) {
 			return true;
 		}
@@ -40,7 +40,7 @@ class jsonHandler {
 	}
 
 	public function get_value_by_key($key) {
-		$index = find_key_index($key);
+		$index = $this->find_key_index($key);
 		$value = $this->values[$index];
 		return $value;
 	}

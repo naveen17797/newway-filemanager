@@ -16,3 +16,9 @@
  * @author Naveen Muthusamy <kmnaveen101@gmail.com>
  * @link    https://github.com/naveen17797
  */
+class fileFunctions {
+	private $directory;
+	public function __construct($directory) {
+		$this->directory = $directory;
+	}
+}
