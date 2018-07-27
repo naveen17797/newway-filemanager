@@ -50,6 +50,9 @@ class loader {
             background-color: $primary_color;
             color: $primary_text_color;
         }
+        .primary-color {
+            color: $primary_color;
+        }
         .secondary {
             background-color: $secondary_color;
             color: $secondary_text_color;
@@ -75,6 +78,15 @@ class loader {
                 $this->output = str_replace("{".$key."}", "$value", $this->output);	
     	    }
             echo $this->output;
+        }
+        else {
+             echo $this->output;
+        }
+    }
+
+    public function load_js($directory, $names) {
+        for($i=0; $i<count($names); $i++) {
+            echo "<script src=$directory/$names[$i].js></script>";
         }
     }
 }
