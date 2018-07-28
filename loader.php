@@ -24,15 +24,40 @@ class loader {
 	private $template_directory = "templates/";
 	private $extension = ".html";
 	private $template_file_directory;
+    private $theme_storage_file_name = "theme.json";
 	private $data;
 	private $output;
     /**
     *@var names array 
     */
     public function load_css($directory, $names) {
+     
         for($i=0; $i<count($names); $i++) {
-            echo "<link rel='stylesheet' type='text/css' href=$directory/$names[$i]>";
+            echo "<link rel='stylesheet' type='text/css' href=$directory/$names[$i].css>";
         }
+           $this->generateRootCssVariables();
+        
+    }
+    public function generateRootCssVariables() {
+        $json = file_get_contents($this->theme_storage_file_name);
+        $color_settings = json_decode($json, true);
+        $primary_color = $color_settings['primary_color'];
+        $secondary_color = $color_settings['secondary_color'];
+        $primary_text_color = $color_settings['primary_text_color'];
+        $secondary_text_color = $color_settings['secondary_text_color'];
+        echo "<style>
+        .primary {
+            background-color: $primary_color;
+            color: $primary_text_color;
+        }
+        .primary-color {
+            color: $primary_color;
+        }
+        .secondary {
+            background-color: $secondary_color;
+            color: $secondary_text_color;
+        }
+        </style>";
     }
 	public function set_template_file($template_file) 
 	{
@@ -53,6 +78,15 @@ class loader {
                 $this->output = str_replace("{".$key."}", "$value", $this->output);	
     	    }
             echo $this->output;
+        }
+        else {
+             echo $this->output;
+        }
+    }
+
+    public function load_js($directory, $names) {
+        for($i=0; $i<count($names); $i++) {
+            echo "<script src=$directory/$names[$i].js></script>";
         }
     }
 }

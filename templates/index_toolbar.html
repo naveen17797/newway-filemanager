@@ -1,0 +1,71 @@
+<html>
+<title>Newway File Manager</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+	<body >
+		<div class="col-md-12 col-lg-12 col-sm-12 text-left navbar  primary text-left" >
+		<h4><i class="fa fa-shield"></i> NEWWAY FILEMANAGER</h4>
+		<small><h5>secure, simple and fast</h5></small>
+		</div>
+		<div class="col-md-12 col-lg-12 col-sm-12 text-left   text-left" >
+			<div class="btn-group">
+				<button class="btn btn-responsive " {WRITE_ACCESS_BOOL} id="create_folder">
+					<img src="img/add_folder.png" height="16px" width="16px"> New Folder
+				</button>
+				<button class="btn btn-responsive primary-color" {WRITE_ACCESS_BOOL}>
+					<i class="fa fa-upload"></i> Upload
+				</button>	
+				<button class="btn btn-responsive" {DELETE_ACCESS_BOOL} id="delete_button">
+					<i class="fa fa-trash" style="color:red;"></i> Delete
+				</button>
+				<button class="btn btn-responsive" {WRITE_ACCESS_BOOL} id='rename_button' disabled>
+					<i class="fa fa-pencil"></i> Rename
+				</button>		
+			</div>
+		</div>
+		<div class="col-md-12 col-lg-12 col-sm-12 text-left">
+			<br/>
+			<b class="primary" style="display: none; padding: 20px;" id="item_selected_notification"></b>
+		</div>
+		<div id="rename_modal">
+			<table class="table table-striped">
+				<tr class="heading">
+					<td>Old Name</td>
+					<td id="rename_oldname"></td>
+				</tr>
+				<tr class="heading">
+					<td>New name</td>
+					<td><input type="text" id="rename_newname"></td>
+				</tr>
+			</table>
+			<div class="text-center">
+				<button class="btn  primary" id="submit_rename">Rename</button>
+			</div>
+			<br/>
+		</div>
+		<div id="create_folder_modal">
+			<table class="table table-striped">
+				<tr class="heading">
+					<td>Folder Name</td>
+					<td><input type="text" placeholder="Folder Name" id="new_folder_name"></td>
+				</tr>
+			</table>
+			<div class="text-center">
+				<button class="btn  primary" id="submit_new_folder">Create</button>
+			</div>
+			<br/>
+		</div>
+
+		<div id="delete_modal">
+			<div class="text-center">
+				
+					<h5 id="deletable_files"></h5>
+				
+			</div>
+			<div class="text-center">
+				<button class="btn btn-danger" id="submit_delete">Delete</button>
+			</div>
+			<br/>
+		</div>
+</body>
+</html>		

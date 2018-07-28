@@ -1,0 +1,13 @@
+@font-face {
+	font-family: primary;
+	src: url("../fonts/ubuntu.ttf");
+}
+html, body, div {
+	font-family: primary;
+}
+.highlight {
+	background-color: #eee;
+}
+.file_name {
+	cursor: auto;
+}
