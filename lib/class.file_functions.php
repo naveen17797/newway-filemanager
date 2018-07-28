@@ -18,7 +18,22 @@
  */
 class fileFunctions {
 	private $directory;
-	public function __construct($directory) {
-		$this->directory = $directory;
+	
+
+	public function recursiveDelete($dirPath) {
+		 if (is_dir($dirPath)) {
+	        $objects = scandir($dirPath);
+	        foreach ($objects as $object) {
+	            if ($object != "." && $object !="..") {
+	                if (filetype($dirPath . DIRECTORY_SEPARATOR . $object) == "dir") {
+	                    $this->recursiveDelete($dirPath . DIRECTORY_SEPARATOR . $object);
+	                } else {
+	                    unlink($dirPath . DIRECTORY_SEPARATOR . $object);
+	                }
+	            }
+	        }
+		    reset($objects);
+		    rmdir($dirPath);
+	    }
 	}
 }

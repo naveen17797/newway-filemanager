@@ -20,7 +20,6 @@ session_start();
  */
 require 'loader.php';
 require 'lib/class.json_handler.php';
-require 'lib/class.file_functions.php';
 
 /***** THESE LINES ARE FOR THE APPLICATION LOGIN SYSTEM ********/
 	/*** IF YOU WANT TO HOOK NEWWAY FILE MANAGER WITH YOUR APP LOGIN SYSTEM, PLEASE REMOVE THESE LINES ***/
@@ -71,13 +70,13 @@ $newway_user_delete_access = $user_data['d'];
 $newway_root_directory = "../";
 
 /*******************************************************/
+$_SESSION['newway_user_is_admin'] = $newway_user_is_admin;
 
+$_SESSION['newway_user_read_access'] = $newway_user_read_access;
 
+$_SESSION['newway_user_create_access'] = $newway_user_create_access;
 
-
-
-
-
+$_SESSION['newway_user_delete_access'] = $newway_user_delete_access;
 
 /*******************************************************/
 
@@ -165,5 +164,10 @@ else {
 	$loader->set_template_file("index_file_view_failed");
 	$loader->output();
 }
+?>
+<script>
+	var rootDir = "<?php echo $newway_root_directory; ?>";
+</script>
+<?php
 $loader->load_js("js", array("jquery", "izimodal", "index", "izitoast"));
 ?>
