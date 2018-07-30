@@ -69,7 +69,10 @@ $newway_user_delete_access = $user_data['d'];
 
 $newway_root_directory = "../";
 
+$newway_is_default_login_system = true;
+
 /*******************************************************/
+
 $_SESSION['newway_user_is_admin'] = $newway_user_is_admin;
 
 $_SESSION['newway_user_read_access'] = $newway_user_read_access;
@@ -77,6 +80,8 @@ $_SESSION['newway_user_read_access'] = $newway_user_read_access;
 $_SESSION['newway_user_create_access'] = $newway_user_create_access;
 
 $_SESSION['newway_user_delete_access'] = $newway_user_delete_access;
+
+$_SESSION['newway_is_default_login_system'] = $newway_is_default_login_system;
 
 /*******************************************************/
 
@@ -96,7 +101,11 @@ if ($newway_user_delete_access) {
 else {
 	$loader->assign("DELETE_ACCESS_BOOL", "disabled");
 }
-
+if ($newway_user_is_admin && $newway_is_default_login_system) {
+	$loader->assign("ADD_USERS", "<button class='btn btn-responsive' id='add_users'>
+					<i class='fa fa-users'></i> Add Users
+				</button>");
+}
 
 $loader->output();
 
@@ -105,7 +114,14 @@ if ($newway_user_read_access) {
 	
 	if (isset($_GET['directory'])) {
 		if (!empty($_GET['directory'])) {
-			$newway_root_directory = $_GET['directory'];
+			if (substr($_GET['directory'], -1) == "/") {
+				$newway_root_directory = $_GET['directory'];
+			}
+			else {
+				$newway_root_directory = $_GET['directory']."/";
+			}
+			print_r(pathinfo($newway_root_directory));
+
 		}
 	}
 	if (is_dir($newway_root_directory)) {
@@ -114,12 +130,15 @@ if ($newway_user_read_access) {
 		echo "<table class='table table-striped table-hover table-responsive'>";
 		echo "<thead><tr class='heading'><th>File/Folder</th>";
 		echo "<th>Size</th>";
-		echo "<th>Date Modified</th></tr></thead><tbody>";
+		echo "<th>extension</th>";
+		echo "<th>Date Modified</th>";
+		echo "</tr></thead><tbody>";
 		for($i=0; $i<count($array_of_files_and_folders); $i++) {
 			if ($array_of_files_and_folders[$i] !="." && $array_of_files_and_folders[$i] != "..") {
-				$stat_array = stat($newway_root_directory.$array_of_files_and_folders[$i]);
+				@$stat_array = stat($newway_root_directory.$array_of_files_and_folders[$i]);
 				$modified_time = $stat_array['mtime'];
 				if (is_dir($newway_root_directory.$array_of_files_and_folders[$i])) {
+					$extension = "folder";
 					$ELEMENT_TYPE = "<i class='fa fa-folder'></i>";
 					    $bytestotal = 0;
 				    $path = realpath($newway_root_directory.$array_of_files_and_folders[$i]);
@@ -132,6 +151,8 @@ if ($newway_user_read_access) {
 				}
 				else {
 					$ELEMENT_TYPE = "<i class='fa fa-file'></i>";
+					$extension = pathinfo($array_of_files_and_folders[$i], PATHINFO_EXTENSION);
+
 					$size = $stat_array['size'];
 				}
 				$units = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
@@ -145,7 +166,9 @@ if ($newway_user_read_access) {
 				$loader->assign("ELEMENT_TYPE", $ELEMENT_TYPE);
 				$loader->assign("FULLNAME", $array_of_files_and_folders[$i]);
 				$loader->assign("NAME", substr($array_of_files_and_folders[$i], 0,8));
+				$loader->assign("ROOT_FULLNAME", urlencode($newway_root_directory.$array_of_files_and_folders[$i]));
 				$loader->assign("DATE_MODIFIED", date("F d, Y h:i A", $modified_time));
+				$loader->assign("EXTENSION", $extension);
 				$loader->assign("SIZE", $SIZE);
 				$loader->output();
 				

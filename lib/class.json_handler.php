@@ -16,6 +16,10 @@ class jsonHandler {
 		
 	}
 
+	public function getAllKeys() {
+		return $this->keys;
+	}
+
 	private function store_keys_and_values() {
 		$this->json_array = json_decode($this->json_data, true);
 		foreach ($this->json_array as $key => $value) {
@@ -62,8 +66,8 @@ class jsonHandler {
 		fclose($handle);
 	}
 
-	private function remove_key($key) {
-		unset($this->json_data[$key]);
+	public function remove_key($key) {
+		unset($this->json_array[$key]);
 		$this->update_json_file();
 	}
 }

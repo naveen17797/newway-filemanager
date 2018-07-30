@@ -20,13 +20,16 @@
 				</button>
 				<button class="btn btn-responsive" {WRITE_ACCESS_BOOL} id='rename_button' disabled>
 					<i class="fa fa-pencil"></i> Rename
-				</button>		
+				</button>
+				{ADD_USERS}	
 			</div>
 		</div>
 		<div class="col-md-12 col-lg-12 col-sm-12 text-left">
 			<br/>
 			<b class="primary" style="display: none; padding: 20px;" id="item_selected_notification"></b>
 		</div>
+
+
 		<div id="rename_modal">
 			<table class="table table-striped">
 				<tr class="heading">
@@ -43,6 +46,8 @@
 			</div>
 			<br/>
 		</div>
+
+
 		<div id="create_folder_modal">
 			<table class="table table-striped">
 				<tr class="heading">
@@ -56,16 +61,51 @@
 			<br/>
 		</div>
 
+
 		<div id="delete_modal">
 			<div class="text-center">
-				
 					<h5 id="deletable_files"></h5>
-				
 			</div>
 			<div class="text-center">
 				<button class="btn btn-danger" id="submit_delete">Delete</button>
 			</div>
 			<br/>
+		</div>
+
+		<div id="add_users_modal">
+		<h4>&nbsp;&nbsp;<i class="primary-color fa fa-plus"></i> Add New User</h4>
+			<table class="table table-striped">
+				<tr class="heading">
+				<th>user email</th>
+				<th>Password</th>
+				<th>Access Level</th>
+				</tr>
+					<tr class="heading">
+						<td>
+							<input type="email" name="user_email" id="add_user_email">
+						</td>
+						<td>
+							<input type="Password" name="user_password" id="add_user_password">
+						</td>
+						<td>
+							<select id="add_user_access_level">
+								<option value="r">Read Only
+								</option>
+								<option value="r_c">Read and write files</option>
+								<option value="r_c_d">Read,Write and Delete Files</option>
+							</select>
+						</td>
+						<td>
+							<Button type="btn btn-primary " id="submit_add_user">Create</Button>
+						</td>
+				</tr>
+			</table>
+		<h4>&nbsp;&nbsp;<i class="fa fa-users primary-color"></i>  Users</h4>
+
+
+				<div id="existing_users">
+				</div>
+			</table>
 		</div>
 </body>
 </html>		
