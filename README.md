@@ -7,3 +7,10 @@ Newway is a file manager for servers written on PHP.To install just download thi
 ## Installation
 Newway uses the presence of the `users.json` file to detect whether an email ID and password has been registered. If you forget the email ID or password registered for Newway, the only way to reset it is to delete the `users.json` file (thus deleting the existing registered information). After doing so, you'll be able to register a new email ID and password for Newway.
 
+ScreenShots
+![screenshot from 2018-07-31 13-39-00](https://user-images.githubusercontent.com/18109258/43446822-7cd385de-94c7-11e8-870e-51dc80af761f.png)
+![screenshot from 2018-07-31 13-39-18](https://user-images.githubusercontent.com/18109258/43446823-7d1a2ef8-94c7-11e8-9432-f7d3527b6a50.png)
+![screenshot from 2018-07-31 13-39-33](https://user-images.githubusercontent.com/18109258/43446824-7d5f9934-94c7-11e8-9491-b3eb2f75dc03.png)
+![screenshot from 2018-07-31 13-39-56](https://user-images.githubusercontent.com/18109258/43446825-7da3aea8-94c7-11e8-8275-fafc39aa77b6.png)
+
+
