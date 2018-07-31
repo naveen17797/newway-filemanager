@@ -188,7 +188,7 @@ if ($newway_user_read_access) {
 
 				$loader->set_template_file("index_single_element");
 				$loader->assign("ELEMENT_TYPE", $ELEMENT_TYPE);
-				$loader->assign("FULLNAME", $array_of_files_and_folders[$i]);
+				$loader->assign("FULLNAME", urlencode($array_of_files_and_folders[$i]));
 				$loader->assign("NAME", substr($array_of_files_and_folders[$i], 0,8));
 				$loader->assign("ROOT_FULLNAME", urlencode($newway_root_directory.$array_of_files_and_folders[$i]));
 				$loader->assign("DATE_MODIFIED", date("F d, Y h:i A", $modified_time));

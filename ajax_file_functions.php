@@ -30,8 +30,8 @@ $newway_is_default_login_system = $_SESSION['newway_is_default_login_system'];
 if (isset($_POST['rename_oldname']) && isset($_POST['rename_newname'])) {
 	if (!empty($_POST['rename_oldname']) && !empty($_POST['rename_newname'])) {
 		if ($newway_user_create_access) {
-			$oldname = $_POST['rename_oldname'];
-			$newname = $_POST['rename_newname'];
+			$oldname = urldecode($_POST['rename_oldname']);
+			$newname = urldecode($_POST['rename_newname']);
 			try {
 				rename($oldname, $newname);
 				echo "1";
@@ -52,7 +52,7 @@ if (isset($_POST['delete_filename'])) {
 		$path_info = pathinfo($delete_filename);
 		$file_name = $delete_filename['filename'];
 		if ($newway_user_delete_access) {
-			$delete_filename = $_POST['delete_filename'];
+			$delete_filename = urldecode($_POST['delete_filename']);
 			try {
 				$fileFunctions->recursiveDelete($delete_filename);
 				echo "1";
