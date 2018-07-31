@@ -84,6 +84,29 @@ $_SESSION['newway_user_delete_access'] = $newway_user_delete_access;
 $_SESSION['newway_is_default_login_system'] = $newway_is_default_login_system;
 
 /*******************************************************/
+//FILE UPLOADING FUNCTIONALITY			
+
+if (isset($_FILES) && isset($_POST['location'])) {
+	if (!empty($_POST['location'])) {
+		if ($_SESSION['newway_user_create_access']) {
+			$total = count($_FILES['upload']['name']);
+			for ($i = 0; $i < $total; $i++) {
+				$tmpFilePath = $_FILES['upload']['tmp_name'][$i];
+				$original_name = $_FILES['upload']['name'][$i];
+				move_uploaded_file($tmpFilePath, $_POST['location'].$original_name);
+				
+			}
+			header("location: index.php?directory=".$_GET['directory']);
+		}
+		else {
+			header("location: index.php?directory=".$_GET['directory']);
+		
+			
+		}
+
+	}
+
+}
 
 $loader = new loader;
 $loader->load_css("css", array("bootstrap", "fontawesome", "global", "izimodal", "index", "izitoast"));
@@ -218,29 +241,7 @@ else {
 <?php
 $loader->load_js("js", array("jquery", "izimodal", "index", "izitoast"));
 
-//FILE UPLOADING FUNCTIONALITY			
 
-if (isset($_FILES) && isset($_POST['location'])) {
-	if (!empty($_POST['location'])) {
-		if ($_SESSION['newway_user_create_access']) {
-			$total = count($_FILES['upload']['name']);
-			for ($i = 0; $i < $total; $i++) {
-				$tmpFilePath = $_FILES['upload']['tmp_name'][$i];
-				$original_name = $_FILES['upload']['name'][$i];
-				move_uploaded_file($tmpFilePath, $_POST['location'].$original_name);
-				
-			}
-			echo "<script>window.location=index.php?directory=".$_GET['directory']."</script>";
-		}
-		else {
-			echo "<script>window.location=index.php?directory=".$_GET['directory']."</script>";
-		
-			
-		}
-
-	}
-
-}
 
 
 
