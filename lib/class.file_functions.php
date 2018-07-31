@@ -35,5 +35,8 @@ class fileFunctions {
 		    reset($objects);
 		    rmdir($dirPath);
 	    }
+	    else {
+	    	unlink($dirPath);
+	    }
 	}
 }

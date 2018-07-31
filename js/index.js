@@ -1,5 +1,6 @@
 var clickedItems = 0;
 var items = new Array();
+
 $("#rename_modal").iziModal({
 	 title: 'Rename',
     subtitle: 'Rename the file/folder',
@@ -17,6 +18,14 @@ $('#create_folder_modal').iziModal({
 	 title: 'Create',
     subtitle: 'Create new Folder',
     headerColor: '#185cb5'
+
+});
+
+$('#add_users_modal').iziModal({
+	 title: 'Add users',
+    subtitle: 'Add users to your file manager',
+    headerColor: '#185cb5',
+   	width: '1000'
 
 });
 
@@ -75,7 +84,7 @@ $('#submit_delete').click(function () {
 			    	title: 'Done',
 			    	message: "Deleted all the chosen files"
 				});
-				window.location = "index.php";
+				window.location = "index.php?directory=" + rootDir;
 	    	});
 	    	i = i + 1;
 		}
@@ -93,7 +102,7 @@ $('#submit_rename').click(function () {
 			    	message: "Renamed from " + oldname + " to " + newname
 				});
 				$("#rename_modal").iziModal('close');
-				window.location = "index.php";
+				window.location = "index.php?directory=" + rootDir;
 		 	}
 		 	else {
 
@@ -102,7 +111,7 @@ $('#submit_rename').click(function () {
 			    	message: "Renamed from " + oldname + " to " + newname
 				});
 		 		$("#rename_modal").iziModal('close');
-		 		window.location = "index.php";
+		 		window.location = "index.php?directory=" + rootDir;
 		 	}
 
     	});
@@ -122,12 +131,12 @@ $('#submit_new_folder').click(function () {
 			    	message: "Folder Created"
 				});
 				$("#create_folder_modal").iziModal('close');
-				window.location = "index.php";
+				window.location = "index.php?directory=" + rootDir;
 		 	}
 		 	else {
 
 		 		$("#create_folder_modal").iziModal('close');
-		 		window.location = "index.php";
+		 		window.location = "index.php?directory=" + rootDir;
 		 	}
 
     	});
@@ -135,6 +144,55 @@ $('#submit_new_folder').click(function () {
 });
 
 
+$('#submit_add_user').click(function () {
+	var email = $('#add_user_email').val();
+	var password = $('#add_user_password').val();
+	var access_level = $('#add_user_access_level option:selected').val();
+
+
+	 $.post("ajax_file_functions.php", {add_user_email:email, add_user_password:password, add_user_access_level:access_level}, function(result){
+		if (result == "1") {
+				iziToast.success({
+			    	title: 'Done',
+			    	message: "The user " + email + " has been added"
+				});
+				refreshCurrentUsers();
+		}
+		else {
+			iziToast.success({
+			    	title: 'Error',
+			    	message: result
+			});
+		}
+
+    });
+
+});
+
+$('#add_users').click(function () {
+	$('#add_users_modal').iziModal("open");
+});
+
+$(document).on("click", ".delete_user", function () {
+	var user_email = $(this).attr('id');
+	 $.post("ajax_file_functions.php", {user_email: user_email}, function(result){
+		if (result == "1") {
+				iziToast.success({
+			    	title: 'Done',
+			    	message: "The user " + user_email + " has been removed"
+				});
+				refreshCurrentUsers();
+		}
+		else {
+			iziToast.success({
+			    	title: 'Error',
+			    	message: result
+			});
+		}
+
+    });
+
+});
 
 function updateClickedItems(clickedItems) {
 	if (clickedItems > 0) {
@@ -172,3 +230,14 @@ function makeArrayToList(itemsi) {
 	returnText = returnText +  "</table>";
 	return returnText;
 }
+
+function refreshCurrentUsers() {
+	$.post("ajax_file_functions.php", {get_users_list: "fetch"}, function(result){
+		$('#existing_users').html(result);
+
+    });
+
+}
+
+
+refreshCurrentUsers();
