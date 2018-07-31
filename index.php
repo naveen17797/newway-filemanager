@@ -107,8 +107,21 @@ if ($newway_user_is_admin && $newway_is_default_login_system) {
 				</button>");
 }
 
+if (isset($_GET['directory'])) {
+	if (!empty($_GET['directory'])) {
+		if (substr($_GET['directory'], -1) == "/") {
+			$upload_directory = $_GET['directory'];
+		}
+		else {
+			$upload_directory = $_GET['directory']."/";
+		}
+	}
+}
+else {
+	$upload_directory = $newway_root_directory;
+}
+$loader->assign("UPLOAD_LOCATION", $upload_directory);
 $loader->output();
-
 /** checking if user has read access**/
 if ($newway_user_read_access) {
 	
@@ -120,9 +133,20 @@ if ($newway_user_read_access) {
 			else {
 				$newway_root_directory = $_GET['directory']."/";
 			}
-			print_r(pathinfo($newway_root_directory));
+			$path = pathinfo($newway_root_directory);
+			if ($path['dirname'] == ".") {
 
+			}
+			else if ($path['dirname'] == "..") {
+				echo "<div class='btn-group'><a href=index.php?directory=".$path['dirname']."/ class='btn btn-info btn-responsive'><i class='fa fa-arrow-left'></i> Back</a></div>";
+			}
+			else {
+				echo "<div class='btn-group'><a href=index.php?directory=".$path['dirname']." class='btn btn-info btn-responsive'><i class='fa fa-arrow-left'></i> Back</a></div>";
+			}
 		}
+	}
+	else {
+
 	}
 	if (is_dir($newway_root_directory)) {
 		$array_of_files_and_folders = scandir($newway_root_directory);
@@ -193,4 +217,32 @@ else {
 </script>
 <?php
 $loader->load_js("js", array("jquery", "izimodal", "index", "izitoast"));
+
+//FILE UPLOADING FUNCTIONALITY			
+
+if (isset($_FILES) && isset($_POST['location'])) {
+	if (!empty($_POST['location'])) {
+		if ($_SESSION['newway_user_create_access']) {
+			$total = count($_FILES['upload']['name']);
+			for ($i = 0; $i < $total; $i++) {
+				$tmpFilePath = $_FILES['upload']['tmp_name'][$i];
+				$original_name = $_FILES['upload']['name'][$i];
+				move_uploaded_file($tmpFilePath, $_POST['location'].$original_name);
+				
+			}
+			echo "<script>window.location=index.php?directory=".$_GET['directory']."</script>";
+		}
+		else {
+			echo "<script>window.location=index.php?directory=".$_GET['directory']."</script>";
+		
+			
+		}
+
+	}
+
+}
+
+
+
+
 ?>

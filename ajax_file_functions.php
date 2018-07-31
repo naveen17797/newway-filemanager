@@ -51,7 +51,7 @@ if (isset($_POST['delete_filename'])) {
 	if (!empty($_POST['delete_filename'])) {
 		$path_info = pathinfo($delete_filename);
 		$file_name = $delete_filename['filename'];
-		if ($newway_user_delete_access && $filename!="users.json") {
+		if ($newway_user_delete_access) {
 			$delete_filename = $_POST['delete_filename'];
 			try {
 				$fileFunctions->recursiveDelete($delete_filename);
