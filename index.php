@@ -147,7 +147,6 @@ $loader->assign("UPLOAD_LOCATION", $upload_directory);
 $loader->output();
 /** checking if user has read access**/
 if ($newway_user_read_access) {
-	
 	if (isset($_GET['directory'])) {
 		if (!empty($_GET['directory'])) {
 			if (substr($_GET['directory'], -1) == "/") {
@@ -213,7 +212,14 @@ if ($newway_user_read_access) {
 				$loader->assign("ELEMENT_TYPE", $ELEMENT_TYPE);
 				$loader->assign("FULLNAME", urlencode($array_of_files_and_folders[$i]));
 				$loader->assign("NAME", substr($array_of_files_and_folders[$i], 0,8));
-				$loader->assign("ROOT_FULLNAME", urlencode($newway_root_directory.$array_of_files_and_folders[$i]));
+				if ($extension == "folder") {
+					$loader->assign("ROOT_FULLNAME", "index.php?directory=".urlencode($newway_root_directory.$array_of_files_and_folders[$i]));
+					$loader->assign("TARGET", "");
+				}
+				else {
+					$loader->assign("ROOT_FULLNAME", $newway_root_directory.$array_of_files_and_folders[$i]);
+					$loader->assign("TARGET", ' target="_blank" ');
+				}
 				$loader->assign("DATE_MODIFIED", date("F d, Y h:i A", $modified_time));
 				$loader->assign("EXTENSION", $extension);
 				$loader->assign("SIZE", $SIZE);

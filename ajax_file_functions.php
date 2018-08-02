@@ -1,10 +1,8 @@
 <?php 
 session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 require 'lib/class.file_functions.php';
 require 'lib/class.json_handler.php';
+
 $fileFunctions = new fileFunctions();
 if (isset($_SESSION)) {
 	if (!empty($_SESSION['newway_user_is_admin']) && !empty($_SESSION['newway_user_read_access']) && !empty($_SESSION['newway_user_create_access']) && !empty($_SESSION['newway_user_delete_access'])) {
@@ -53,13 +51,20 @@ if (isset($_POST['delete_filename'])) {
 		$file_name = $delete_filename['filename'];
 		if ($newway_user_delete_access) {
 			$delete_filename = urldecode($_POST['delete_filename']);
-			try {
-				$fileFunctions->recursiveDelete($delete_filename);
-				echo "1";
+
+			if ($delete_filename == "users.json" || $delete_filename == "/") {
+				//dangerous path
+
 			}
-			catch(Exception $e) {
-				echo $e;
-			}
+			else {	
+				try {
+					$fileFunctions->recursiveDelete($delete_filename);
+					echo "1";
+				}
+				catch(Exception $e) {
+					echo $e;
+				}
+			}	
 		}
 		else {
 			echo "Error: Operation failed since you dont have delete permissions";
