@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Loader to use templates inside the updater
  *
@@ -16,27 +16,27 @@
  * @author Naveen Muthusamy <kmnaveen101@gmail.com>
  * @link    https://github.com/naveen17797
  */
-class fileFunctions {
+class fileFunctions
+{
 	private $directory;
-	
 
-	public function recursiveDelete($dirPath) {
-		 if (is_dir($dirPath)) {
-	        $objects = scandir($dirPath);
-	        foreach ($objects as $object) {
-	            if ($object != "." && $object !="..") {
-	                if (filetype($dirPath . DIRECTORY_SEPARATOR . $object) == "dir") {
+	public function recursiveDelete($dirPath)
+    {
+        if (is_dir($dirPath)) {
+            $objects = scandir($dirPath);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (filetype($dirPath . DIRECTORY_SEPARATOR . $object) == "dir") {
 	                    $this->recursiveDelete($dirPath . DIRECTORY_SEPARATOR . $object);
-	                } else {
-	                    unlink($dirPath . DIRECTORY_SEPARATOR . $object);
-	                }
+                        continue;
+                    }
+                    unlink($dirPath . DIRECTORY_SEPARATOR . $object);
 	            }
 	        }
 		    reset($objects);
 		    rmdir($dirPath);
-	    }
-	    else {
-	    	unlink($dirPath);
-	    }
+            return;
+        }
+        unlink($dirPath);
 	}
 }

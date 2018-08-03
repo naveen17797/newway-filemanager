@@ -13,7 +13,6 @@ $("#delete_modal").iziModal({
     headerColor: '#FF0000'
 });
 
-
 $('#create_folder_modal').iziModal({
 	 title: 'Create',
     subtitle: 'Create new Folder',
@@ -53,7 +52,7 @@ $('tr').click(function () {
 			items.push(fullname);
 		}
 	}
-	
+
 });
 
 $('#rename_button').click(function () {
@@ -63,7 +62,7 @@ $('#rename_button').click(function () {
 	else {
 		$('#rename_oldname').text(items[0]);
 		$("#rename_modal").iziModal('open');
-		
+
 	}
 });
 
@@ -76,7 +75,7 @@ $('#delete_button').click(function () {
 
 $('#submit_delete').click(function () {
 	var i = 0;
-	if(clickedItems != 0){	
+	if(clickedItems != 0){
 		while (i < items.length) {
 			$.post("ajax_file_functions.php", {delete_filename:rootDir+items[i]}, function(result){
 				$('#delete_modal').iziModal("close");
@@ -90,7 +89,6 @@ $('#submit_delete').click(function () {
 		}
 	}
 });
-
 
 $('#submit_rename').click(function () {
 	var oldname = items[0];
@@ -142,7 +140,6 @@ $('#submit_new_folder').click(function () {
     	});
 
 });
-
 
 $('#submit_add_user').click(function () {
 	var email = $('#add_user_email').val();
@@ -211,10 +208,10 @@ function updateClickedItems(clickedItems) {
 		$('#item_selected_notification').css("display", "none");
 		$('#rename_button').attr("disabled", "true");
 		$('#delete_button').attr("disabled", "true");
-		
+
 	}
 	else {
-		
+
 		$('#rename_button').removeAttr("disabled");
 	}
 
@@ -238,6 +235,5 @@ function refreshCurrentUsers() {
     });
 
 }
-
 
 refreshCurrentUsers();

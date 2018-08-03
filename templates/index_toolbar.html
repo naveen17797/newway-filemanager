@@ -1,8 +1,8 @@
 <html>
 <title>Newway File Manager</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
-	<body >
+<link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+	<body>
 		<div class="col-md-12 col-lg-12 col-sm-12 text-left navbar  primary text-left" >
 		<h4><i class="fa fa-shield"></i> NEWWAY FILEMANAGER</h4>
 		<small><h5>secure, simple and fast</h5></small>
@@ -13,16 +13,16 @@
 					<img src="img/add_folder.png" height="16px" width="16px"> New Folder
 				</button>
 
-				
+
 				<label class=" btn btn-responsive" {WRITE_ACCESS_BOOL}>
 				<form method="POST" enctype="multipart/form-data">
 				<input type="hidden" name="location" value={UPLOAD_LOCATION} style="display: none;">
-				<i class="fa fa-upload"></i> 
+				<i class="fa fa-upload"></i>
 					Upload
 					<input type="file" name="upload[]" onchange="form.submit()" multiple >
-					</form>	
+					</form>
 					</label>
-				
+
 
 
 				<button class="btn btn-responsive" {DELETE_ACCESS_BOOL} id="delete_button">
@@ -31,7 +31,7 @@
 				<button class="btn btn-responsive" {WRITE_ACCESS_BOOL} id='rename_button' disabled>
 					<i class="fa fa-pencil"></i> Rename
 				</button>
-				{ADD_USERS}	
+				{ADD_USERS}
 			</div>
 		</div>
 		<div class="col-md-12 col-lg-12 col-sm-12 text-left">
@@ -119,4 +119,4 @@
 			</table>
 		</div>
 </body>
-</html>		
+</html>
