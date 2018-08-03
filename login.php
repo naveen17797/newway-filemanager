@@ -21,7 +21,7 @@ session_start();
 require_once 'loader.php';
 require_once 'lib/class.json_handler.php';
 
-//check if a admin user is present 
+//check if a admin user is present
 if (!file_exists("../../users.json")) {
 	header("location: setup.php");
 	exit();
@@ -48,16 +48,14 @@ if (isset($_POST)) {
 				$_SESSION['authorized_email'] = $email;
 				header("location: index.php");
 				exit();
-			}
-			else {
-				//error message	
+			} else {
+				//error message
 				echo "<div class='alert alert-danger'>
 				Email or password is incorrect
-				</div>";	
+				</div>";
 			}
-		}
-		else {
-			//error message	
+		} else {
+			//error message
 				echo "<div class='alert alert-danger'>
 				Email or password is incorrect
 				</div>";
@@ -66,5 +64,3 @@ if (isset($_POST)) {
 	}
 
 }
-
-?>

@@ -25,14 +25,12 @@ require 'lib/class.json_handler.php';
 	/*** IF YOU WANT TO HOOK NEWWAY FILE MANAGER WITH YOUR APP LOGIN SYSTEM, PLEASE REMOVE THESE LINES ***/
 if (isset($_SESSION['authorized_email'])) {
 	if (!empty($_SESSION['authorized_email'])) {
-		
-	}
-	else {
+
+	} else {
 		header("location: login.php");
 		exit();
 	}
-}
-else {
+} else {
 	header("location: login.php");
 	exit();
 }
@@ -84,7 +82,7 @@ $_SESSION['newway_user_delete_access'] = $newway_user_delete_access;
 $_SESSION['newway_is_default_login_system'] = $newway_is_default_login_system;
 
 /*******************************************************/
-//FILE UPLOADING FUNCTIONALITY			
+//FILE UPLOADING FUNCTIONALITY
 
 if (isset($_FILES) && isset($_POST['location'])) {
 	if (!empty($_POST['location'])) {
@@ -94,14 +92,13 @@ if (isset($_FILES) && isset($_POST['location'])) {
 				$tmpFilePath = $_FILES['upload']['tmp_name'][$i];
 				$original_name = $_FILES['upload']['name'][$i];
 				move_uploaded_file($tmpFilePath, $_POST['location'].$original_name);
-				
+
 			}
 			header("location: index.php?directory=".$_GET['directory']);
-		}
-		else {
+		} else {
 			header("location: index.php?directory=".$_GET['directory']);
-		
-			
+
+
 		}
 
 	}
@@ -113,15 +110,13 @@ $loader->load_css("css", array("bootstrap", "fontawesome", "global", "izimodal",
 $loader->set_template_file("index_toolbar");
 if ($newway_user_create_access) {
 	$loader->assign("WRITE_ACCESS_BOOL", "");
-}
-else {
+} else {
 	$loader->assign("WRITE_ACCESS_BOOL", "disabled");
 }
 
 if ($newway_user_delete_access) {
 	$loader->assign("DELETE_ACCESS_BOOL", "");
-}
-else {
+} else {
 	$loader->assign("DELETE_ACCESS_BOOL", "disabled");
 }
 if ($newway_user_is_admin && $newway_is_default_login_system) {
@@ -134,13 +129,11 @@ if (isset($_GET['directory'])) {
 	if (!empty($_GET['directory'])) {
 		if (substr($_GET['directory'], -1) == "/") {
 			$upload_directory = $_GET['directory'];
-		}
-		else {
+		} else {
 			$upload_directory = $_GET['directory']."/";
 		}
 	}
-}
-else {
+} else {
 	$upload_directory = $newway_root_directory;
 }
 $loader->assign("UPLOAD_LOCATION", $upload_directory);
@@ -151,23 +144,19 @@ if ($newway_user_read_access) {
 		if (!empty($_GET['directory'])) {
 			if (substr($_GET['directory'], -1) == "/") {
 				$newway_root_directory = $_GET['directory'];
-			}
-			else {
+			} else {
 				$newway_root_directory = $_GET['directory']."/";
 			}
 			$path = pathinfo($newway_root_directory);
 			if ($path['dirname'] == ".") {
 
-			}
-			else if ($path['dirname'] == "..") {
+			} elseif ($path['dirname'] == "..") {
 				echo "<div class='btn-group'><a href=index.php?directory=".$path['dirname']."/ class='btn btn-info btn-responsive'><i class='fa fa-arrow-left'></i> Back</a></div>";
-			}
-			else {
+			} else {
 				echo "<div class='btn-group'><a href=index.php?directory=".$path['dirname']." class='btn btn-info btn-responsive'><i class='fa fa-arrow-left'></i> Back</a></div>";
 			}
 		}
-	}
-	else {
+	} else {
 
 	}
 	if (is_dir($newway_root_directory)) {
@@ -179,7 +168,7 @@ if ($newway_user_read_access) {
 		echo "<th>extension</th>";
 		echo "<th>Date Modified</th>";
 		echo "</tr></thead><tbody>";
-		for($i=0; $i<count($array_of_files_and_folders); $i++) {
+		for ($i = 0; $i < count($array_of_files_and_folders); $i++) {
 			if ($array_of_files_and_folders[$i] !="." && $array_of_files_and_folders[$i] != "..") {
 				@$stat_array = stat($newway_root_directory.$array_of_files_and_folders[$i]);
 				$modified_time = $stat_array['mtime'];
@@ -188,17 +177,15 @@ if ($newway_user_read_access) {
 					$ELEMENT_TYPE = "<i class='fa fa-folder'></i>";
 					    $bytestotal = 0;
 				    $path = realpath($newway_root_directory.$array_of_files_and_folders[$i]);
-					    if($path!==false && $path!='' && file_exists($path)){
-					        foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object){
+					    if ($path !== false && $path != '' && file_exists($path)) {
+					        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object) {
 					            $bytestotal += $object->getSize();
 					        }
 					    }
 					    $size = $bytestotal;
-				}
-				else {
+				} else {
 					$ELEMENT_TYPE = "<i class='fa fa-file'></i>";
 					$extension = pathinfo($array_of_files_and_folders[$i], PATHINFO_EXTENSION);
-
 					$size = $stat_array['size'];
 				}
 				$units = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
@@ -215,8 +202,7 @@ if ($newway_user_read_access) {
 				if ($extension == "folder") {
 					$loader->assign("ROOT_FULLNAME", "index.php?directory=".urlencode($newway_root_directory.$array_of_files_and_folders[$i]));
 					$loader->assign("TARGET", "");
-				}
-				else {
+				} else {
 					$loader->assign("ROOT_FULLNAME", $newway_root_directory.$array_of_files_and_folders[$i]);
 					$loader->assign("TARGET", ' target="_blank" ');
 				}
@@ -224,19 +210,17 @@ if ($newway_user_read_access) {
 				$loader->assign("EXTENSION", $extension);
 				$loader->assign("SIZE", $SIZE);
 				$loader->output();
-				
+
 			}
 		}
 		echo "</tbody></table></div>";
-	}
-	else {
+	} else {
 		$loader->set_template_file("error_message");
 		$loader->assign("MESSAGE","The directory is not valid");
 		$loader->output();
 	}
-	
-}	
-else {
+
+} else {
 	$loader->set_template_file("index_file_view_failed");
 	$loader->output();
 }
@@ -244,12 +228,4 @@ else {
 <script>
 	var rootDir = "<?php echo $newway_root_directory; ?>";
 </script>
-<?php
-$loader->load_js("js", array("jquery", "izimodal", "index", "izitoast"));
-
-
-
-
-
-
-?>
+<?php $loader->load_js("js", array("jquery", "izimodal", "index", "izitoast")); ?>

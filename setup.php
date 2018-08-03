@@ -24,10 +24,9 @@ require_once 'lib/class.json_handler.php';
 $dirname = pathinfo(__DIR__);
 $dirname = $dirname['dirname'];
 
-if(!file_exists("../../users.json")) {
+if (!file_exists("../../users.json")) {
 
-}
-else {
+} else {
 	header("location: login.php");
 	exit();
 }
@@ -39,8 +38,7 @@ if (is_writable($dirname)) {
 	$write_access_button_enabled = "";
 	$write_access_failed_message = "";
 
-}
-else {
+} else {
 	$write_access_bool = false;
 	$write_access_bool_response = "<i class='fa fa-close' style='color:red;'></i>";
 	$write_access_button_enabled  = "disabled";
@@ -68,8 +66,7 @@ if (isset($_POST)) {
 			$jsonHandler->create_key_value($email, $value);
 			header("location: login.php");
 			exit();
-		}
-		else {
+		} else {
 			header("location: login.php");
 			exit();
 		}

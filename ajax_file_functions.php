@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require 'lib/class.file_functions.php';
 require 'lib/class.json_handler.php';
@@ -7,8 +7,7 @@ $fileFunctions = new fileFunctions();
 if (isset($_SESSION)) {
 	if (!empty($_SESSION['newway_user_is_admin']) && !empty($_SESSION['newway_user_read_access']) && !empty($_SESSION['newway_user_create_access']) && !empty($_SESSION['newway_user_delete_access'])) {
 		//do nothing continue work
-	}
-	else {
+	} else {
 		exit("Please Login to the application");
 	}
 }
@@ -38,8 +37,7 @@ if (isset($_POST['rename_oldname']) && isset($_POST['rename_newname'])) {
 				echo "Operation Failed, $oldname does not exist in the directory";
 			}
 
-		}
-		else {
+		} else {
 			echo "Error : Insufficient permissions, operations failed";
 		}
 	}
@@ -55,8 +53,7 @@ if (isset($_POST['delete_filename'])) {
 			if ($delete_filename == "users.json" || $delete_filename == "/") {
 				//dangerous path
 
-			}
-			else {	
+			} else {
 				try {
 					$fileFunctions->recursiveDelete($delete_filename);
 					echo "1";
@@ -64,9 +61,8 @@ if (isset($_POST['delete_filename'])) {
 				catch(Exception $e) {
 					echo $e;
 				}
-			}	
-		}
-		else {
+			}
+		} else {
 			echo "Error: Operation failed since you dont have delete permissions";
 		}
 	}
@@ -76,14 +72,12 @@ if (isset($_POST['new_folder_name'])) {
 	if (!empty($_POST['new_folder_name'])) {
 		if ($newway_user_create_access) {
 			mkdir($_POST['new_folder_name']);
-		}
-		else {
+		} else {
 			echo "Error: Operation failed since you dont have create permissions";
 		}
 
 	}
 }
-
 
 if (isset($_POST['add_user_email']) && isset($_POST['add_user_password']) && isset($_POST['add_user_access_level'])) {
 	if (!empty($_POST['add_user_email']) && !empty($_POST['add_user_password']) && !empty($_POST['add_user_access_level'])) {
@@ -94,7 +88,7 @@ if (isset($_POST['add_user_email']) && isset($_POST['add_user_password']) && iss
 		if ($newway_user_is_admin && $newway_is_default_login_system) {
 
 			$jsonHandler = new jsonHandler("../../users.json");
-			
+
 			if ($add_user_access_level == "r") {
 				$value = array("password"=>password_hash($password,PASSWORD_BCRYPT), "r"=>"1", "c"=>"0", "d"=>"0", "is_admin"=>"false");
 			}
@@ -105,12 +99,11 @@ if (isset($_POST['add_user_email']) && isset($_POST['add_user_password']) && iss
 			if ($add_user_access_level == "r_c_d") {							$value = array("password"=>password_hash($password,PASSWORD_BCRYPT), "r"=>"1", "c"=>"1", "d"=>"1", "is_admin"=>"false");
 
 			}
-			
+
 			$value = json_encode($value);
 			$jsonHandler->create_key_value($email, $value);
 			echo "1";
-		}
-		else {
+		} else {
 			echo "Error: Unable to create user, only admin can add users";
 		}
 
@@ -128,7 +121,7 @@ if (isset($_POST['get_users_list'])) {
 				<th>User Email</th>
 				<th>Action</th>
 			</tr>';
-			for ($i=0; $i<count($array); $i++) {
+			for ($i = 0; $i < count($array); $i++) {
 				if ($array[$i] != $newway_user_email) {
 					echo "<tr class='highlighted'><td>" .$array[$i]."</td>
 					<td><button class='delete_user btn btn-danger' id=$array[$i]>Remove</button></td>
@@ -141,7 +134,6 @@ if (isset($_POST['get_users_list'])) {
 	}
 }
 
-
 if (isset($_POST['user_email'])) {
 	if (!empty($_POST['user_email'])) {
 		$key = $_POST['user_email'];
@@ -151,11 +143,9 @@ if (isset($_POST['user_email'])) {
 				$jsonHandler->remove_key($key);
 				echo "1";
 
-		}
-		else {
+		} else {
 			echo "This action cant be made";
 			//dont delete
 		}
 	}
 }
-?>
