@@ -16,7 +16,7 @@ session_start();
  *
  * @package Newway File Manager
  * @author Naveen Muthusamy <kmnaveen101@gmail.com>
- * @link    https://github.com/naveen17797
+ * @link https://github.com/naveen17797
  */
 require_once 'loader.php';
 require_once 'lib/class.json_handler.php';
