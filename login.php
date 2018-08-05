@@ -25,8 +25,8 @@ require_once 'lib/class.json_handler.php';
 if (!file_exists("../../users.json")) {
 	header("location: setup.php");
 	exit();
-
 }
+
 $loader = new loader();
 $loader->load_css("css", array("bootstrap", "fontawesome", "materialize", "global"));
 $loader->set_template_file("login");
@@ -34,7 +34,9 @@ $loader->assign("SAMPLE", "");
 $loader->output();
 
 if (isset($_POST)) {
+
 	if (!empty($_POST['email']) && !empty($_POST['password'])) {
+
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 		$jsonHandler = new jsonHandler("../../users.json");
@@ -48,17 +50,16 @@ if (isset($_POST)) {
 				$_SESSION['authorized_email'] = $email;
 				header("location: index.php");
 				exit();
-			} else {
-				//error message
-				echo "<div class='alert alert-danger'>
-				Email or password is incorrect
-				</div>";
-			}
+            }
+			// Error message
+			echo "<div class='alert alert-danger'>
+			Email or password is incorrect
+			</div>";
 		} else {
-			//error message
-				echo "<div class='alert alert-danger'>
-				Email or password is incorrect
-				</div>";
+			// Error message
+            echo "<div class='alert alert-danger'>
+            Email or password is incorrect
+            </div>";
 		}
 
 	}
