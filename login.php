@@ -16,7 +16,7 @@ session_start();
  *
  * @package Newway File Manager
  * @author Naveen Muthusamy <kmnaveen101@gmail.com>
- * @link https://github.com/naveen17797
+ * @link    https://github.com/naveen17797
  */
 require_once 'loader.php';
 require_once 'lib/class.json_handler.php';
@@ -25,8 +25,8 @@ require_once 'lib/class.json_handler.php';
 if (!file_exists("../../users.json")) {
 	header("location: setup.php");
 	exit();
-}
 
+}
 $loader = new loader();
 $loader->load_css("css", array("bootstrap", "fontawesome", "materialize", "global"));
 $loader->set_template_file("login");
@@ -34,9 +34,7 @@ $loader->assign("SAMPLE", "");
 $loader->output();
 
 if (isset($_POST)) {
-
 	if (!empty($_POST['email']) && !empty($_POST['password'])) {
-
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 		$jsonHandler = new jsonHandler("../../users.json");
@@ -50,16 +48,17 @@ if (isset($_POST)) {
 				$_SESSION['authorized_email'] = $email;
 				header("location: index.php");
 				exit();
-            }
-			// Error message
-			echo "<div class='alert alert-danger'>
-			Email or password is incorrect
-			</div>";
+			} else {
+				//error message
+				echo "<div class='alert alert-danger'>
+				Email or password is incorrect
+				</div>";
+			}
 		} else {
-			// Error message
-            echo "<div class='alert alert-danger'>
-            Email or password is incorrect
-            </div>";
+			//error message
+				echo "<div class='alert alert-danger'>
+				Email or password is incorrect
+				</div>";
 		}
 
 	}

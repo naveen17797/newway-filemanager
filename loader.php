@@ -15,7 +15,7 @@
  *
  * @package Newway File Manager
  * @author Naveen Muthusamy <kmnaveen101@gmail.com>
- * @link https://github.com/naveen17797
+ * @link    https://github.com/naveen17797
  */
 class loader
 {
@@ -30,8 +30,8 @@ class loader
     */
     public function load_css($directory, $names)
     {
-        foreach ($names as $name) {
-            echo "<link rel='stylesheet' type='text/css' href='$directory/$name.css' />";
+        for ($i = 0; $i < count($names); $i++) {
+            echo "<link rel='stylesheet' type='text/css' href=$directory/$names[$i].css>";
         }
         $this->generateRootCssVariables();
     }
@@ -79,14 +79,14 @@ class loader
             }
             echo $this->output;
         } else {
-            echo $this->output;
+             echo $this->output;
         }
     }
 
     public function load_js($directory, $names)
     {
-        foreach ($names as $name) {
-            echo "<script src='$directory/$name.js'></script>";
+        for($i = 0; $i < count($names); $i++) {
+            echo "<script src=$directory/$names[$i].js></script>";
         }
     }
 
