@@ -25,25 +25,21 @@ $dirname = pathinfo(__DIR__);
 $dirname = $dirname['dirname'];
 
 if (file_exists("../../users.json")) {
-	header("location: login.php");
-	exit();
+    header("location: login.php");
+    exit();
 }
 
 
 if (is_writable($dirname)) {
-
-	$write_access_bool = true;
-	$write_access_bool_response = "<i class='fa fa-check' style='color:green;'></i>";
-	$write_access_button_enabled = "";
-	$write_access_failed_message = "";
-
+    $write_access_bool = true;
+    $write_access_bool_response = "<i class='fa fa-check' style='color:green;'></i>";
+    $write_access_button_enabled = "";
+    $write_access_failed_message = "";
 } else {
-
-	$write_access_bool = false;
-	$write_access_bool_response = "<i class='fa fa-close' style='color:red;'></i>";
-	$write_access_button_enabled  = "disabled";
-	$write_access_failed_message = "please keep 777 as permissions for your root folder, if you need newway to work properly";
-
+    $write_access_bool = false;
+    $write_access_bool_response = "<i class='fa fa-close' style='color:red;'></i>";
+    $write_access_button_enabled  = "disabled";
+    $write_access_failed_message = "please keep 777 as permissions for your root folder, if you need newway to work properly";
 }
 
 $loader = new loader();
@@ -56,19 +52,19 @@ $loader->output();
 
 //Handle signup information
 if (isset($_POST)) {
-	if (!empty($_POST['email']) && !empty($_POST['password'])) {
-		if (!file_exists("../../users.json")) {
-			$email = $_POST['email'];
-			$password = $_POST['password'];
-			$jsonHandler = new jsonHandler("../../users.json");
-			$value = array("password"=>password_hash($password,PASSWORD_BCRYPT), "r"=>"1", "c"=>"1", "d"=>"1", "is_admin"=>"true");
-			$value = json_encode($value);
+    if (!empty($_POST['email']) && !empty($_POST['password'])) {
+        if (!file_exists("../../users.json")) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $jsonHandler = new jsonHandler("../../users.json");
+            $value = array("password"=>password_hash($password, PASSWORD_BCRYPT), "r"=>"1", "c"=>"1", "d"=>"1", "is_admin"=>"true");
+            $value = json_encode($value);
 
-			$jsonHandler->create_key_value($email, $value);
-			header("location: login.php");
-			exit();
-		}
-		header("location: login.php");
-		exit();
-	}
+            $jsonHandler->create_key_value($email, $value);
+            header("location: login.php");
+            exit();
+        }
+        header("location: login.php");
+        exit();
+    }
 }

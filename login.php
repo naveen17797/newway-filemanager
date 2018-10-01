@@ -23,8 +23,8 @@ require_once 'lib/class.json_handler.php';
 
 //check if a admin user is present
 if (!file_exists("../../users.json")) {
-	header("location: setup.php");
-	exit();
+    header("location: setup.php");
+    exit();
 }
 
 $loader = new loader();
@@ -34,34 +34,30 @@ $loader->assign("SAMPLE", "");
 $loader->output();
 
 if (isset($_POST)) {
-
-	if (!empty($_POST['email']) && !empty($_POST['password'])) {
-
-		$email = $_POST['email'];
-		$password = $_POST['password'];
-		$jsonHandler = new jsonHandler("../../users.json");
-		$email_exists = $jsonHandler->check_if_key_exists($email);
-		if ($email_exists) {
-			//get the password from json
-			$values_json = $jsonHandler->get_value_by_key($email);
-			$values_array = json_decode($values_json, true);
-			$hashed_password = $values_array['password'];
-			if (password_verify($password, $hashed_password)) {
-				$_SESSION['authorized_email'] = $email;
-				header("location: index.php");
-				exit();
+    if (!empty($_POST['email']) && !empty($_POST['password'])) {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $jsonHandler = new jsonHandler("../../users.json");
+        $email_exists = $jsonHandler->check_if_key_exists($email);
+        if ($email_exists) {
+            //get the password from json
+            $values_json = $jsonHandler->get_value_by_key($email);
+            $values_array = json_decode($values_json, true);
+            $hashed_password = $values_array['password'];
+            if (password_verify($password, $hashed_password)) {
+                $_SESSION['authorized_email'] = $email;
+                header("location: index.php");
+                exit();
             }
-			// Error message
-			echo "<div class='alert alert-danger'>
+            // Error message
+            echo "<div class='alert alert-danger'>
 			Email or password is incorrect
 			</div>";
-		} else {
-			// Error message
+        } else {
+            // Error message
             echo "<div class='alert alert-danger'>
             Email or password is incorrect
             </div>";
-		}
-
-	}
-
+        }
+    }
 }

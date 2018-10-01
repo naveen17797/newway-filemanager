@@ -66,7 +66,7 @@ class loader
 
     public function assign($key, $value)
     {
-       $this->data[$key] = $value;
+        $this->data[$key] = $value;
     }
 
     public function output()
@@ -89,7 +89,6 @@ class loader
             echo "<script src='$directory/$name.js'></script>";
         }
     }
-
 }
 
 $loader = new loader;
