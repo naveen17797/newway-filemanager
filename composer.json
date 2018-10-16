@@ -2,7 +2,12 @@
     "name": "naveen-muthusamy/newway-filemanager",
     "type": "filemanager",
     "description": "A perfect file managing software for servers",
-    "keywords": ["filemanager","filemanager for server", "filemanager in php", "filemanager without database"],
+    "keywords": [
+        "filemanager",
+        "filemanager for server",
+        "filemanager in php",
+        "filemanager without database"
+    ],
     "homepage": "https://github.com/naveen17797/newway-filemanager",
     "license": "GPL 3.0",
     "authors": [
@@ -14,7 +19,10 @@
         }
     ],
     "require": {
-        "php": ">=7.0.0"
+        "php": ">=7.0.0",
+        "phpunit/phpunit": "^6.5"
+    },
+    "require-dev": {
     }
 
 }
