@@ -27,6 +27,7 @@ To install it, just download this repo and place the folder in your root and acc
 
 ## Troubleshotting
 **I can't seem to find my login details**
+
 Newway uses a `users.json` file to record created users. 
 
 Currently, the only way to reset it is to delete the `users.json` file (thus deleting the existing registered information). 
