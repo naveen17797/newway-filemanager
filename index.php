@@ -23,14 +23,7 @@ require 'lib/class.json_handler.php';
 
 /***** THESE LINES ARE FOR THE APPLICATION LOGIN SYSTEM ********/
 	/*** IF YOU WANT TO HOOK NEWWAY FILE MANAGER WITH YOUR APP LOGIN SYSTEM, PLEASE REMOVE THESE LINES ***/
-if (isset($_SESSION['authorized_email'])) {
-	if (!empty($_SESSION['authorized_email'])) {
-
-	} else {
-		header("location: login.php");
-		exit();
-	}
-} else {
+if (!isset($_SESSION['authorized_email']) || empty($_SESSION['authorized_email'])) {
 	header("location: login.php");
 	exit();
 }
