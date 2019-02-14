@@ -21,11 +21,22 @@ session_start();
 require 'loader.php';
 require 'lib/class.json_handler.php';
 
+
+$newway_user_email = $_SESSION['authorized_email'];
+
+$jsonHandler = new jsonHandler("../../users.json");
+
 /***** THESE LINES ARE FOR THE APPLICATION LOGIN SYSTEM ********/
 	/*** IF YOU WANT TO HOOK NEWWAY FILE MANAGER WITH YOUR APP LOGIN SYSTEM, PLEASE REMOVE THESE LINES ***/
 if (isset($_SESSION['authorized_email'])) {
 	if (!empty($_SESSION['authorized_email'])) {
+		$auth_user = $jsonHandler->check_if_key_exists($newway_user_email);
 
+		if(!$auth_user) {
+			session_unset();
+			header("location: login.php");
+			exit();
+		}
 	} else {
 		header("location: login.php");
 		exit();
@@ -36,11 +47,6 @@ if (isset($_SESSION['authorized_email'])) {
 }
 
 /******************************************************/
-
-
-$newway_user_email = $_SESSION['authorized_email'];
-
-$jsonHandler = new jsonHandler("../../users.json");
 
 $user_data = $jsonHandler->get_value_by_key($newway_user_email);
 
