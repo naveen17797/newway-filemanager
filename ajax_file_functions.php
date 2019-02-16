@@ -11,7 +11,11 @@ if (
 	!empty($_SESSION['newway_user_create_access']) &&
 	!empty($_SESSION['newway_user_delete_access'])
 ) {
+	print_r($_SESSION);
 	// Do nothing continue work
+	
+}
+else {
 	exit("Please Login to the application");
 }
 
