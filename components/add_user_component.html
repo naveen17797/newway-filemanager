@@ -24,14 +24,16 @@
 	          <div class="input-group-text"><i class="fa fa-exclamation-triangle"></i></div>
 	        </div>
 			<select v-model="access" class="form-control">
+				<option value="" disabled selected>Choose user access level</option>
 				<option value="0">This user can see files</option>
 				<option value="1">This user can see,write files</option>
 				<option value="2">This user can see,write,delete files</option>
 				<option value="3">This user can see,write,delete files and also add other users</option>
+
 			</select>
 		</div>
 		<br/>
-		<button class="btn btn-lg btn-primary">Submit</button>
+		<button class="btn btn-primary">Submit</button>
 	</div>
 
 </script>

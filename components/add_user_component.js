@@ -6,7 +6,7 @@ Vue.component('add-user-component', {
 		return  {
 			email: "",
 			password:"",
-			access:0
+			access:""
 		}
 	},
 })
