@@ -1,19 +1,35 @@
 <script type="text/x-template" id="add_user_component_template">
 
-	<div class="offset-sm-4 col-sm-3 text-light text-center">
+	<div class="offset-sm-4 col-sm-3 text-center">
 		<br/><br/>
 		<h4>Add New User </h4>
 		<br/><br/>
-		<input type="text" class="form-control" v-model="email" placeholder="Enter New User Email Address">
+		<div class="input-group">
+			<div class="input-group-prepend">
+	          <div class="input-group-text"><i class="fa fa-envelope"></i></div>
+	        </div>
+			<input type="text" class="form-control" v-model="email" placeholder="Enter New User Email Address">
+		</div>
 		<br/>
-		<input type="password" class="form-control" v-model="password" placeholder="Enter New User Password">
+		<div class="input-group">
+			<div class="input-group-prepend">
+	          <div class="input-group-text"><i class="fa fa-key"></i></div>
+	        </div>
+			<input type="password" class="form-control" v-model="password" placeholder="Enter New User Password">
+		</div>
 		<br/>
 
-		<select v-model="access" class="form-control">
-			<option value="0">Read Files</option>
-			<option value="1">Read,write Files</option>
-			<option value="2">Read,write,delete Files (admin)</option>
-		</select>
+		<div class="input-group">
+			<div class="input-group-prepend">
+	          <div class="input-group-text"><i class="fa fa-exclamation-triangle"></i></div>
+	        </div>
+			<select v-model="access" class="form-control">
+				<option value="0">This user can see files</option>
+				<option value="1">This user can see,write files</option>
+				<option value="2">This user can see,write,delete files</option>
+				<option value="3">This user can see,write,delete files and also add other users</option>
+			</select>
+		</div>
 		<br/>
 		<button class="btn btn-lg btn-primary">Submit</button>
 	</div>
