@@ -14,19 +14,19 @@
 
 <?php 
 	require_once 'components/login_component.html';
-	require_once 'components/registration_component.html';
+	require_once 'components/add_user_component.html';
 ?>
 
 
 <div class="col-sm-12 bg-dark color-light" style="height: 100%;" id="filemanager_area">
 	<login-component></login-component>
-	<registration-component></registration-component>
+	<add-user-component></add-user-component>
 </div>
 
 <script type="text/javascript" src="js/vue.js"></script>
 <script type="text/javascript" src="js/vue-resource.js"></script>
 <script type="text/javascript" src="components/login_component.js"></script>
-<script type="text/javascript" src="components/registration_component.js"></script>
+<script type="text/javascript" src="components/add_user_component.js"></script>
 
 <script>
 	new Vue({
