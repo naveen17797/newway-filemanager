@@ -32,15 +32,15 @@ class Authorisation {
 	// email and password and also has access levels
 	private $user_data_manager = null;
 
-	public function __construct(string $username, string $password, UserDataManager $userDataManager) {
+	public function __construct(string $email, string $password, UserDataManager $userDataManager) {
 	
 		$this->user_data_manager = $userDataManager;
-		$this->username = $username;
+		$this->email = $email;
 		$this->password = $password;	
 	}
 
 	public function isUserAuthorised() {
-		return $this->user_data_manager->getUserData($this->username, $this->password) != null;
+		return $this->user_data_manager->getUserData($this->email, $this->password) != null;
 	}
 }
 
