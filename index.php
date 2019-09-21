@@ -42,9 +42,15 @@
 			ReadWriteDelete: 2,
 			Admin: 3,
 	}
-</script>
 
+	const ServerBinaryResponse =  {
+		success:1,
+		error:0
+	}
+</script>
+<script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
+<script>const event_bus = new Vue({})</script>
 <script type="text/javascript" src="js/vue-resource.js"></script>
 <script type="text/javascript" src="components/login_component.js"></script>
 <script type="text/javascript" src="components/add_user_component.js"></script>
@@ -56,31 +62,57 @@
 		el: "#filemanager_area",
 
 		created() {
-
-			this.$http.post(API_URL, {"action":"get_current_status"}, {emulateJSON:true})
-			.then(response=> {
-				const server_response_code = response.body.return_code;
-				switch (server_response_code) {
-					case ServerResponseCodes.FirstTimeInstallation:
-						this.is_first_time_installation = true
-						break;
-					case ServerResponseCodes.LoggedIn:
-						this.is_logged_in = true
-						break;
-					case ServerResponseCodes.NotAuthenticated:
-						this.is_logged_in = false
-						break;
-					default:
-						break;					
-				}
-			})
-
+			this.getCurrentStateOnPageLoad()
+			this.setUpRegistrationEventHander()
 		},
 
 		data: {
 			is_logged_in: false,
 			is_first_time_installation: false,
 			api_url: API_URL
+		},
+
+		methods: 
+		{
+				setUpRegistrationEventHander() {
+					event_bus.$on('registration', (server_response)=> {
+						switch (server_response) {
+							case ServerBinaryResponse.success:
+								// registration success
+								this.is_first_time_installation = false
+								break;
+							case ServerBinaryResponse.error:
+								
+								break;
+							default:
+								// statements_def
+								break;
+						}
+					})
+				},
+
+				getCurrentStateOnPageLoad() {
+
+					this.$http.post(API_URL, {"action":"get_current_status"}, {emulateJSON:true})
+						.then(response=> {
+							const server_response_code = response.body.return_code;
+							switch (server_response_code) {
+								case ServerResponseCodes.FirstTimeInstallation:
+									this.is_first_time_installation = true
+									break;
+								case ServerResponseCodes.LoggedIn:
+									this.is_logged_in = true
+									break;
+								case ServerResponseCodes.NotAuthenticated:
+									this.is_logged_in = false
+									break;
+								default:
+									break;					
+							}
+						})
+				}
+	
+
 		}
 
 	})
@@ -90,5 +122,6 @@
 		data: {
 			application_title: "Newway File Manager"
 		}
+
 	})
 </script>

@@ -1,0 +1,8 @@
+<script type="text/x-template" id="alert_component_template">
+	<div :class="'alert' + alert_type 'alert-dismissible fade show'" role="alert">
+	  <strong>{{ alert_title }}</strong> {{ alert_description }}.
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    <span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+</script>

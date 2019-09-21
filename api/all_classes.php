@@ -191,7 +191,7 @@ class JsonUserDataManager implements UserDataManager {
     public function save():bool {
     	$file_contents = json_encode($this->user_data);
 		$file_pointer = fopen($this->full_file_path, "w+");
-		return fwrite($file_pointer, $file_contents);
+		return fwrite($file_pointer, $file_contents) > 0;
 
     }
 

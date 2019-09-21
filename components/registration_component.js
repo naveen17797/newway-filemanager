@@ -28,7 +28,8 @@ Vue.component('registration-component', {
 
 			this.$http.post(this.api_url, registration_object, {emulateJSON:true})
 				.then(response=> {
-					console.log(response.body)
+					const server_response = response.body
+					event_bus.$emit('registration', server_response)
 				})
 
 		}
