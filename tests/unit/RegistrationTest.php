@@ -11,7 +11,7 @@ class RegistrationTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
-        $this->user_data_manager = new JsonUserDataManager();
+        $this->user_data_manager = JsonUserDataManager::getInstance();
     }
 
     public function testWhenNoUserPresentAbleToRegisterAsAdminUser() {
@@ -19,7 +19,8 @@ class RegistrationTest extends \Codeception\Test\Unit
         $user_to_be_registered = new User("foo@gmail.com", "foo", AccessLevel::Admin);
         $this->user_data_manager->insertUser($user_to_be_registered);
         // since user is registered we need to get it back
-        $this->user_data_manager->getUser("foo@gmail.com", "foo");
+        $user_instance = $this->user_data_manager->getUser("foo@gmail.com", "foo");
+        $this->assertNotNull($user_instance);
     }
 
     protected function _after()
