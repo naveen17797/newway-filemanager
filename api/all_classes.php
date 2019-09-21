@@ -102,15 +102,15 @@ class JsonUserDataManager implements UserDataManager {
 	}
 
 	private function loadFileContents() {
-
+		echo "i came here";
 		// check if file is present
 		if (file_exists($this->full_file_path)) {
 			$file_pointer = fopen($this->full_file_path, "w+");
 			
 			try {
 				if ($file_pointer) {
-					$this->user_data = fread($file_pointer, 
-						filesize($this->full_file_path));
+					$this->user_data = json_decode(fread($file_pointer, 
+						filesize($this->full_file_path)), true);
 
 				}
 				else {
@@ -144,13 +144,51 @@ class JsonUserDataManager implements UserDataManager {
 
 	public function insertUser(User $user):bool {
 
-	   array_key_exists($user->email, $this->user_data);
-       
-       return false;
-    
+		// first check if there are any user present in current db
+		// if there are not then it is first time installation
+		if (count($this->user_data) > 0) {
+
+			// then check if the user has the permission to 
+			// add the new user
+			$current_user_instance = SessionUser::getCurrenUserInstance();
+			if ($current_user_instance == null) {
+				// unauthorised login access, so return false
+				return false;
+			}
+			else {
+				// check for access level
+				if ($current_user_instance->canAddUsers()) {
+					// has access
+					return $this->constructArrayAndSaveToDb($user);
+				}
+				else {
+					return false;
+				}
+			}
+
+		}
+		else {
+			// new user first installation, simply register
+			return $this->constructArrayAndSaveToDb($user);
+		}
+    	
+    }
+
+    private function constructArrayAndSaveToDb($user) {
+    		// allow user to be registered
+			$this->user_data[$user->email] = array(
+													"email"=>$user->email,
+													"password"=>$user->password,
+													"access_level"=>$user->access_level
+												);
+			// and call save
+    		return $this->save();
     }
 
     public function save():bool {
+    	$file_contents = json_encode($this->user_data);
+		$file_pointer = fopen($this->full_file_path, "w+");
+		return fwrite($file_pointer, $file_contents);
 
     }
 
