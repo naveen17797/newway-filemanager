@@ -18,9 +18,8 @@ class JsonUserDataManager implements UserDataManager {
 	public function getUserData(string $email, string $password):?User {
 
 
-
-
 	}
+	
 
 
 }
