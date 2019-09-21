@@ -8,10 +8,12 @@ class RegistrationTest extends \Codeception\Test\Unit
      * @var \UnitTester
      */
     protected $tester;
+
+    private $db_storage_file_name = "test_newway_users.json";
     
     protected function _before()
-    {
-        $this->user_data_manager = JsonUserDataManager::getInstance();
+    {   
+        $this->user_data_manager = JsonUserDataManager::getInstance($this->db_storage_file_name);
     }
 
     public function testWhenNoUserPresentAbleToRegisterAsAdminUser() {
@@ -21,10 +23,16 @@ class RegistrationTest extends \Codeception\Test\Unit
         // since user is registered we need to get it back
         $user_instance = $this->user_data_manager->getUser("foo@gmail.com", "foo");
         $this->assertNotNull($user_instance);
+        $this->assertEquals($user_instance, $user_to_be_registered);
     }
+
 
     protected function _after()
     {
+        if (file_exists($this->user_data_manager->full_file_path)) {
+            // clean up flat file db 
+            unlink($this->user_data_manager->full_file_path);
+        }
     }
 
 }

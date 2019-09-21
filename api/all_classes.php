@@ -54,10 +54,10 @@ class User {
 class SessionUser {
 	static $current_user_instance = null;
 	// returns current logged in user instance from session
-	public function getCurrenUserInstance() {
+	public function getCurrenUserInstance($json_file_name="") {
 
 		if (self::$current_user_instance == null) {
-			self::$current_user_instance = JsonUserDataManager::getInstance()->getUser($_SESSION['email'], $_SESSION['password']);
+			self::$current_user_instance = JsonUserDataManager::getInstance($json_file_name)->getUser($_SESSION['email'], $_SESSION['password']);
 		}
 
 		return self::$current_user_instance;
@@ -73,6 +73,8 @@ interface UserDataManager {
 	public function insertUser(User $user):bool;
 
 	public function save():bool;
+
+	public function checkIfAdminUserPresent():bool;
 }
 
 
@@ -102,7 +104,6 @@ class JsonUserDataManager implements UserDataManager {
 	}
 
 	private function loadFileContents() {
-		echo "i came here";
 		// check if file is present
 		if (file_exists($this->full_file_path)) {
 			$file_pointer = fopen($this->full_file_path, "w+");
@@ -157,7 +158,9 @@ class JsonUserDataManager implements UserDataManager {
 			}
 			else {
 				// check for access level
-				if ($current_user_instance->canAddUsers()) {
+				// and also check for duplicate email address
+				if ($current_user_instance->canAddUsers() &&
+					$current_user_instance->email != $user->email) {
 					// has access
 					return $this->constructArrayAndSaveToDb($user);
 				}
@@ -190,6 +193,23 @@ class JsonUserDataManager implements UserDataManager {
 		$file_pointer = fopen($this->full_file_path, "w+");
 		return fwrite($file_pointer, $file_contents);
 
+    }
+
+    public function checkIfAdminUserPresent():bool {
+
+    	if (count($this->user_data) > 0) {
+    		$users = $this->user_data;
+    		foreach ($users as $user) {
+    			if ($user->canAddUsers()) {
+    				return true;
+    				break;
+    			}
+    		}
+    		return false;
+    	}
+    	else {
+    		return false;
+    	}
     }
 
 
