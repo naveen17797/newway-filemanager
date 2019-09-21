@@ -20,10 +20,29 @@
 
 
 <div class="col-sm-12"  id="filemanager_area">
-	<login-component></login-component>
-	<add-user-component></add-user-component>
-	<registration-component></registration-component>
+	<login-component v-if="is_logged_in == false && is_first_time_installation == false"></login-component>
+	<add-user-component v-if="is_logged_in"></add-user-component>
+	<registration-component v-if="is_first_time_installation" :api_url="api_url"></registration-component>
 </div>
+
+<script type="text/javascript">
+	//load globals and enums
+	const API_URL = "api/views.php";
+
+	const ServerResponseCodes = {
+		FirstTimeInstallation:10,
+		LoggedIn:11,
+		NotAuthenticated:12
+	}
+
+	const AccessLevels = {
+			NoAccess: -1,
+			ReadOnly: 0,
+			ReadWrite: 1,
+			ReadWriteDelete: 2,
+			Admin: 3,
+	}
+</script>
 
 <script type="text/javascript" src="js/vue.js"></script>
 <script type="text/javascript" src="js/vue-resource.js"></script>
@@ -32,17 +51,36 @@
 <script type="text/javascript" src="components/registration_component.js"></script>
 
 <script>
+
 	new Vue({
 		el: "#filemanager_area",
 
 		created() {
 
-
+			this.$http.post(API_URL, {"action":"get_current_status"}, {emulateJSON:true})
+			.then(response=> {
+				const server_response_code = response.body.return_code;
+				switch (server_response_code) {
+					case ServerResponseCodes.FirstTimeInstallation:
+						this.is_first_time_installation = true
+						break;
+					case ServerResponseCodes.LoggedIn:
+						this.is_logged_in = true
+						break;
+					case ServerResponseCodes.NotAuthenticated:
+						this.is_logged_in = false
+						break;
+					default:
+						break;					
+				}
+			})
 
 		},
 
 		data: {
-			is_logged_in: false
+			is_logged_in: false,
+			is_first_time_installation: false,
+			api_url: API_URL
 		}
 
 	})

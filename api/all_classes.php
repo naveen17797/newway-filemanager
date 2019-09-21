@@ -68,7 +68,7 @@ class SessionUser {
 
 interface UserDataManager {
 
-	public function getUser(string $email, string $password):?User;
+	public function getUser(?string $email, ?string $password):?User;
 
 	public function insertUser(User $user):bool;
 
@@ -126,7 +126,7 @@ class JsonUserDataManager implements UserDataManager {
 		}
 	}
 
-	public function getUser(string $email, string $password):?User {
+	public function getUser(?string $email, ?string $password):?User {
 
 		if (array_key_exists($email, $this->user_data)) {
 
