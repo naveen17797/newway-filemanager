@@ -16,10 +16,12 @@
 	require_once 'components/login_component.html';
 	require_once 'components/add_user_component.html';
 	require_once 'components/registration_component.html';
+	require_once 'components/alert_component.html';
 ?>
 
 
 <div class="col-sm-12"  id="filemanager_area">
+	<alert-component :alert_title="alert_object.title" :alert_description="alert_object.description" :alert_type="alert_object.type"></alert-component>
 	<login-component v-if="is_logged_in == false && is_first_time_installation == false"></login-component>
 	<add-user-component v-if="is_logged_in"></add-user-component>
 	<registration-component v-if="is_first_time_installation" :api_url="api_url"></registration-component>
@@ -47,7 +49,14 @@
 		success:1,
 		error:0
 	}
+
+	const AlertType = {
+		Success:"alert-success",
+		Failure:"alert-danger",
+		Warning:"alert-warning"
+	}
 </script>
+<script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
 <script>const event_bus = new Vue({})</script>
@@ -55,6 +64,7 @@
 <script type="text/javascript" src="components/login_component.js"></script>
 <script type="text/javascript" src="components/add_user_component.js"></script>
 <script type="text/javascript" src="components/registration_component.js"></script>
+<script type="text/javascript" src="components/alert_component.js"></script>
 
 <script>
 
@@ -69,17 +79,28 @@
 		data: {
 			is_logged_in: false,
 			is_first_time_installation: false,
-			api_url: API_URL
+			api_url: API_URL,
+			alert_object: {
+				"title":"",
+				"description":"",
+				"type":AlertType.Success
+			}
 		},
 
 		methods: 
 		{
 				setUpRegistrationEventHander() {
 					event_bus.$on('registration', (server_response)=> {
+						server_response = parseInt(server_response)
 						switch (server_response) {
 							case ServerBinaryResponse.success:
 								// registration success
 								this.is_first_time_installation = false
+								this.alert_object.title = "Success"
+								this.alert_object.description = " You have been successfully registered, please login"
+								this.alert_object.type = AlertType.Success
+								console.log(this.alert_object)
+
 								break;
 							case ServerBinaryResponse.error:
 								
