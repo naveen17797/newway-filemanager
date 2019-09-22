@@ -106,7 +106,7 @@ class JsonUserDataManager implements UserDataManager {
 	private function loadFileContents() {
 		// check if file is present
 		if (file_exists($this->full_file_path)) {
-			$file_pointer = fopen($this->full_file_path, "w+");
+			$file_pointer = fopen($this->full_file_path, "r");
 			
 			try {
 				if ($file_pointer) {
@@ -133,7 +133,6 @@ class JsonUserDataManager implements UserDataManager {
 			$single_user_data = $this->user_data[$email];
 
 			return new User($single_user_data['email'], $single_user_data['password'], $single_user_data['access_level']);
-
 		}
 		else {
 
@@ -200,7 +199,7 @@ class JsonUserDataManager implements UserDataManager {
     	if (count($this->user_data) > 0) {
     		$users = $this->user_data;
     		foreach ($users as $user) {
-    			if ($user->canAddUsers()) {
+    			if ($user['access_level'] == AccessLevel::Admin) {
     				return true;
     				break;
     			}
