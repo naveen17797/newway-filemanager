@@ -1,17 +1,6 @@
 <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 
-
-<div id="navbar_content">
-	<title>{{ application_title }}</title>
-
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light sticky-top">
-	  <div class="container">
-	    <a class="navbar-brand" href="#"><i class="fa fa-shield"></i> &nbsp;{{ application_title }}</a>
-	  </div>
-	</nav>
-</div>
-
 <?php 
 	require_once 'components/login_component.html';
 	require_once 'components/add_user_component.html';
@@ -20,12 +9,24 @@
 ?>
 
 
-<div class="col-sm-12"  id="filemanager_area">
-	<alert-component :alert_title="alert_object.title" :alert_description="alert_object.description" :alert_type="alert_object.type"></alert-component>
-	<login-component v-if="is_logged_in == false && is_first_time_installation == false" :api_url="api_url"></login-component>
-	<add-user-component v-if="is_logged_in"></add-user-component>
-	<registration-component v-if="is_first_time_installation" :api_url="api_url"></registration-component>
-</div>
+
+		<div  id="filemanager_area" class="col-sm-12">
+
+			<title>{{ application_title }}</title>
+
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light sticky-top">
+			  <div class="container">
+			    <a class="navbar-brand" href="#"><i class="fa fa-shield"></i> &nbsp;{{ application_title }}</a>
+			  </div>
+			</nav>
+
+			<alert-component :alert_title="alert_object.title" :alert_description="alert_object.description" :alert_type="alert_object.type"></alert-component>
+			<login-component v-if="is_logged_in == false && is_first_time_installation == false" :api_url="api_url"></login-component>
+			<add-user-component v-if="is_logged_in"></add-user-component>
+			<registration-component v-if="is_first_time_installation" :api_url="api_url"></registration-component>
+		</div>
+
+
 
 <script type="text/javascript">
 	//load globals and enums
@@ -91,7 +92,8 @@
 				"title":"",
 				"description":"",
 				"type":AlertType.Success
-			}
+			},
+			application_title: "Newway File Manager",
 		},
 
 		methods: 
@@ -170,14 +172,6 @@
 				}
 	
 
-		}
-
-	})
-	new Vue({
-		el: "#navbar_content",
-
-		data: {
-			application_title: "Newway File Manager"
 		}
 
 	})

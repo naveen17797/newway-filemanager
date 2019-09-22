@@ -1,5 +1,5 @@
 <?php 
-
+session_start();
 define( 'ABSPATH', dirname(dirname(__FILE__)) . '/' );
 
 abstract class AccessLevel {
@@ -19,7 +19,6 @@ class User {
 		$this->email = $email;
 		$this->password = $hashed_password;
 		$this->unhashed_password = $unhashed_password;
-
 	}
 
 	public function getPasswordHash() {
@@ -28,6 +27,8 @@ class User {
 
 	public function userShouldBeAllowedToLogin() {
 		if ($this->unhashed_password != null) {
+			$_SESSION['email'] = $this->email;
+			$_SESSION['password'] = $this->unhashed_password;
 			return password_verify($this->unhashed_password, $this->password);
 		}
 		else {
