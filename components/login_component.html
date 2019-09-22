@@ -18,7 +18,7 @@
 			<input type="password" class="form-control" v-model="password" placeholder="Enter Your Password">
 		</div>
 		<br/><br/>
-		<button class="btn  btn-primary">Submit</button>
+		<button class="btn  btn-primary" :disabled="email.length == 0 || password.length == 0" @click="loginUser()">Submit</button>
 	</div>
 
 </script>

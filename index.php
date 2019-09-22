@@ -22,7 +22,7 @@
 
 <div class="col-sm-12"  id="filemanager_area">
 	<alert-component :alert_title="alert_object.title" :alert_description="alert_object.description" :alert_type="alert_object.type"></alert-component>
-	<login-component v-if="is_logged_in == false && is_first_time_installation == false"></login-component>
+	<login-component v-if="is_logged_in == false && is_first_time_installation == false" :api_url="api_url"></login-component>
 	<add-user-component v-if="is_logged_in"></add-user-component>
 	<registration-component v-if="is_first_time_installation" :api_url="api_url"></registration-component>
 </div>
@@ -55,6 +55,12 @@
 		Failure:"alert-danger",
 		Warning:"alert-warning"
 	}
+
+	const LoginError = {
+		EmailIncorrect:13,
+		PasswordIncorrect:14,
+	}
+
 </script>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/util.js"></script>
@@ -74,6 +80,7 @@
 		created() {
 			this.getCurrentStateOnPageLoad()
 			this.setUpRegistrationEventHander()
+			this.setUpLoginEventHandler()
 		},
 
 		data: {
@@ -89,6 +96,35 @@
 
 		methods: 
 		{
+
+
+				setUpLoginEventHandler() {
+					event_bus.$on('login', (server_response)=> {
+						server_response = parseInt(server_response)
+						switch (server_response) {
+							case LoginError.EmailIncorrect:
+								// registration success
+								this.is_first_time_installation = false
+								this.alert_object.title = "Failure"
+								this.alert_object.description = "Entered email didnt match any registered users"
+								this.alert_object.type = AlertType.Failure
+								break;
+							case LoginError.PasswordIncorrect:
+								this.alert_object.title = "Failure"
+								this.alert_object.description = "Entered password is wrong, recheck your password"
+								this.alert_object.type = AlertType.Failure
+								break;
+							case ServerResponseCodes.LoggedIn:
+								this.is_logged_in = true
+								break;
+							default:
+								// statements_def
+								break;
+						}
+					})
+				},
+
+
 				setUpRegistrationEventHander() {
 					event_bus.$on('registration', (server_response)=> {
 						server_response = parseInt(server_response)
@@ -99,11 +135,11 @@
 								this.alert_object.title = "Success"
 								this.alert_object.description = " You have been successfully registered, please login"
 								this.alert_object.type = AlertType.Success
-								console.log(this.alert_object)
-
 								break;
 							case ServerBinaryResponse.error:
-								
+								this.alert_object.title = "Registration Failure"
+								this.alert_object.description = "Please Check Your File Permissions"
+								this.alert_object.type = AlertType.Failure
 								break;
 							default:
 								// statements_def
