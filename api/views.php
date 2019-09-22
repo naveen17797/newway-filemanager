@@ -8,6 +8,11 @@ abstract class FileManagerState {
 	const NotAuthenticated = 12;
 }
 
+
+abstract class LoginError {
+	const EmailIncorrect = 13;
+	const PasswordIncorrect = 14;
+}
 $action = $_POST['action'];
 
 if ($action == "register_new_user") {
@@ -50,7 +55,18 @@ if ($action == "login_user") {
 	if (isset($_POST['email'], $_POST['password'])) {
 		$return_code = null;
 		$user_data_manager = JsonUserDataManager::getInstance();
-		$user_data_manager->getUser();
+		$logged_in_user = $user_data_manager->getUser($_POST['email'], $_POST['password']);
+		if ($logged_in_user != null) {
+			if ($logged_in_user->userShouldBeAllowedToLogin()) {
+				echo FileManagerState::LoggedIn;
+			}
+			else {
+				echo LoginError::PasswordIncorrect;
+			}
+		}
+		else {
+			echo LoginError::EmailIncorrect;
+		}
 	}
 }
 	
