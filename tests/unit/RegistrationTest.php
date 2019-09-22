@@ -26,6 +26,14 @@ class RegistrationTest extends \Codeception\Test\Unit
         $this->assertEquals($user_instance, $user_to_be_registered);
     }
 
+    public function testWhenAdminUserPresentTryingToRegisterAsAdminUser() {
+        $user_to_be_registered = new User("foo@gmail.com", "foo", AccessLevel::Admin);
+        $this->user_data_manager->insertUser($user_to_be_registered);
+        // the user is registered, we try to re register it and 
+        // observe the result, it should return false
+        $result = $this->user_data_manager->insertUser($user_to_be_registered);
+        $this->assertFalse($result);
+    }
 
     protected function _after()
     {

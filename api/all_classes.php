@@ -57,7 +57,9 @@ class SessionUser {
 	public function getCurrenUserInstance($json_file_name="") {
 
 		if (self::$current_user_instance == null) {
-			self::$current_user_instance = JsonUserDataManager::getInstance($json_file_name)->getUser($_SESSION['email'], $_SESSION['password']);
+			if (isset($_SESSION['email'], $_SESSION['password'])) {
+				self::$current_user_instance = JsonUserDataManager::getInstance($json_file_name)->getUser($_SESSION['email'], $_SESSION['password']);
+			}
 		}
 
 		return self::$current_user_instance;
