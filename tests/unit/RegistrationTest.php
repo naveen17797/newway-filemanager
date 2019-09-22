@@ -23,7 +23,7 @@ class RegistrationTest extends \Codeception\Test\Unit
         // since user is registered we need to get it back
         $user_instance = $this->user_data_manager->getUser("foo@gmail.com", "foo");
         $this->assertNotNull($user_instance);
-        $this->assertEquals($user_instance, $user_to_be_registered);
+        $this->assertEquals($user_instance->email, $user_to_be_registered->email);
     }
 
     public function testWhenAdminUserPresentTryingToRegisterAsAdminUser() {

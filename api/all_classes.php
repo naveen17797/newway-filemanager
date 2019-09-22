@@ -13,12 +13,26 @@ abstract class AccessLevel {
 
 class User {
 
-	public function __construct(string $email, string $password, int $access_level) {
+	public function __construct(string $email, string $hashed_password, int $access_level, ?string $unhashed_password=null) {
 
 		$this->access_level = $access_level;
 		$this->email = $email;
-		$this->password = $password;
+		$this->password = $hashed_password;
+		$this->unhashed_password = $unhashed_password;
 
+	}
+
+	public function getPasswordHash() {
+		return password_hash($this->password, PASSWORD_DEFAULT);
+	}
+
+	public function userShouldBeAllowedToLogin() {
+		if ($this->unhashed_password != null) {
+			return password_verify($this->unhashed_password, $this->password);
+		}
+		else {
+			return false;
+		}
 	}
 
 	public function canReadFiles() {
@@ -128,13 +142,13 @@ class JsonUserDataManager implements UserDataManager {
 		}
 	}
 
-	public function getUser(?string $email, ?string $password):?User {
+	public function getUser(?string $email, ?string $supplied_password):?User {
 
 		if (array_key_exists($email, $this->user_data)) {
 
 			$single_user_data = $this->user_data[$email];
 
-			return new User($single_user_data['email'], $single_user_data['password'], $single_user_data['access_level']);
+			return new User($single_user_data['email'], $single_user_data['password'], $single_user_data['access_level'], $supplied_password);
 		}
 		else {
 
@@ -182,7 +196,7 @@ class JsonUserDataManager implements UserDataManager {
     		// allow user to be registered
 			$this->user_data[$user->email] = array(
 													"email"=>$user->email,
-													"password"=>$user->password,
+													"password"=>$user->getPasswordHash(),
 													"access_level"=>$user->access_level
 												);
 			// and call save

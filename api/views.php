@@ -44,6 +44,15 @@ if ($action == "get_current_status") {
 
 	echo json_encode(array("return_code"=>$return_code));
 }
+
+if ($action == "login_user") {
+
+	if (isset($_POST['email'], $_POST['password'])) {
+		$return_code = null;
+		$user_data_manager = JsonUserDataManager::getInstance();
+		$user_data_manager->getUser();
+	}
+}
 	
 
 ?>
