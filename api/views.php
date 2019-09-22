@@ -71,6 +71,16 @@ if ($action == "login_user") {
 }
 
 
+if ($action == "get_files") {
+
+	$directory = $_POST['directory'];
+
+	if ($directory == "") {
+		// use root directory
+		
+	}
+
+}
 	
 
 ?>

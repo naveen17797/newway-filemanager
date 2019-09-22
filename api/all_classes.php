@@ -1,6 +1,7 @@
 <?php 
 session_start();
 define( 'ABSPATH', dirname(dirname(__FILE__)) . '/' );
+define( 'SERVER_ROOT', dirname(ABSPATH)."/");
 
 abstract class AccessLevel {
 	const NoAccess = -1;
@@ -232,5 +233,35 @@ class JsonUserDataManager implements UserDataManager {
 }
 
 
+
+class NewwayFileManager {
+
+	public function __construct($current_logged_in_user_instance) {
+
+		$this->current_logged_in_user_instance = $current_logged_in_user_instance;
+	}
+
+	public function getFilesAndFolders($directory):?array {
+		if ($this->current_logged_in_user_instance->canReadFiles()) {
+			$files_and_folders = array();
+			$files = new DirectoryIterator($directory);
+			foreach ($files as $file_info) {
+				if (!$file_info->isDot()) {
+					$single_file_info_array = array();
+					$single_file_info_array['name'] = $file_info->getFilename();
+					$single_file_info_array['size'] = $file_info->getSize();
+					$single_file_info_array['is_directory'] = $file_info->isDir();
+					$single_file_info_array['extension'] = $file_info->getExtension();
+					array_push($files_and_folders, $single_file_info_array);
+				}
+			}
+			return $files_and_folders;
+		}
+		else {
+			return null;
+		}
+		
+	}	
+}
 
 ?>
