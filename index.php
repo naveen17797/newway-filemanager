@@ -8,10 +8,21 @@
 	require_once 'components/alert_component.html';
 	require_once 'components/file_folder_component.html';
 ?>
+<style type="text/css">
+	td.file_folder_item:hover {
+		border: 5px solid blue;
+	}
+	.bigger_icon {
+		font-size: 70px;
+	}
+
+	.borderless td, .borderless th {
+	    border: none;
+	}
+</style>
 
 
-
-		<div  id="filemanager_area" class="col-sm-12">
+		<div  id="filemanager_area" class="">
 
 			<title>{{ application_title }}</title>
 
@@ -23,10 +34,21 @@
 
 			<alert-component :alert_title="alert_object.title" :alert_description="alert_object.description" :alert_type="alert_object.type"></alert-component>
 			<login-component v-if="is_logged_in == false && is_first_time_installation == false" :api_url="api_url"></login-component>
-			<add-user-component v-if="is_logged_in"></add-user-component>
+			
 			<registration-component v-if="is_first_time_installation" :api_url="api_url"></registration-component>
 			<br/><br/>
-			<file-folder-component v-if="is_logged_in" :files_and_folders_prop="files"></file-folder-component>
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-3">
+						<add-user-component v-if="is_logged_in"></add-user-component>
+					</div>
+					<div class="col-sm-9">
+						<file-folder-component v-if="is_logged_in" :files_and_folders_prop="files"></file-folder-component>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 
 
