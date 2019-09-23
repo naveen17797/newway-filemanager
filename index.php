@@ -10,7 +10,7 @@
 ?>
 <style type="text/css">
 	td.file_folder_item:hover {
-		border: 5px solid blue;
+		border: 2px solid blue;
 	}
 	.bigger_icon {
 		font-size: 70px;
