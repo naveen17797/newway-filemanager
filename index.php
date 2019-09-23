@@ -6,6 +6,7 @@
 	require_once 'components/add_user_component.html';
 	require_once 'components/registration_component.html';
 	require_once 'components/alert_component.html';
+	require_once 'components/file_folder_component.html';
 ?>
 
 
@@ -24,6 +25,7 @@
 			<login-component v-if="is_logged_in == false && is_first_time_installation == false" :api_url="api_url"></login-component>
 			<add-user-component v-if="is_logged_in"></add-user-component>
 			<registration-component v-if="is_first_time_installation" :api_url="api_url"></registration-component>
+			<file-folder-component v-if="is_logged_in" :files_and_folders_prop="files"></file-folder-component>
 		</div>
 
 
@@ -72,7 +74,7 @@
 <script type="text/javascript" src="components/add_user_component.js"></script>
 <script type="text/javascript" src="components/registration_component.js"></script>
 <script type="text/javascript" src="components/alert_component.js"></script>
-
+<script type="text/javascript" src="components/file_folder_component.js"></script>
 <script>
 
 	new Vue({
@@ -94,6 +96,22 @@
 				"type":AlertType.Success
 			},
 			application_title: "Newway File Manager",
+			current_user:null,
+			files:[],
+		},
+
+		watch: {
+
+			is_logged_in: function(newValue, oldValue) {
+				console.log("watcher activated")
+				//console.log('old value is ' + oldValue)
+				console.log('new value is '+ newValue)
+				if (newValue) {
+					// if logged in then get files
+					this.getFilesAndFolders()
+				}
+			}
+
 		},
 
 		methods: 
@@ -160,6 +178,7 @@
 									this.is_first_time_installation = true
 									break;
 								case ServerResponseCodes.LoggedIn:
+									console.log('logged in ')
 									this.is_logged_in = true
 									break;
 								case ServerResponseCodes.NotAuthenticated:
@@ -169,7 +188,25 @@
 									break;					
 							}
 						})
-				}
+				},
+
+
+				getFilesAndFolders() {
+					const file_object = {
+						"action":"get_files"
+					}
+					this.$http.post(API_URL, file_object, {emulateJSON:true}).then(response=> {
+						const server_response = response.body;
+						if (Array.isArray(server_response)) {
+							Vue.set(this, "files", server_response)
+							console.log(server_response)
+						}
+						else {
+							console.log('not array')
+						}
+					})
+
+				},
 	
 
 		}

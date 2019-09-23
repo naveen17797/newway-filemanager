@@ -77,8 +77,17 @@ if ($action == "get_files") {
 
 	if ($directory == "") {
 		// use root directory
-		
+		$directory = SERVER_ROOT;
 	}
+	$current_user_instance = SessionUser::getCurrenUserInstance();
+	if ($current_user_instance != null) {
+		$file_manager = new NewwayFileManager($current_user_instance);
+		echo json_encode($file_manager->getFilesAndFolders(SERVER_ROOT));
+	}
+	else {
+		return FileManagerState::NotAuthenticated;
+	}
+
 
 }
 	
