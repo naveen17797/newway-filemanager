@@ -10,7 +10,7 @@
 ?>
 <style type="text/css">
 	td.file_folder_item:hover {
-		border: 2px solid blue;
+		background-color: rgba(0,0,130, 0.2);
 	}
 	.bigger_icon {
 		font-size: 70px;
@@ -38,13 +38,14 @@
 			<registration-component v-if="is_first_time_installation" :api_url="api_url"></registration-component>
 			<br/><br/>
 
-			<div class="container-fluid">
+			<div class="container-fluid" v-if="is_logged_in">
 				<div class="row">
 					<div class="col-sm-3">
-						<add-user-component v-if="is_logged_in"></add-user-component>
+						
+						<add-user-component></add-user-component>
 					</div>
 					<div class="col-sm-9">
-						<file-folder-component v-if="is_logged_in" :files_and_folders_prop="files"></file-folder-component>
+						<file-folder-component :files_and_folders_prop="files"></file-folder-component>
 					</div>
 				</div>
 			</div>
