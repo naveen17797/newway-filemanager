@@ -25,6 +25,7 @@
 			<login-component v-if="is_logged_in == false && is_first_time_installation == false" :api_url="api_url"></login-component>
 			<add-user-component v-if="is_logged_in"></add-user-component>
 			<registration-component v-if="is_first_time_installation" :api_url="api_url"></registration-component>
+			<br/><br/>
 			<file-folder-component v-if="is_logged_in" :files_and_folders_prop="files"></file-folder-component>
 		</div>
 

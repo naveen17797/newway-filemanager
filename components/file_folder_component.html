@@ -1,33 +1,38 @@
 <script type="text/x-template" id="file_folder_template">
-	
-	<div>
-		<table class="table">
-			<tr>
-				<div v-for="item in filterFilesAndReturnResult()">
 
-					<td class="card text-center">
+		<table class="table">
+				
+
+
+
+				<template v-for="(item,index) in filterFilesAndReturnResult()">
+
+			 		<template v-if="index % 4 == 0">
+			 				</tr><tr>
+			 		</template>
+
+					<td class="text-center">
 						
 						<div v-if="item.is_directory">
-							<i class="fa fa-folder card-img-top" style="font-size:100px;"></i>
+							<i class="fa fa-folder text-warning card-img-top" style="font-size:100px;"></i>
 						</div>
 						<div v-else>
-							<i class="fa fa-file card-img-top" style="font-size:100px;"></i>
+							<i class="fa fa-file card-img-top text-secondary" style="font-size:100px;"></i>
 						</div>
 
 						<div class="card-title">
+							<br/>
 							{{ item.name }}
 						</div>
 
 					</td>
 
-					<template v-if="item / 3 == 0">
-						</tr>
-						<tr>
-					</template>
 					
-				</div>
-			</tr>
+				</template>
+
+				</tr>
+
 		</table>
-	</div>
+
 
 </script>
