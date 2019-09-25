@@ -1,8 +1,11 @@
 <script type="text/x-template" id="file_folder_template">
 
+		<div>
+			<div class="col-sm-5 input-group">
+				<input type="text" class="form-control" @change="nameSearchChanged()" v-model="search_string" placeholder="search files by name">&nbsp;
+				<button class="btn btn-primary"><i class="fa fa-search"></i></button>
+			</div>
 			<table class="table borderless">
-
-					
 					<template v-if="is_list_view">
 						<!-- if list view is enabled then print the table headers here -->
 						<tr>
@@ -62,7 +65,7 @@
 							</template>
 					</template>
 			</table>
-
+		</div>
 
 
 </script>
