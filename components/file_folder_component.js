@@ -8,18 +8,20 @@ Vue.component('file-folder-component', {
 		search_string: "",
 	},
 
-	data: {
-		files_and_folders_prop_data: this.files_and_folders_prop
+	data: function() {
+		return {
+			files_and_folders_prop_data: this.files_and_folders_prop
+		}
 	},
 
+	created() {
+		Vue.set(this, "files_and_folders_prop_data", this.files_and_folders_prop)
+		console.log(this.files_and_folders_prop_data)
+		console.log('updated')
+	},
 
 	
 	methods: {
-
-		filterFilesAndReturnResult() {
-			console.log(this.files_and_folders_prop_data)
-			return this.files_and_folders_prop;
-		},
 
 		nameSearchChanged() {
 
