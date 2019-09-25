@@ -33,5 +33,5 @@ Vue.component('registration-component', {
 				})
 
 		}
-	}
+	},
 })

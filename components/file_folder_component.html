@@ -56,7 +56,7 @@
 										&nbsp; <b v-html="getNameHtmlByHighlighting(item.name)"></b>
 									</td>
 									<td>
-										{{ item.size }}
+										{{ item.size | user_friendly_memory_format_filter }}
 									</td>
 									<td>
 										{{ item.last_modified_time }}

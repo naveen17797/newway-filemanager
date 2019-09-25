@@ -48,6 +48,32 @@ Vue.component('file-folder-component', {
 
 		}
 
-	}
+	},
+
+	filters: {
+
+		  user_friendly_memory_format_filter: function (bytes) {
+		  	console.log(bytes)
+		  	// 20
+		  	let memory_units = ['YB','ZB','PB','TB','GB','MB','KB', 'B']
+
+
+		  	// 3000
+		  	// 
+		  	for (let power = memory_units.length; power >= 1; power--) {
+		  			
+
+		  			let byte_limit = Math.pow(1024, power)
+		  			let byte_unit = memory_units[power]
+
+		  			if (bytes > byte_limit) {
+		  				let size = bytes / (1024 * power)
+		  				return size + byte_unit
+		  			}	
+		  	}
+		  	return bytes + " B"
+
+		  }
+    }
 
 })
