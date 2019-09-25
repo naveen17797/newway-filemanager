@@ -52,27 +52,36 @@ Vue.component('file-folder-component', {
 
 	filters: {
 
-		  user_friendly_memory_format_filter: function (bytes) {
-		  	console.log(bytes)
-		  	// 20
-		  	let memory_units = ['YB','ZB','PB','TB','GB','MB','KB', 'B']
+		  user_friendly_memory_format_filter: function (num) {
+
+		  	  if (typeof num !== 'number' || isNaN(num)) {
+			    throw new TypeError('Expected a number');
+			  }
+
+			  var exponent;
+			  var unit;
+			  var neg = num < 0;
+			  var units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+			  if (neg) {
+			    num = -num;
+			  }
+
+			  if (num < 1) {
+			    return (neg ? '-' : '') + num + ' B';
+			  }
+
+			  exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), units.length - 1);
+			  num = (num / Math.pow(1000, exponent)).toFixed(2) * 1;
+			  unit = units[exponent];
+
+			  return (neg ? '-' : '') + num + ' ' + unit;
 
 
-		  	// 3000
-		  	// 
-		  	for (let power = memory_units.length; power >= 1; power--) {
-		  			
+		  },
 
-		  			let byte_limit = Math.pow(1024, power)
-		  			let byte_unit = memory_units[power]
-
-		  			if (bytes > byte_limit) {
-		  				let size = bytes / (1024 * power)
-		  				return size + byte_unit
-		  			}	
-		  	}
-		  	return bytes + " B"
-
+		  user_friendly_date: function (timestamp) {
+		  	return new Date(timestamp).toGMTString()
 		  }
     }
 

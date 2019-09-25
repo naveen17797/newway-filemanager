@@ -56,10 +56,15 @@
 										&nbsp; <b v-html="getNameHtmlByHighlighting(item.name)"></b>
 									</td>
 									<td>
-										{{ item.size | user_friendly_memory_format_filter }}
+										<template v-if="item.is_directory">
+											{{ item.size | user_friendly_memory_format_filter }}
+										</template>
+										<template v-else>
+											-
+										</template>
 									</td>
 									<td>
-										{{ item.last_modified_time }}
+										{{ item.last_modified_time | user_friendly_date }}
 									</td>
 								</tr>
 							</template>
