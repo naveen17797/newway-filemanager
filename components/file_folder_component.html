@@ -2,34 +2,65 @@
 
 			<table class="table borderless">
 
+					
+					<template v-if="is_list_view">
+						<!-- if list view is enabled then print the table headers here -->
+						<tr>
+							<th>Name</th>
+							<th>Size</th>
+							<th>Last Modified Time</th>
+						</tr>
+					</template>
+
 					 <template v-for="(item,index) in filterFilesAndReturnResult()" class="col-sm-4">
 
-					 		<template v-if="index % 4 == 0">
-					 				</tr><tr>
-					 		</template>
-					 		<td class="file_folder_item">
-							 		<div class="card text-center file_folder_item">
-							 			<div class="card-body">
-							 				
+					 		<template v-if="is_list_view == false">
 
-							 				<template v-if="item.is_directory">
-							 					<i class="fa fa-folder text-warning bigger_icon"></i>
-							 				</template>
-							 				<template v-else>
-							 					<i class="fa fa-file text-dark bigger_icon"></i>
-							 				</template>
+							 		<template v-if="index % 4 == 0">
+							 				</tr><tr>
+							 		</template>
+									 		<td class="file_folder_item">
+											 		<div class="card text-center file_folder_item">
+											 			<div class="card-body">
+											 				
+
+											 				<template v-if="item.is_directory">
+											 					<i class="fa fa-folder text-warning bigger_icon"></i>
+											 				</template>
+											 				<template v-else>
+											 					<i class="fa fa-file text-dark bigger_icon"></i>
+											 				</template>
 
 
-							 				<div class="card-title text-center">
-							 					<br/>
-							 					<b>{{ item.name }}</b>
-							 				</div>
+											 				<div class="card-title text-center">
+											 					<br/>
+											 					<b>{{ item.name }}</b>
+											 				</div>
 
-							 			</div>
-							 		</div>
-					 		</td>
-
-					 </template>
+											 			</div>
+											 		</div>
+									 		</td>
+							</template>
+							<template v-else>
+								<tr>
+									<td>
+										<template v-if="item.is_directory">
+											 <i class="fa fa-folder text-warning "></i>
+										</template>
+										<template v-else>
+											 <i class="fa fa-file text-dark"></i>
+										</template>
+										&nbsp; {{ item.name}}
+									</td>
+									<td>
+										{{ item.size }}
+									</td>
+									<td>
+										{{ item.last_modified_time }}
+									</td>
+								</tr>
+							</template>
+					</template>
 			</table>
 
 

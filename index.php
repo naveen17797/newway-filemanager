@@ -19,6 +19,10 @@
 	.borderless td, .borderless th {
 	    border: none;
 	}
+
+	.selected_option {
+		background-color: rgba(0,0,130, 0.2);
+	}
 </style>
 
 
@@ -41,11 +45,17 @@
 			<div class="container-fluid" v-if="is_logged_in">
 				<div class="row">
 					<div class="col-sm-3">
-						
+						<table class="table borderless">
+							<tr>
+								<td @click="changeFileViewState()" style="cursor: pointer" :class="{selected_option:is_list_view}"><i class="fa fa-list-alt" ></i>&nbsp; List View</td>
+								<td @click="changeFileViewState()" style="cursor: pointer" :class="{selected_option:(is_list_view == false)}"><i class="fa fa-square"></i>&nbsp; Grid View</td>
+							</tr>
+						</table>
+
 						<add-user-component></add-user-component>
 					</div>
 					<div class="col-sm-9">
-						<file-folder-component :files_and_folders_prop="files"></file-folder-component>
+						<file-folder-component :files_and_folders_prop="files" :is_list_view="is_list_view"></file-folder-component>
 					</div>
 				</div>
 			</div>
@@ -111,6 +121,7 @@
 		},
 
 		data: {
+			is_list_view: false,
 			is_logged_in: false,
 			is_first_time_installation: false,
 			api_url: API_URL,
@@ -231,6 +242,12 @@
 					})
 
 				},
+
+
+				changeFileViewState() {
+					this.is_list_view = !this.is_list_view;
+					console.log(this.is_list_view)
+				}
 	
 
 		}

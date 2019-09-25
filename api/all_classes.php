@@ -252,6 +252,7 @@ class NewwayFileManager {
 					$single_file_info_array['size'] = $file_info->getSize();
 					$single_file_info_array['is_directory'] = $file_info->isDir();
 					$single_file_info_array['extension'] = $file_info->getExtension();
+					$single_file_info_array['last_modified_time'] = $file_info->getMTime();
 					array_push($files_and_folders, $single_file_info_array);
 				}
 			}
