@@ -37,7 +37,7 @@
 
 											 				<div class="card-title text-center">
 											 					<br/>
-											 					<b>{{ item.name }}</b>
+											 					<b v-html="getNameHtmlByHighlighting(item.name)"></b>
 											 				</div>
 
 											 			</div>
@@ -53,7 +53,7 @@
 										<template v-else>
 											 <i class="fa fa-file text-dark"></i>
 										</template>
-										&nbsp; {{ item.name}}
+										&nbsp; <b v-html="getNameHtmlByHighlighting(item.name)"></b>
 									</td>
 									<td>
 										{{ item.size }}

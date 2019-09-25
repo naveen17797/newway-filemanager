@@ -25,6 +25,16 @@ Vue.component('file-folder-component', {
 	
 	methods: {
 
+		getNameHtmlByHighlighting(name) {
+			let search_string = this.search_string
+			if (search_string != "") {
+				return name.replace(search_string, "<b class='text-danger'>" + search_string + "</b>")
+			}
+			else {
+				return name
+			}
+		},
+
 		nameSearchChanged() {
 
 			Vue.set(this, "files_and_folders_prop_data", [])
