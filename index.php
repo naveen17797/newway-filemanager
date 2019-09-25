@@ -54,7 +54,7 @@
 
 						<add-user-component></add-user-component>
 					</div>
-					<div class="col-sm-9">
+					<div class="col-sm-9" v-if="is_file_folder_data_ready">
 						<file-folder-component :files_and_folders_prop="files" :is_list_view="is_list_view"></file-folder-component>
 					</div>
 				</div>
@@ -133,6 +133,7 @@
 			application_title: "Newway File Manager",
 			current_user:null,
 			files:[],
+			is_file_folder_data_ready: false,
 		},
 
 		watch: {
@@ -235,6 +236,7 @@
 						if (Array.isArray(server_response)) {
 							Vue.set(this, "files", server_response)
 							console.log(server_response)
+							this.is_file_folder_data_ready = true
 						}
 						else {
 							console.log('not array')
