@@ -39,16 +39,29 @@ Vue.component('upload-component', {
 			let choosen_files = [...new Set(this.choosen_files)];	
 		    for( var i = 0; i < choosen_files.length; i++ ){
 		        let file = choosen_files[i];
-		        console.log(file)
 		        formdata.append('file[' + i + ']', file);
 		    }
-		    this.$http.post(this.api_url+"?action=upload_files", formdata, {
-		    	'Content-Type': 'multipart/form-data'
-		    })
+		    
+		    let config = {
+		    	
+		    	'Content-Type': 'multipart/form-data',
+		    	
+		    	progress(e) {
+				    if (e.lengthComputable) {
+				      //console.log("e.loaded: %o, e.total: %o, percent: %o", e.loaded, e.total, (e.loaded / e.total ) * 100);
+				    }
+				}
+		    }
+
+		    this.$http.post(this.api_url+"?action=upload_files", formdata, config)
 		    .then(response=> {
 
 		    })
 
+	  	},
+
+	  	removeFile(index) {
+	  		 this.$delete(this.choosen_files, index)
 	  	}		
 
 	},

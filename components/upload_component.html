@@ -3,13 +3,14 @@
 
 
 	<div class="col-sm-10 modal fade" id="upload_modal"  role="dialog" aria-labelledby="exampleModalScrollableTitle">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
       <div class="modal-content">
       
         <!-- Modal Header -->
-        <div class="modal-header">
+        <div class="modal-header bg-dark text-light">
           <h4 class="modal-title">Upload Files</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="text-light close" data-dismiss="modal">&times;</button>
         </div>
         
         <!-- Modal body -->
@@ -17,17 +18,24 @@
         	<input type="file"  @change="previewFiles" ref="fileInput" name="upload_files[]" class="form-control" multiple>
         	<br/>
         	<div v-if="choosen_files.length > 0">
+
+                <div class="progress sticky-top">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:40%"></div> 
+                </div>
+                <br/><br/>
         		<h5>Files to be uploaded</h5>
         		<br/>
         		<table class="table">
         			<tr>
         				<th>Name</th>
         				<th>Size</th>
+                        <th>Cancel</th>
         			</tr>
-        			<template v-for="item in choosen_files">
+        			<template v-for="(item,index) in choosen_files">
         				<tr>
         					<td>{{ item.name }}</td>
         					<td>{{ item.size | user_friendly_memory_format_filter }}</td>
+                            <td style="cursor:pointer;" @click="removeFile(index)"><i class="fa fa-close"></i></td>
         				</tr>
         			</template>
         		</table>
