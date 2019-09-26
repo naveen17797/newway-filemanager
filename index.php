@@ -105,7 +105,34 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
-<script>const event_bus = new Vue({})</script>
+<script>
+	const event_bus = new Vue({})
+	Vue.filter('user_friendly_memory_format_filter', function(num) {
+
+		  if (typeof num !== 'number' || isNaN(num)) {
+			    throw new TypeError('Expected a number');
+			  }
+
+			  var exponent;
+			  var unit;
+			  var neg = num < 0;
+			  var units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+			  if (neg) {
+			    num = -num;
+			  }
+
+			  if (num < 1) {
+			    return (neg ? '-' : '') + num + ' B';
+			  }
+
+			  exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), units.length - 1);
+			  num = (num / Math.pow(1000, exponent)).toFixed(2) * 1;
+			  unit = units[exponent];
+
+			  return (neg ? '-' : '') + num + ' ' + unit;
+	});
+</script>
 <script type="text/javascript" src="js/vue-resource.js"></script>
 <script type="text/javascript" src="components/login_component.js"></script>
 <script type="text/javascript" src="components/add_user_component.js"></script>

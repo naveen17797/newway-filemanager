@@ -12,9 +12,28 @@ Vue.component('upload-component', {
 
 	},
 
+	methods: {
+		previewFiles(event) {
+			let choosen_files = event.target.files
+			for (file of choosen_files) {
+				this.choosen_files.push(file)
+			}
+			this.resetFiles()
+		},
+
+	  	resetFiles() {
+	    	const input = this.$refs.fileInput
+	    	input.type = 'text'
+	    	input.type = 'file'
+	  	}		
+
+	},
+
 	data: function () {
 		return  {
-			
+
+			choosen_files: [],
+
 		}
 	}
 

@@ -2,19 +2,36 @@
 	
 
 
-	<div class="modal fade" id="upload_modal">
-    <div class="modal-dialog modal-dialog-centered">
+	<div class="modal fade" id="upload_modal"  role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-scrollable" role="document">
       <div class="modal-content">
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
+          <h4 class="modal-title">Upload Files</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
         <!-- Modal body -->
         <div class="modal-body">
-          Modal body..
+        	<input type="file"  @change="previewFiles" ref="fileInput" name="upload_files[]" class="form-control" multiple>
+        	<br/>
+        	<div v-if="choosen_files.length > 0">
+        		<h5>Files to be uploaded</h5>
+        		<br/>
+        		<table class="table">
+        			<tr>
+        				<th>Name</th>
+        				<th>Size</th>
+        			</tr>
+        			<template v-for="item in choosen_files">
+        				<tr>
+        					<td>{{ item.name }}</td>
+        					<td>{{ item.size | user_friendly_memory_format_filter }}</td>
+        				</tr>
+        			</template>
+        		</table>
+        	</div>
         </div>
         
         <!-- Modal footer -->
