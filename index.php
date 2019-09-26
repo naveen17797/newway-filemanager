@@ -7,6 +7,7 @@
 	require_once 'components/registration_component.html';
 	require_once 'components/alert_component.html';
 	require_once 'components/file_folder_component.html';
+	require_once 'components/upload_component.html';
 ?>
 <style type="text/css">
 	td.file_folder_item:hover {
@@ -56,6 +57,7 @@
 					</div>
 					<div class="col-sm-9" v-if="is_file_folder_data_ready">
 						<file-folder-component :files_and_folders_prop="files" :is_list_view="is_list_view"></file-folder-component>
+						<upload-component></upload-component>
 					</div>
 				</div>
 			</div>
@@ -100,6 +102,7 @@
 
 </script>
 <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
 <script>const event_bus = new Vue({})</script>
@@ -109,6 +112,7 @@
 <script type="text/javascript" src="components/registration_component.js"></script>
 <script type="text/javascript" src="components/alert_component.js"></script>
 <script type="text/javascript" src="components/file_folder_component.js"></script>
+<script type="text/javascript" src="components/upload_component.js"></script>
 <script>
 
 	new Vue({

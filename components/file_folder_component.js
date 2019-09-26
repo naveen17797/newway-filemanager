@@ -46,6 +46,11 @@ Vue.component('file-folder-component', {
 			}
 
 
+		},
+
+		showUploadModal() {
+			
+			event_bus.$emit('show-upload-modal')
 		}
 
 	},
