@@ -13,7 +13,7 @@ abstract class LoginError {
 	const EmailIncorrect = 13;
 	const PasswordIncorrect = 14;
 }
-$action = $_POST['action'];
+$action = $_REQUEST['action'];
 
 if ($action == "register_new_user") {
 
@@ -83,6 +83,39 @@ if ($action == "get_files") {
 	if ($current_user_instance != null) {
 		$file_manager = new NewwayFileManager($current_user_instance);
 		echo json_encode($file_manager->getFilesAndFolders(SERVER_ROOT));
+	}
+	else {
+		return FileManagerState::NotAuthenticated;
+	}
+
+
+}
+
+
+if ($action == "upload_files") {
+
+	$directory = $_POST['directory'];
+
+	if ($directory == "") {
+		// use root directory
+		$directory = SERVER_ROOT;
+	}
+	print_r($_FILES);
+	$current_user_instance = SessionUser::getCurrenUserInstance();
+	if ($current_user_instance != null) {
+
+            $count=0;
+            foreach ($_FILES['file']['name'] as $filename) 
+            {
+                $temp=$target;
+                $tmp=$_FILES['file']['tmp_name'][$count];
+                $count=$count + 1;
+                $temp=$temp.basename($filename);
+                echo move_uploaded_file($tmp,$temp);
+                $temp='';
+                $tmp='';
+            }
+
 	}
 	else {
 		return FileManagerState::NotAuthenticated;
