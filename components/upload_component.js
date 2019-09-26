@@ -41,20 +41,32 @@ Vue.component('upload-component', {
 		        let file = choosen_files[i];
 		        formdata.append('file[' + i + ']', file);
 		    }
-		    
+
+		    formdata.append('action', 'upload_files')
 		    let config = {
 		    	
 		    	'Content-Type': 'multipart/form-data',
 		    	
 		    	progress(e) {
 				    if (e.lengthComputable) {
-				      //console.log("e.loaded: %o, e.total: %o, percent: %o", e.loaded, e.total, (e.loaded / e.total ) * 100);
+				    	this.completed_progress = (e.loaded / e.total ) * 100
 				    }
 				}
 		    }
 
-		    this.$http.post(this.api_url+"?action=upload_files", formdata, config)
+		    this.$http.post(this.api_url, formdata, config)
 		    .then(response=> {
+		    	
+		    	this.completed_progress = 100
+		    	
+		    	
+		    	
+		    	this.alert_message = choosen_files.length + " files uploaded successfully"
+		    	let self = this
+		    	setTimeout(function(){ 
+		    		Vue.set(self, "alert_message", "")
+		    		Vue.set(self, "choosen_files", [])
+		    	}, 2000);
 
 		    })
 
@@ -70,6 +82,10 @@ Vue.component('upload-component', {
 		return  {
 
 			choosen_files: [],
+
+			completed_progress: 0,
+
+			alert_message: "",
 
 		}
 	}

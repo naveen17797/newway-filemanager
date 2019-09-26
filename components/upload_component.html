@@ -17,11 +17,16 @@
         <div class=" modal-body" style="max-height: calc(100vh - 200px); overflow-y: auto;">
         	<input type="file"  @change="previewFiles" ref="fileInput" name="upload_files[]" class="form-control" multiple>
         	<br/>
+            <div class="sticky-top">
+                <div class="alert alert-success" role="alert" v-if="alert_message.length > 1">
+                  {{ alert_message }}
+                </div>
+            </div>  
         	<div v-if="choosen_files.length > 0">
 
                 <div class="progress sticky-top">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:40%"></div> 
-                </div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" :style="{'width': completed_progress+'%'}"></div> 
+                </div>              
                 <br/><br/>
         		<h5>Files to be uploaded</h5>
         		<br/>

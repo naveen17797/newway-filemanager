@@ -107,13 +107,10 @@ if ($action == "upload_files") {
             $count=0;
             foreach ($_FILES['file']['name'] as $filename) 
             {
-                $temp=$target;
                 $tmp=$_FILES['file']['tmp_name'][$count];
                 $count=$count + 1;
-                $temp=$temp.basename($filename);
-                echo move_uploaded_file($tmp,$temp);
-                $temp='';
-                $tmp='';
+                $temp=$directory.basename($filename);
+                move_uploaded_file($tmp,$temp);
             }
 
 	}
