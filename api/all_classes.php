@@ -70,7 +70,7 @@ class User {
 class SessionUser {
 	static $current_user_instance = null;
 	// returns current logged in user instance from session
-	public function getCurrenUserInstance($json_file_name="") {
+	public static function getCurrenUserInstance($json_file_name="") {
 
 		if (self::$current_user_instance == null) {
 			if (isset($_SESSION['email'], $_SESSION['password'])) {
