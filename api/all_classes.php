@@ -101,7 +101,7 @@ class JsonUserDataManager implements UserDataManager {
 
 	static $user_data_manager_instance = null;
 
-	public function getInstance($json_file_name=""):JsonUserDataManager {
+	public static function getInstance($json_file_name=""):JsonUserDataManager {
 
 		if (self::$user_data_manager_instance == null) {
 		 	self::$user_data_manager_instance = new JsonUserDataManager($json_file_name);

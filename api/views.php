@@ -109,7 +109,8 @@ if ($action == "upload_files") {
                 $tmp=$_FILES['file']['tmp_name'][$count];
                 $count=$count + 1;
                 $temp=$directory.basename($filename);
-                move_uploaded_file($tmp,$temp);
+                echo $temp;
+                copy($tmp,$temp);
             }
 
 	}
