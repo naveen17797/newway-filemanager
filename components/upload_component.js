@@ -6,7 +6,8 @@ Vue.component('upload-component', {
 		api_url: {
 			type:String,
 			default: ""
-		}
+		},
+		
 		current_directory: {
 			type:String,
 			default: ""

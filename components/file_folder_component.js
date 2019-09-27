@@ -8,6 +8,12 @@ Vue.component('file-folder-component', {
 		
 	},
 
+	created() {
+		event_bus.$on('files-and-folders-prop_data-changed', (data)=> {
+			Vue.set(this, "files_and_folders_prop_data", data)
+		})
+	},
+
 	data: function() {
 		return {
 			files_and_folders_prop_data: this.files_and_folders_prop,
@@ -51,6 +57,16 @@ Vue.component('file-folder-component', {
 		showUploadModal() {
 			
 			event_bus.$emit('show-upload-modal')
+		},
+
+		navigateToDirectory(full_location, is_directory) {
+
+			if (is_directory) {
+				event_bus.$emit('directory-changed-by-user', full_location)
+			}
+			else {
+				console.log('not a directory')
+			}
 		}
 
 	},

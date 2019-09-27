@@ -26,7 +26,7 @@
 							 				</tr><tr>
 							 		</template>
 									 		<td class="file_folder_item">
-											 		<div class="card text-center file_folder_item">
+											 		<div class="card text-center file_folder_item" @dblclick="navigateToDirectory(item.full_location, item.is_directory)">
 											 			<div class="card-body">
 											 				
 
@@ -48,7 +48,7 @@
 									 		</td>
 							</template>
 							<template v-else>
-								<tr>
+								<tr @dblclick="navigateToDirectory(item.full_location, item.is_directory)">
 									<td>
 										<template v-if="item.is_directory">
 											 <i class="fa fa-folder text-warning "></i>

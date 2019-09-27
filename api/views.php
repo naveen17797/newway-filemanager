@@ -82,7 +82,7 @@ if ($action == "get_files") {
 	$current_user_instance = SessionUser::getCurrenUserInstance();
 	if ($current_user_instance != null) {
 		$file_manager = new NewwayFileManager($current_user_instance);
-		echo json_encode($file_manager->getFilesAndFolders(SERVER_ROOT));
+		echo json_encode($file_manager->getFilesAndFolders($directory));
 	}
 	else {
 		return FileManagerState::NotAuthenticated;

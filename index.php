@@ -153,6 +153,9 @@
 			this.getCurrentStateOnPageLoad()
 			this.setUpRegistrationEventHander()
 			this.setUpLoginEventHandler()
+			event_bus.$on('directory-changed-by-user', (full_location)=> {
+				this.current_directory = full_location
+			})
 		},
 
 		data: {
@@ -177,12 +180,15 @@
 		watch: {
 
 			is_logged_in: function(newValue, oldValue) {
-				console.log("watcher activated")
-				//console.log('old value is ' + oldValue)
-				console.log('new value is '+ newValue)
 				if (newValue) {
 					// if logged in then get files
 					this.getFilesAndFolders()
+				}
+			},
+
+			current_directory: function(newValue, oldValue) {
+				if (newValue) {
+					this.getFilesAndFolders(newValue)
 				}
 			}
 
@@ -265,16 +271,19 @@
 				},
 
 
-				getFilesAndFolders() {
+				getFilesAndFolders(directory="") {
 					const file_object = {
 						"action":"get_files"
+					}
+					if (directory != "") {
+						file_object["directory"] = directory;
 					}
 					this.$http.post(API_URL, file_object, {emulateJSON:true}).then(response=> {
 						const server_response = response.body;
 						if (Array.isArray(server_response)) {
 							Vue.set(this, "files", server_response)
-							console.log(server_response)
 							this.is_file_folder_data_ready = true
+							event_bus.$emit('files-and-folders-prop_data-changed', this.files)
 						}
 						else {
 							console.log('not array')
