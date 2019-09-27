@@ -100,7 +100,6 @@ if ($action == "upload_files") {
 		// use root directory
 		$directory = SERVER_ROOT;
 	}
-	print_r($_FILES);
 	$current_user_instance = SessionUser::getCurrenUserInstance();
 	if ($current_user_instance != null) {
 

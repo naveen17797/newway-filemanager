@@ -7,6 +7,10 @@ Vue.component('upload-component', {
 			type:String,
 			default: ""
 		}
+		current_directory: {
+			type:String,
+			default: ""
+		}
 	},
 
 	created() {
@@ -43,6 +47,7 @@ Vue.component('upload-component', {
 		    }
 
 		    formdata.append('action', 'upload_files')
+		    formdata.append('directory', this.current_directory)
 		    let config = {
 		    	
 		    	'Content-Type': 'multipart/form-data',
