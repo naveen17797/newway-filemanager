@@ -17,6 +17,13 @@ Vue.component('file-folder-component', {
 		})
 	},
 
+	mounted() {
+		
+		new DragSelect({
+	  			selectables: document.getElementsByClassName('file_folder_item')
+		});
+	},
+
 	data: function() {
 		return {
 			files_and_folders_prop_data: this.files_and_folders_prop,
@@ -89,7 +96,6 @@ Vue.component('file-folder-component', {
 		},
 
 		navigateToDirectory(full_location, is_directory) {
-			console.log(full_location)
 			if (is_directory) {
 				event_bus.$emit('directory-changed-by-user', full_location)
 			}

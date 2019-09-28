@@ -28,6 +28,14 @@
 	.modal-lg {
 	    max-width: 80% !important;
 	}
+
+	.ds-selected {
+	  outline: 3px solid black;
+	  outline-offset: 3px;
+	  color: black;
+	  font-weight: bold;
+	}
+  
 </style>
 
 
@@ -106,6 +114,7 @@
 
 </script>
 <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/drag-select.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
@@ -155,6 +164,10 @@
 			this.setUpLoginEventHandler()
 			event_bus.$on('directory-changed-by-user', (full_location)=> {
 				this.current_directory = full_location
+			})
+
+			event_bus.$on('refresh-current-directory-data',()=> {
+				this.getFilesAndFolders(this.current_directory)
 			})
 		},
 
@@ -304,4 +317,5 @@
 		}
 
 	})
+
 </script>

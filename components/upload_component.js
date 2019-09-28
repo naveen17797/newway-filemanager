@@ -69,6 +69,7 @@ Vue.component('upload-component', {
 		    	
 		    	this.alert_message = choosen_files.length + " files uploaded successfully"
 		    	let self = this
+		    	event_bus.$emit('refresh-current-directory-data')
 		    	setTimeout(function(){ 
 		    		Vue.set(self, "alert_message", "")
 		    		Vue.set(self, "choosen_files", [])
