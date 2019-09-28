@@ -1,6 +1,11 @@
 <script type="text/x-template" id="file_folder_template">
 
 		<div>
+		  <ol class="breadcrumb">
+		  	<template v-for="item in getNavigatableDirectories()">
+		    	<li class="breadcrumb-item"><a href="#" @click="navigateToDirectory(item.location, true)">{{item.name}}</a></li>
+		    </template>
+		  </ol>
 			<div class="col-sm-5 input-group">
 				<input type="text" class="form-control" v-model="search_string" placeholder="search files by name">&nbsp;
 				<button class="btn btn-primary"><i class="fa fa-search"></i></button>

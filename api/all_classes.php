@@ -1,7 +1,7 @@
 <?php 
 session_start();
-define( 'ABSPATH', dirname(dirname(__FILE__)) . '/' );
-define( 'SERVER_ROOT', dirname(ABSPATH)."/");
+define( 'ABSPATH', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR);
+define( 'SERVER_ROOT', dirname(ABSPATH).DIRECTORY_SEPARATOR);
 
 abstract class AccessLevel {
 	const NoAccess = -1;

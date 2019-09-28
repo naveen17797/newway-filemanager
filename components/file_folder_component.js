@@ -5,6 +5,9 @@ Vue.component('file-folder-component', {
 	props:{
 		files_and_folders_prop: null,
 		is_list_view: true,
+		current_directory: "",
+		root_directory: "",
+		directory_separator: "",
 		
 	},
 
@@ -30,6 +33,32 @@ Vue.component('file-folder-component', {
 	},
 	
 	methods: {
+
+		getNavigatableDirectories() {
+			const navigatableDirectories = []
+			navigatableDirectories.push({
+				name: "Root",
+				location: this.root_directory
+			})
+			if (this.current_directory != undefined 
+				&& this.current_directory != null 
+				&& this.current_directory != "") {
+				// then we are at root
+				const current_directory = this.current_directory
+				const nested_dirs = current_directory.replace(this.root_directory, "").split(this.directory_separator)
+				var previous_directory_item = ""
+				for (item of nested_dirs) {
+					if (item != "") {
+						previous_directory_item += item + this.directory_separator
+						navigatableDirectories.push({
+							name: item,
+							location: this.root_directory + previous_directory_item
+						})
+					}
+				}
+			}
+			return navigatableDirectories
+		},
 
 		getNameHtmlByHighlighting(name) {
 			let search_string = this.search_string
@@ -60,7 +89,7 @@ Vue.component('file-folder-component', {
 		},
 
 		navigateToDirectory(full_location, is_directory) {
-
+			console.log(full_location)
 			if (is_directory) {
 				event_bus.$emit('directory-changed-by-user', full_location)
 			}

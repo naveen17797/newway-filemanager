@@ -60,7 +60,7 @@
 						<add-user-component></add-user-component>
 					</div>
 					<div class="col-sm-9" v-if="is_file_folder_data_ready">
-						<file-folder-component :files_and_folders_prop="files" :is_list_view="is_list_view"></file-folder-component>
+						<file-folder-component :files_and_folders_prop="files" :is_list_view="is_list_view" :current_directory="current_directory" :root_directory="root_directory" :directory_separator="directory_separator"></file-folder-component>
 						<upload-component  :api_url="api_url" :current_directory="current_directory"></upload-component>
 					</div>
 				</div>
@@ -173,7 +173,9 @@
 			files:[],
 			is_file_folder_data_ready: false,
 			// the current directory the user is present
-			current_directory:""
+			current_directory:"",
+			directory_separator:"<?php echo DIRECTORY_SEPARATOR; ?>",
+			root_directory:"<?php echo dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR; ?>",
 
 		},
 
