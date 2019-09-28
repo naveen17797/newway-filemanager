@@ -17,12 +17,6 @@ Vue.component('file-folder-component', {
 		})
 	},
 
-	mounted() {
-		
-		new DragSelect({
-	  			selectables: document.getElementsByClassName('file_folder_item')
-		});
-	},
 
 	data: function() {
 		return {

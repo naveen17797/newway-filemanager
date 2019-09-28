@@ -25,15 +25,21 @@
 		background-color: rgba(0,0,130, 0.2);
 	}
 
+	.selected_file_folder {
+		background-color: rgba(0,0,130, 0.2);
+	}
+
 	.modal-lg {
 	    max-width: 80% !important;
 	}
 
-	.ds-selected {
-	  outline: 3px solid black;
-	  outline-offset: 3px;
-	  color: black;
-	  font-weight: bold;
+	.checkbox-1x {
+	    transform: scale(1.5);
+	    -webkit-transform: scale(1.5);
+	}
+	.checkbox-2x {
+	    transform: scale(2);
+	    -webkit-transform: scale(2);
 	}
   
 </style>
