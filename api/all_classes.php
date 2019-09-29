@@ -296,6 +296,16 @@ class NewwayFileManager {
 		else {
 			return false;
 		}
+	}
+
+
+	public function renameItem($oldname, $newname) {
+		if ($this->current_logged_in_user_instance->canWriteFiles()) {
+
+		}
+		else {
+			return false;
+		}
 	}	
 }
 

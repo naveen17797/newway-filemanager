@@ -19,7 +19,9 @@ Vue.component('delete-component', {
 	created() {
 
 		event_bus.$on('show-delete-modal', ()=> {
-
+			// before showing the model, 
+			// clear the stats about the recently deleted files
+			Vue.set(this, "deleted_files", [])
 			$('#delete_modal').modal('show')
 		})
 

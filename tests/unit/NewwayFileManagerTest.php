@@ -81,4 +81,13 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
 
         }
     }
+
+    public function testGivenUnAuthorisedUserDontAllowToRename() {
+
+        $file_manager_instance = new NewwayFileManager(new User("foo@gmail.com", "foo", AccessLevel::ReadOnly));
+
+        $this->assertFalse($file_manager_instance->renameItem("foo.txt", "foo.png"));
+
+
+    }
 }
