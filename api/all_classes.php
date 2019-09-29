@@ -265,11 +265,29 @@ class NewwayFileManager {
 		}
 		
 	}
+	
+	// recursively deletes if it is a folder,
+	// unlink if it is a file
+	private function deleteFileOrFolder($item) {
+		if (is_file($item)) {
+			// try to unlink the file
+			return unlink($item);
+		}
+		else if (is_dir($item)) { 
+			$di = new RecursiveDirectoryIterator($item, FilesystemIterator::SKIP_DOTS);
+			$ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
+			foreach ( $ri as $file ) {
+			    $file->isDir() ?  rmdir($file) : unlink($file);
+			}
+		}
+		return rmdir($item); 
+		 
+	}
 
 	// deletes a file or folder based on the user access level
 	public function deleteItem($item) {
 		if ($this->current_logged_in_user_instance->canDeleteFiles()) {
-
+			return $this->deleteFileOrFolder($item);
 		}
 		else {
 			return false;
