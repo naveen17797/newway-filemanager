@@ -114,6 +114,34 @@ Vue.component('file-folder-component', {
 				event_bus.$emit('directory-changed-by-user', full_location)
 			}
 
+		},
+
+		renameFile(item) {
+
+			var new_name_with_location = ""
+			if (item.is_directory) {
+				new_name_with_location = item.location_without_item_name + item.name + this.directory_separator
+			}
+			else {
+				new_name_with_location = item.location_without_item_name + item.name
+			}
+			
+			const rename_object = {
+				action: 'rename_item',
+				new_name: new_name_with_location,
+				old_name: item.full_location
+			}
+
+			this.$http.post(this.api_url, rename_object, {emulateJSON:true})
+			.then(response=> {
+				
+				const server_response = response.body
+				if (server_response.is_renamed) {
+					item.is_editable = false
+					item.full_location = new_name_with_location
+				}
+
+			})
 		}
 
 	},

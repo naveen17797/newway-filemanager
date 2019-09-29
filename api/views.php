@@ -125,6 +125,27 @@ if ($action == "logout_user") {
 	session_unset();
 }
 
+if ($action == "rename_item") {
+
+	$old_name = $_POST['old_name'];
+	$new_name = $_POST['new_name'];
+
+	if (!empty($old_name) && !empty($new_name)) {
+		$current_user_instance = SessionUser::getCurrenUserInstance();
+		if ($current_user_instance != null) {
+			$file_manager_instance = new NewwayFileManager($current_user_instance);
+			$is_renamed = $file_manager_instance->renameItem($old_name, $new_name);
+			echo json_encode(array("new_name"=>$new_name, "is_renamed"=>$is_renamed));
+		}
+		else {
+			return FileManagerState::NotAuthenticated;
+		}
+
+
+
+	}
+}
+
 
 if ($action == "delete_items") {
 

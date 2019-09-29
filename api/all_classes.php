@@ -254,6 +254,8 @@ class NewwayFileManager {
 					$single_file_info_array['extension'] = $file_info->getExtension();
 					$single_file_info_array['last_modified_time'] = $file_info->getCTime();
 					$single_file_info_array['full_location'] = $directory.$file_info->getFilename();
+					$single_file_info_array['location_without_item_name'] = $directory;
+					$single_file_info_array['is_editable'] = false;
 					if ($file_info->isDir()) {
 						// if directory add a directory separator to end
 						$single_file_info_array['full_location'] = $directory.$file_info->getFilename().DIRECTORY_SEPARATOR;

@@ -1,6 +1,7 @@
 <script type="text/x-template" id="file_folder_template">
 
 		<div>
+
 		  <ol class="breadcrumb">
 		  	<template v-for="item in getNavigatableDirectories()">
 		    	<li class="breadcrumb-item"><a href="#" @click="navigateToDirectory(item.location, true)">{{item.name}}</a></li>
@@ -35,7 +36,7 @@
 							 				</tr><tr>
 							 		</template>
 									 		<td>
-											 		<div class="card text-center" style="cursor:pointer;">
+											 		<div class="card text-center">
 
 											 			<div class="card-body" :class="{selected_file_folder:item.is_selected}">
 											 				<div class="text-left">
@@ -45,7 +46,7 @@
 											 				<br/>
 
 															<template v-if="item.is_directory">
-															<i class="fa fa-folder text-warning bigger_icon" 
+															<i style="cursor:pointer;" class="fa fa-folder text-warning bigger_icon" 
 															@dblclick="navigateToDirectory(item.full_location, item.is_directory)"
 															@click="navigateToDirectory(item.full_location, item.is_directory)"></i>
 															</template>
@@ -58,26 +59,62 @@
 
 											 				<div class="card-title text-center">
 											 					<br/>
-											 					<b v-html="getNameHtmlByHighlighting(item.name)"></b>
+											 					<template v-if="item.is_editable">
+											 						<div class="form-inline text-center">
+											 						
+											 						<input type="text" class="form-control" v-model="item.name" style=
+											 						"width:100px;">
+											 						&nbsp;
+											 						<button class="btn btn-success" @click="renameFile(item)">
+											 							<i class="fa fa-save"></i>
+
+											 						</button>
+											 						</div>
+											 					</template>
+											 						
+											 					<template v-else>
+											 						<b @dblclick="item.is_editable = true" v-html="getNameHtmlByHighlighting(item.name)"></b>
+											 					</template>
 											 				</div>
+
 
 											 			</div>
 											 		</div>
 									 		</td>
 							</template>
 							<template v-else>
-								<tr style="cursor:pointer;" :class="{selected_file_folder:item.is_selected}">
+								<tr :class="{selected_file_folder:item.is_selected}">
 									<td class="text-center">
 										<input type="checkbox" class="checkbox-1x" v-model="item.is_selected">
 									</td>
-									<td @click="navigateToDirectory(item.full_location, item.is_directory)" @dblclick="navigateToDirectory(item.full_location, item.is_directory)">
+									<td style="cursor:pointer;"  @click="navigateToDirectory(item.full_location, item.is_directory)">
+										<div class="form-inline text-center">
 										<template v-if="item.is_directory">
 											 <i class="fa fa-folder text-warning "></i>
 										</template>
 										<template v-else>
 											 <i class="fa fa-file text-dark"></i>
 										</template>
-										&nbsp; <b v-html="getNameHtmlByHighlighting(item.name)"></b>
+										&nbsp;
+										<template v-if="item.is_editable">
+					 						
+					 						
+					 						<input type="text" class="form-control" v-model="item.name" style=
+					 						"width:300px;">
+					 						&nbsp;
+					 						<button class="btn btn-success" @click="renameFile(item)">
+					 							<i class="fa fa-save"></i>
+
+					 						</button>
+					 						
+					 					</template>
+					 						
+					 					<template v-else>
+					 						<b @dblclick="item.is_editable = true" v-html="getNameHtmlByHighlighting(item.name)"></b>
+					 					</template>
+					 					</div>
+
+
 									</td>
 									<td>
 										<template v-if="item.is_directory == false">
