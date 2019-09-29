@@ -90,4 +90,24 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
 
 
     }
+
+    public function givenAuthorisedUserAbleToRenameItem() {
+        $rename_test_file_name = ABSPATH."foo.txt";
+        $new_file_name = ABSPATH."foo_bar.txt";
+
+        // lets create a file
+        fopen($rename_test_file_name, "w");
+
+        $is_renamed = $this->file_manager_instance->renameItem($rename_test_file_name, $new_file_name);
+        $this->assertTrue($is_renamed);
+        // the below code is for clean up
+        // when ending the test, delete this file if it exists
+        if (file_exists($rename_test_file_name)) {
+            unlink($rename_test_file_name);
+        }
+        if (file_exists($new_file_name)) {
+            unlink($new_file_name);
+        }
+
+    }
 }

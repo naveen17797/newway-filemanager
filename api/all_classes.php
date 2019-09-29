@@ -301,7 +301,7 @@ class NewwayFileManager {
 
 	public function renameItem($oldname, $newname) {
 		if ($this->current_logged_in_user_instance->canWriteFiles()) {
-
+			return rename($oldname, $newname);
 		}
 		else {
 			return false;
