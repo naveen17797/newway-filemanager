@@ -22,6 +22,7 @@ Vue.component('file-folder-component', {
 		return {
 			files_and_folders_prop_data: this.files_and_folders_prop,
 			search_string: "",
+			selected_items:[],
 		}
 	},
 
@@ -29,6 +30,19 @@ Vue.component('file-folder-component', {
 
 		search_string: function(newValue, oldValue) {
 			this.nameSearchChanged()
+		},
+
+		files_and_folders_prop_data: {
+			
+			handler(newValue) {
+				
+				for (item of newValue) {
+					if (item.is_selected && !this.selected_items.includes(item.full_location)) {
+						this.selected_items.push(item.full_location)
+					}
+				}
+			},
+			deep: true 
 		}
 
 	},
@@ -60,6 +74,8 @@ Vue.component('file-folder-component', {
 			}
 			return navigatableDirectories
 		},
+
+
 
 		getNameHtmlByHighlighting(name) {
 			let search_string = this.search_string
