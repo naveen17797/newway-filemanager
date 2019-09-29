@@ -121,6 +121,10 @@ if ($action == "upload_files") {
 
 }
 
+if ($action == "logout_user") {
+	session_unset();
+}
+
 
 if ($action == "delete_items") {
 
