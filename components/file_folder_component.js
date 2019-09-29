@@ -75,7 +75,10 @@ Vue.component('file-folder-component', {
 			return navigatableDirectories
 		},
 
-
+		showDeleteModal() {
+			event_bus.$emit('show-delete-modal')
+			console.log('delete modal trigger pressed')
+		},
 
 		getNameHtmlByHighlighting(name) {
 			let search_string = this.search_string
