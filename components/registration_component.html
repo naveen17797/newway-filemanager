@@ -1,0 +1,27 @@
+<script type="text/x-template" id="registration_component_template">
+
+	<div class="offset-sm-4 col-sm-4 text-center">
+		<br/><br/>
+		<h4>Welcome, Register as new user</h4>
+		<br/><br/>
+
+		<div class="input-group">
+			<div class="input-group-prepend">
+	          <div class="input-group-text"><i class="fa fa-envelope"></i></div>
+	        </div>
+			<input type="email" class="form-control" v-model="email" placeholder="Enter New User Email Address">
+		</div>
+
+		<br/>
+		<div class="input-group">
+			<div class="input-group-prepend">
+	          <div class="input-group-text"><i class="fa fa-key"></i></div>
+	        </div>
+			<input type="password" class="form-control" v-model="password" placeholder="Enter New User Password">
+		</div>
+		<br/>
+		<br/>
+		<button class="btn btn-primary" @click="registerNewUser" :disabled="email.length == 0 || password.length == 0">Submit</button>
+	</div>
+
+</script>

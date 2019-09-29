@@ -1,0 +1,140 @@
+<script type="text/x-template" id="file_folder_template">
+
+		<div>
+
+		  <ol class="breadcrumb">
+		  	<template v-for="item in getNavigatableDirectories()">
+		    	<li class="breadcrumb-item"><a href="#" @click="navigateToDirectory(item.location, true)">{{item.name}}</a></li>
+		    </template>
+		  </ol>
+			<div class="alert alert-primary">{{ selected_items.length }} items selected</div>
+			<div class="col-sm-8 input-group">
+				<input type="text" class="form-control" v-model="search_string" placeholder="search files by name">&nbsp;
+				<button class="btn btn-primary"><i class="fa fa-search"></i></button>
+				&nbsp;&nbsp;
+				<button class="btn btn-primary" @click="showUploadModal()"><i class="fa fa-upload"></i> Upload Files</button>
+				&nbsp;&nbsp;
+				<button class="btn btn-danger"  @click="showDeleteModal()" :disabled="selected_items.length == 0"><i class="fa fa-trash"></i> Delete</button>
+			</div>
+			<br/><br/>
+			<table class="table borderless">
+					<template v-if="is_list_view">
+						<!-- if list view is enabled then print the table headers here -->
+						<tr>
+							<th>Select</th>
+							<th>Name</th>
+							<th>Size</th>
+							<th>Last Modified Time</th>
+						</tr>
+					</template>
+
+					 <template v-for="(item,index) in files_and_folders_prop_data" class="col-sm-4">
+
+					 		<template v-if="is_list_view == false">
+
+							 		<template v-if="index % 4 == 0">
+							 				</tr><tr>
+							 		</template>
+									 		<td>
+											 		<div class="card text-center">
+
+											 			<div class="card-body" :class="{selected_file_folder:item.is_selected}">
+											 				<div class="text-left">
+											 					<input type="checkbox" v-model="item.is_selected"
+											 					class="checkbox-1x">
+											 				</div>
+											 				<br/>
+
+															<template v-if="item.is_directory">
+															<i style="cursor:pointer;" class="fa fa-folder text-warning bigger_icon" 
+															@dblclick="navigateToDirectory(item.full_location, item.is_directory)"
+															@click="navigateToDirectory(item.full_location, item.is_directory)"></i>
+															</template>
+															
+															<template v-else>
+															<i @dblclick="navigateToDirectory(item.full_location, item.is_directory)"
+															@click="navigateToDirectory(item.full_location, item.is_directory)" class="fa fa-file text-dark bigger_icon"></i>
+											 				</template>
+
+
+											 				<div class="card-title text-center">
+											 					<br/>
+											 					<template v-if="item.is_editable">
+											 						<div class="form-inline text-center">
+											 						
+											 						<input type="text" class="form-control" v-model="item.name" style=
+											 						"width:100px;">
+											 						&nbsp;
+											 						<button class="btn btn-success" @click="renameFile(item)">
+											 							<i class="fa fa-save"></i>
+
+											 						</button>
+											 						</div>
+											 					</template>
+											 						
+											 					<template v-else>
+											 						<b @dblclick="item.is_editable = true" v-html="getNameHtmlByHighlighting(item.name)"></b>
+											 					</template>
+											 				</div>
+
+
+											 			</div>
+											 		</div>
+									 		</td>
+							</template>
+							<template v-else>
+								<tr :class="{selected_file_folder:item.is_selected}">
+									<td class="text-center">
+										<input type="checkbox" class="checkbox-1x" v-model="item.is_selected">
+									</td>
+									<td style="cursor:pointer;"  @click="navigateToDirectory(item.full_location, item.is_directory)">
+										<div class="form-inline text-center">
+										<template v-if="item.is_directory">
+											 <i class="fa fa-folder text-warning "></i>
+										</template>
+										<template v-else>
+											 <i class="fa fa-file text-dark"></i>
+										</template>
+										&nbsp;
+										<template v-if="item.is_editable">
+					 						
+					 						
+					 						<input type="text" class="form-control" v-model="item.name" style=
+					 						"width:300px;">
+					 						&nbsp;
+					 						<button class="btn btn-success" @click="renameFile(item)">
+					 							<i class="fa fa-save"></i>
+
+					 						</button>
+					 						
+					 					</template>
+					 						
+					 					<template v-else>
+					 						<b @dblclick="item.is_editable = true" v-html="getNameHtmlByHighlighting(item.name)"></b>
+					 					</template>
+					 					</div>
+
+
+									</td>
+									<td>
+										<template v-if="item.is_directory == false">
+											{{ item.size | user_friendly_memory_format_filter }}
+										</template>
+										<template v-else>
+											-
+										</template>
+									</td>
+									<td>
+										{{ item.last_modified_time | user_friendly_date }}
+									</td>
+
+								</tr>
+							</template>
+					</template>
+			</table>
+
+			<delete-component :api_url="api_url" :choosen_files="selected_items"></delete-component>
+		</div>
+
+
+</script>

@@ -1,237 +1,342 @@
-<?php
-session_start();
-/**
- * Main page for the application
- *
- *
- * Copyright (C) 2018 Naveen Muthusamy <kmnaveen101@gmail.com>
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * LICENSE: This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
- * See the Mozilla Public License for more details.
- * If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
- *
- * @package Newway File Manager
- * @author Naveen Muthusamy <kmnaveen101@gmail.com>
- * @link    https://github.com/naveen17797
- */
-require 'loader.php';
-require 'lib/class.json_handler.php';
+<link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 
-
-$newway_user_email = $_SESSION['authorized_email'];
-
-$jsonHandler = new jsonHandler("../../users.json");
-
-/***** THESE LINES ARE FOR THE APPLICATION LOGIN SYSTEM ********/
-	/*** IF YOU WANT TO HOOK NEWWAY FILE MANAGER WITH YOUR APP LOGIN SYSTEM, PLEASE REMOVE THESE LINES ***/
-if (isset($_SESSION['authorized_email'])) {
-	if (!empty($_SESSION['authorized_email'])) {
-		$auth_user = $jsonHandler->check_if_key_exists($newway_user_email);
-
-		if(!$auth_user) {
-			session_unset();
-			header("location: login.php");
-			exit();
-		}
-	} else {
-		header("location: login.php");
-		exit();
-	}
-} else {
-	header("location: login.php");
-	exit();
-}
-
-/******************************************************/
-
-$user_data = $jsonHandler->get_value_by_key($newway_user_email);
-
-$user_data = json_decode($user_data, true);
-
-
-/*************** CONFIG DECLARATION *******************/
-//if you are using your own login system, please set this parameters manually//
-
-/**************PARAMETERS TO BE ASSIGNED MANUALLY**************************/
-/**
-*@var boolean $newway_user_read_access - determines a user cam read files
-*@var boolean $newway_user_create_access - determines whether a user can create files
-*@var boolean $newway_user_delete_access - determines a user can delete files
-*@var boolean $newway_user_is_admin - whether user is admin, if set to true the user can add other users
-**/
-$newway_user_is_admin = $user_data['is_admin'];
-
-$newway_user_read_access = $user_data['r'];
-
-$newway_user_create_access = $user_data['c'];
-
-$newway_user_delete_access = $user_data['d'];
-
-$newway_root_directory = "../";
-
-$newway_is_default_login_system = true;
-
-/*******************************************************/
-
-$_SESSION['newway_user_is_admin'] = $newway_user_is_admin;
-
-$_SESSION['newway_user_read_access'] = $newway_user_read_access;
-
-$_SESSION['newway_user_create_access'] = $newway_user_create_access;
-
-$_SESSION['newway_user_delete_access'] = $newway_user_delete_access;
-
-$_SESSION['newway_is_default_login_system'] = $newway_is_default_login_system;
-
-/*******************************************************/
-//FILE UPLOADING FUNCTIONALITY
-
-if (isset($_FILES) && isset($_POST['location'])) {
-	if (!empty($_POST['location'])) {
-		if ($_SESSION['newway_user_create_access']) {
-			$total = count($_FILES['upload']['name']);
-			for ($i = 0; $i < $total; $i++) {
-				$tmpFilePath = $_FILES['upload']['tmp_name'][$i];
-				$original_name = $_FILES['upload']['name'][$i];
-				move_uploaded_file($tmpFilePath, $_POST['location'].$original_name);
-
-			}
-			header("location: index.php?directory=".$_GET['directory']);
-		} else {
-			header("location: index.php?directory=".$_GET['directory']);
-
-
-		}
-
-	}
-
-}
-
-$loader = new loader;
-$loader->load_css("css", array("bootstrap", "fontawesome", "global", "izimodal", "index", "izitoast"));
-$loader->set_template_file("index_toolbar");
-if ($newway_user_create_access) {
-	$loader->assign("WRITE_ACCESS_BOOL", "");
-} else {
-	$loader->assign("WRITE_ACCESS_BOOL", "disabled");
-}
-
-if ($newway_user_delete_access) {
-	$loader->assign("DELETE_ACCESS_BOOL", "");
-} else {
-	$loader->assign("DELETE_ACCESS_BOOL", "disabled");
-}
-if ($newway_user_is_admin && $newway_is_default_login_system) {
-	$loader->assign("ADD_USERS", "<button class='btn btn-responsive' id='add_users'>
-					<i class='fa fa-users'></i> Add Users
-				</button>");
-}
-
-if (isset($_GET['directory'])) {
-	if (!empty($_GET['directory'])) {
-		if (substr($_GET['directory'], -1) == "/") {
-			$upload_directory = $_GET['directory'];
-		} else {
-			$upload_directory = $_GET['directory']."/";
-		}
-	}
-} else {
-	$upload_directory = $newway_root_directory;
-}
-$loader->assign("UPLOAD_LOCATION", $upload_directory);
-$loader->output();
-/** checking if user has read access**/
-if ($newway_user_read_access) {
-	if (isset($_GET['directory'])) {
-		if (!empty($_GET['directory'])) {
-			if (substr($_GET['directory'], -1) == "/") {
-				$newway_root_directory = $_GET['directory'];
-			} else {
-				$newway_root_directory = $_GET['directory']."/";
-			}
-			$path = pathinfo($newway_root_directory);
-			if ($path['dirname'] == ".") {
-
-			} elseif ($path['dirname'] == "..") {
-				echo "<div class='btn-group'><a href=index.php?directory=".$path['dirname']."/ class='btn btn-info btn-responsive'><i class='fa fa-arrow-left'></i> Back</a></div>";
-			} else {
-				echo "<div class='btn-group'><a href=index.php?directory=".$path['dirname']." class='btn btn-info btn-responsive'><i class='fa fa-arrow-left'></i> Back</a></div>";
-			}
-		}
-	} else {
-
-	}
-	if (is_dir($newway_root_directory)) {
-		$array_of_files_and_folders = scandir($newway_root_directory);
-		echo "<div class='col-lg-12 col-sm-12 col-md-12' style='height: 80%; overflow-y:scroll;'><br/><br/>";
-		echo "<table class='table table-striped table-hover table-responsive'>";
-		echo "<thead><tr class='heading'><th>File/Folder</th>";
-		echo "<th>Size</th>";
-		echo "<th>extension</th>";
-		echo "<th>Date Modified</th>";
-		echo "</tr></thead><tbody>";
-		for ($i = 0; $i < count($array_of_files_and_folders); $i++) {
-			if ($array_of_files_and_folders[$i] !="." && $array_of_files_and_folders[$i] != "..") {
-				@$stat_array = stat($newway_root_directory.$array_of_files_and_folders[$i]);
-				$modified_time = $stat_array['mtime'];
-				if (is_dir($newway_root_directory.$array_of_files_and_folders[$i])) {
-					$extension = "folder";
-					$ELEMENT_TYPE = "<i class='fa fa-folder'></i>";
-					    $bytestotal = 0;
-				    $path = realpath($newway_root_directory.$array_of_files_and_folders[$i]);
-					    if ($path !== false && $path != '' && file_exists($path)) {
-					        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object) {
-					            $bytestotal += $object->getSize();
-					        }
-					    }
-					    $size = $bytestotal;
-				} else {
-					$ELEMENT_TYPE = "<i class='fa fa-file'></i>";
-					$extension = pathinfo($array_of_files_and_folders[$i], PATHINFO_EXTENSION);
-					$size = $stat_array['size'];
-				}
-				$units = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
-	    		$power = $size > 0 ? floor(log($size, 1024)) : 0;
-	    		$SIZE = number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
-
-
-	    		/**CREATE FILE/FOLDER VIEW**/
-
-				$loader->set_template_file("index_single_element");
-				$loader->assign("ELEMENT_TYPE", $ELEMENT_TYPE);
-				$loader->assign("FULLNAME", urlencode($array_of_files_and_folders[$i]));
-				$loader->assign("NAME", substr($array_of_files_and_folders[$i], 0,8));
-				if ($extension == "folder") {
-					$loader->assign("ROOT_FULLNAME", "index.php?directory=".urlencode($newway_root_directory.$array_of_files_and_folders[$i]));
-					$loader->assign("TARGET", "");
-				} else {
-					$loader->assign("ROOT_FULLNAME", $newway_root_directory.$array_of_files_and_folders[$i]);
-					$loader->assign("TARGET", ' target="_blank" ');
-				}
-				$loader->assign("DATE_MODIFIED", date("F d, Y h:i A", $modified_time));
-				$loader->assign("EXTENSION", $extension);
-				$loader->assign("SIZE", $SIZE);
-				$loader->output();
-
-			}
-		}
-		echo "</tbody></table></div>";
-	} else {
-		$loader->set_template_file("error_message");
-		$loader->assign("MESSAGE","The directory is not valid");
-		$loader->output();
-	}
-
-} else {
-	$loader->set_template_file("index_file_view_failed");
-	$loader->output();
-}
+<?php 
+	require_once 'components/login_component.html';
+	require_once 'components/add_user_component.html';
+	require_once 'components/registration_component.html';
+	require_once 'components/alert_component.html';
+	require_once 'components/file_folder_component.html';
+	require_once 'components/upload_component.html';
+	require_once 'components/delete_component.html';
 ?>
-<script>
-	var rootDir = "<?php echo $newway_root_directory; ?>";
+<style type="text/css">
+	td.file_folder_item:hover {
+		background-color: rgba(0,0,130, 0.2);
+	}
+	.bigger_icon {
+		font-size: 70px;
+	}
+
+	.borderless td, .borderless th {
+	    border: none;
+	}
+
+	.selected_option {
+		background-color: rgba(0,0,130, 0.2);
+	}
+
+	.selected_file_folder {
+		background-color: rgba(0,0,130, 0.2);
+	}
+
+	.modal-lg {
+	    max-width: 80% !important;
+	}
+
+	.checkbox-1x {
+	    transform: scale(1.5);
+	    -webkit-transform: scale(1.5);
+	}
+	.checkbox-2x {
+	    transform: scale(2);
+	    -webkit-transform: scale(2);
+	}
+  
+</style>
+
+
+		<div  id="filemanager_area" class="">
+
+			<title>{{ application_title }}</title>
+
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light sticky-top">
+			  <div class="container">
+			    <a class="navbar-brand" href="#"><i class="fa fa-shield"></i> &nbsp;{{ application_title }}</a>
+				 <div class="form-inline" v-if="is_logged_in">
+				    <button class="btn btn-outline-light my-2 my-sm-0" @click="logoutUser()" type="submit">Logout</button>
+				  </div>
+			  </div>
+			</nav>
+
+			<alert-component :alert_title="alert_object.title" :alert_description="alert_object.description" :alert_type="alert_object.type"></alert-component>
+			<login-component v-if="is_logged_in == false && is_first_time_installation == false" :api_url="api_url"></login-component>
+			
+			<registration-component v-if="is_first_time_installation" :api_url="api_url"></registration-component>
+			<br/><br/>
+
+			<div class="container-fluid" v-if="is_logged_in">
+				<div class="row">
+					<div class="col-sm-3">
+						<table class="table borderless">
+							<tr>
+								<td @click="changeFileViewState()" style="cursor: pointer" :class="{selected_option:is_list_view}"><i class="fa fa-list-alt" ></i>&nbsp; List View</td>
+								<td @click="changeFileViewState()" style="cursor: pointer" :class="{selected_option:(is_list_view == false)}"><i class="fa fa-square"></i>&nbsp; Grid View</td>
+							</tr>
+						</table>
+
+						<add-user-component></add-user-component>
+					</div>
+					<div class="col-sm-9" v-if="is_file_folder_data_ready">
+						<file-folder-component :files_and_folders_prop="files" :is_list_view="is_list_view" :current_directory="current_directory" :root_directory="root_directory" :directory_separator="directory_separator" :api_url="api_url"></file-folder-component>
+						<upload-component  :api_url="api_url" :current_directory="current_directory"></upload-component>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+
+
+
+<script type="text/javascript">
+	//load globals and enums
+	const API_URL = "api/views.php";
+
+	const ServerResponseCodes = {
+		FirstTimeInstallation:10,
+		LoggedIn:11,
+		NotAuthenticated:12
+	}
+
+	const AccessLevels = {
+			NoAccess: -1,
+			ReadOnly: 0,
+			ReadWrite: 1,
+			ReadWriteDelete: 2,
+			Admin: 3,
+	}
+
+	const ServerBinaryResponse =  {
+		success:1,
+		error:0
+	}
+
+	const AlertType = {
+		Success:"alert-success",
+		Failure:"alert-danger",
+		Warning:"alert-warning"
+	}
+
+	const LoginError = {
+		EmailIncorrect:13,
+		PasswordIncorrect:14,
+	}
+
 </script>
-<?php $loader->load_js("js", array("jquery", "izimodal", "index", "izitoast")); ?>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/drag-select.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script>
+	const event_bus = new Vue({})
+	Vue.filter('user_friendly_memory_format_filter', function(num) {
+
+		  if (typeof num !== 'number' || isNaN(num)) {
+			    throw new TypeError('Expected a number');
+			  }
+
+			  var exponent;
+			  var unit;
+			  var neg = num < 0;
+			  var units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+			  if (neg) {
+			    num = -num;
+			  }
+
+			  if (num < 1) {
+			    return (neg ? '-' : '') + num + ' B';
+			  }
+
+			  exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), units.length - 1);
+			  num = (num / Math.pow(1000, exponent)).toFixed(2) * 1;
+			  unit = units[exponent];
+
+			  return (neg ? '-' : '') + num + ' ' + unit;
+	});
+</script>
+<script type="text/javascript" src="js/vue-resource.js"></script>
+<script type="text/javascript" src="components/login_component.js"></script>
+<script type="text/javascript" src="components/add_user_component.js"></script>
+<script type="text/javascript" src="components/registration_component.js"></script>
+<script type="text/javascript" src="components/alert_component.js"></script>
+<script type="text/javascript" src="components/file_folder_component.js"></script>
+<script type="text/javascript" src="components/delete_component.js"></script>
+<script type="text/javascript" src="components/upload_component.js"></script>
+<script>
+
+	new Vue({
+		el: "#filemanager_area",
+
+		created() {
+			this.getCurrentStateOnPageLoad()
+			this.setUpRegistrationEventHander()
+			this.setUpLoginEventHandler()
+			event_bus.$on('directory-changed-by-user', (full_location)=> {
+				this.current_directory = full_location
+			})
+
+			event_bus.$on('refresh-current-directory-data',()=> {
+				this.getFilesAndFolders(this.current_directory)
+			})
+		},
+
+		data: {
+			is_list_view: false,
+			is_logged_in: false,
+			is_first_time_installation: false,
+			api_url: API_URL,
+			alert_object: {
+				"title":"",
+				"description":"",
+				"type":AlertType.Success
+			},
+			application_title: "Newway File Manager",
+			current_user:null,
+			files:[],
+			is_file_folder_data_ready: false,
+			// the current directory the user is present
+			current_directory:"",
+			directory_separator:"<?php echo DIRECTORY_SEPARATOR; ?>",
+			root_directory:"<?php echo dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR; ?>",
+
+		},
+
+		watch: {
+
+			is_logged_in: function(newValue, oldValue) {
+				if (newValue) {
+					// if logged in then get files
+					this.getFilesAndFolders()
+				}
+			},
+
+			current_directory: function(newValue, oldValue) {
+				if (newValue) {
+					this.getFilesAndFolders(newValue)
+				}
+			}
+
+		},
+
+		methods: 
+		{
+
+
+				setUpLoginEventHandler() {
+					event_bus.$on('login', (server_response)=> {
+						server_response = parseInt(server_response)
+						switch (server_response) {
+							case LoginError.EmailIncorrect:
+								// registration success
+								this.is_first_time_installation = false
+								this.alert_object.title = "Failure"
+								this.alert_object.description = "Entered email didnt match any registered users"
+								this.alert_object.type = AlertType.Failure
+								break;
+							case LoginError.PasswordIncorrect:
+								this.alert_object.title = "Failure"
+								this.alert_object.description = "Entered password is wrong, recheck your password"
+								this.alert_object.type = AlertType.Failure
+								break;
+							case ServerResponseCodes.LoggedIn:
+								this.is_logged_in = true
+								break;
+							default:
+								// statements_def
+								break;
+						}
+					})
+				},
+
+
+				setUpRegistrationEventHander() {
+					event_bus.$on('registration', (server_response)=> {
+						server_response = parseInt(server_response)
+						switch (server_response) {
+							case ServerBinaryResponse.success:
+								// registration success
+								this.is_first_time_installation = false
+								this.alert_object.title = "Success"
+								this.alert_object.description = " You have been successfully registered, please login"
+								this.alert_object.type = AlertType.Success
+								break;
+							case ServerBinaryResponse.error:
+								this.alert_object.title = "Registration Failure"
+								this.alert_object.description = "Please Check Your File Permissions"
+								this.alert_object.type = AlertType.Failure
+								break;
+							default:
+								// statements_def
+								break;
+						}
+					})
+				},
+
+				getCurrentStateOnPageLoad() {
+
+					this.$http.post(API_URL, {"action":"get_current_status"}, {emulateJSON:true})
+						.then(response=> {
+							const server_response_code = response.body.return_code;
+							switch (server_response_code) {
+								case ServerResponseCodes.FirstTimeInstallation:
+									this.is_first_time_installation = true
+									break;
+								case ServerResponseCodes.LoggedIn:
+									console.log('logged in ')
+									this.is_logged_in = true
+									break;
+								case ServerResponseCodes.NotAuthenticated:
+									this.is_logged_in = false
+									break;
+								default:
+									break;					
+							}
+						})
+				},
+
+
+				getFilesAndFolders(directory="") {
+					const file_object = {
+						"action":"get_files"
+					}
+					if (directory != "") {
+						file_object["directory"] = directory;
+					}
+					this.$http.post(API_URL, file_object, {emulateJSON:true}).then(response=> {
+						const server_response = response.body;
+						if (Array.isArray(server_response)) {
+							Vue.set(this, "files", server_response)
+							this.is_file_folder_data_ready = true
+							event_bus.$emit('files-and-folders-prop_data-changed', this.files)
+						}
+						else {
+							console.log('not array')
+						}
+					})
+
+				},
+
+
+				changeFileViewState() {
+					this.is_list_view = !this.is_list_view;
+					console.log(this.is_list_view)
+				},
+
+				logoutUser() {
+					const logout_object = {
+						action: "logout_user",
+					}
+					this.$http.post(this.api_url, logout_object, {emulateJSON:true}).
+					then(response=> {
+						this.getCurrentStateOnPageLoad()
+					})
+				}
+	
+
+		}
+
+	})
+
+</script>

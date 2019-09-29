@@ -1,0 +1,42 @@
+<script type="text/x-template" id="add_user_component_template">
+
+	<div class="text-center">
+		<br/><br/>
+		<h4>Add New User </h4>
+		<br/>
+		<div class="alert alert-info">
+			<i class="fa fa-warning"></i> The add new user feature is coming soon..
+		</div>
+		<div class="input-group">
+			<div class="input-group-prepend">
+	          <div class="input-group-text"><i class="fa fa-envelope"></i></div>
+	        </div>
+			<input type="text" class="form-control" v-model="email" placeholder="Enter New User Email Address">
+		</div>
+		<br/>
+		<div class="input-group">
+			<div class="input-group-prepend">
+	          <div class="input-group-text"><i class="fa fa-key"></i></div>
+	        </div>
+			<input type="password" class="form-control" v-model="password" placeholder="Enter New User Password">
+		</div>
+		<br/>
+
+		<div class="input-group">
+			<div class="input-group-prepend">
+	          <div class="input-group-text"><i class="fa fa-exclamation-triangle"></i></div>
+	        </div>
+			<select v-model="access" class="form-control">
+				<option value="" disabled selected>Choose user access level</option>
+				<option value="0">This user can see files</option>
+				<option value="1">This user can see,write files</option>
+				<option value="2">This user can see,write,delete files</option>
+				<option value="3">This user can see,write,delete files and also add other users</option>
+
+			</select>
+		</div>
+		<br/>
+		<button class="btn btn-primary" disabled>Submit</button>
+	</div>
+
+</script>

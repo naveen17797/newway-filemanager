@@ -1,0 +1,11 @@
+<script type="text/x-template">
+	
+<table class="table borderless">
+	<tr>
+		<td :class="{selected_option:is_list_view}"><i class="fa fa-list-alt" @click="changeState()"></i>&nbsp; List View</td>
+		<td class="{selected_option:(is_list_view == false)}"><i class="fa fa-square" @click="changeState()"></i>&nbsp; Grid View</td>
+	</tr>
+</table>
+
+
+</script>
