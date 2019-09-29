@@ -264,6 +264,16 @@ class NewwayFileManager {
 			return null;
 		}
 		
+	}
+
+	// deletes a file or folder based on the user access level
+	public function deleteItem($item) {
+		if ($this->current_logged_in_user_instance->canDeleteFiles()) {
+
+		}
+		else {
+			return false;
+		}
 	}	
 }
 

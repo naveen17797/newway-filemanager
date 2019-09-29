@@ -29,4 +29,10 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
         $unauthorised_file_manager_instance = new NewwayFileManager($unauthorised_user);
         $this->assertNull($unauthorised_file_manager_instance->getFilesAndFolders(SERVER_ROOT));
     }
+
+
+    public function testGivenUserWithoutDeletePermissionItShouldNotAllowToDelete() {
+        $file_manager_instance = new NewwayFileManager(new User("foo@gmail.com", "foo", AccessLevel::ReadOnly));
+        $this->assertFalse($file_manager_instance->deleteItem("foo/"));
+    }
 }
