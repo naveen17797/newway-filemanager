@@ -13,8 +13,9 @@ Newway uses the presence of the `users.json` file to detect whether an email ID 
 
 ## Screenshots from Newway
 
-## Main UI
+## Main UI (List View)
 
 ![Screenshot_2019-09-29_20-57-28](https://user-images.githubusercontent.com/18109258/65834852-c9653580-e2fc-11e9-964c-81b898a33b11.png)
 
+## Main UI (Grid View)
 ![Screenshot_2019-09-29_20-56-55](https://user-images.githubusercontent.com/18109258/65834853-c9653580-e2fc-11e9-8466-09c4b28bb883.png)
