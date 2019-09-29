@@ -18,14 +18,24 @@
         <div class=" modal-body" style="max-height: calc(100vh - 200px); overflow-y: auto;">
             <div class="sticky-top">
                 <div class="alert alert-danger" role="alert">
-                  The files or folders once deleted, it  cant be recovered
+                  <i class="fa fa-warning"></i> The files or folders once deleted, it  cant be recovered
                 </div>
-            </div>  
-        	<div v-if="choosen_files.length > 0">
+                <template v-for="item in deleted_files">
 
-                <div class="progress sticky-top">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" :style="{'width': completed_progress+'%'}"></div> 
-                </div>              
+                    <template v-if="item.is_deleted">
+                            <div class="alert alert-success" role="alert">
+                              <i class="fa fa-check"></i> {{ item.name }} successfully deleted
+                            </div>
+                    </template>
+                    <template v-else>
+                            <div class="alert alert-danger" role="alert">
+                              <i class="fa fa-warning"></i> {{ item.name }} failed to delete
+                            </div>
+                    </template>
+
+                </template>
+            </div>  
+        	<div v-if="choosen_files.length > 0">     
                 <br/><br/>
         		<h5>Files/Folders to be Deleted</h5>
         		<br/>
@@ -46,7 +56,7 @@
         <div class="modal-footer">
 
 
-    	         <button v-if="choosen_files.length > 0" type="button" class="btn btn-primary" @click="submitFiles()">Confirm Delete</button>
+    	         <button v-if="choosen_files.length > 0" type="button" class="btn btn-danger" @click="confirmDeleteFiles()">Confirm Delete</button>
     	         &nbsp;
     	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 

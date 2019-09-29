@@ -253,7 +253,11 @@ class NewwayFileManager {
 					$single_file_info_array['is_directory'] = $file_info->isDir();
 					$single_file_info_array['extension'] = $file_info->getExtension();
 					$single_file_info_array['last_modified_time'] = $file_info->getCTime();
-					$single_file_info_array['full_location'] = $directory.$file_info->getFilename().DIRECTORY_SEPARATOR;
+					$single_file_info_array['full_location'] = $directory.$file_info->getFilename();
+					if ($file_info->isDir()) {
+						// if directory add a directory separator to end
+						$single_file_info_array['full_location'] = $directory.$file_info->getFilename().DIRECTORY_SEPARATOR;
+					}
 					$single_file_info_array['is_selected'] = false;
 					array_push($files_and_folders, $single_file_info_array);
 				}

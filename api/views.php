@@ -122,14 +122,35 @@ if ($action == "upload_files") {
 }
 
 
-if ($action == "delete_item") {
+if ($action == "delete_items") {
 
-	$item = $_POST['directory_or_file_to_be_deleted'];
+	$file_list = $_POST['file_list'];
+
+
 
 	$current_user_instance = SessionUser::getCurrenUserInstance();
 
 	if ($current_user_instance != null) {
-		echo $item;
+		
+		$file_manager_instance = new NewwayFileManager($current_user_instance);
+
+		$file_folder_item_statistics = array();
+
+		foreach($file_list as $file_folder_item) {	
+
+			$single_file_folder_item_statistics = array();
+
+			$is_deleted = $file_manager_instance->deleteItem($file_folder_item);
+			
+			$single_file_folder_item_statistics['name'] = $file_folder_item;
+
+			$single_file_folder_item_statistics['is_deleted'] = $is_deleted;
+
+			array_push($file_folder_item_statistics, $single_file_folder_item_statistics);
+		}
+
+		echo json_encode($file_folder_item_statistics);
+
 	}
 	else {
 		return FileManagerState::NotAuthenticated;

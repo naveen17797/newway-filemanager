@@ -3,6 +3,7 @@ Vue.component('file-folder-component', {
 	template:"#file_folder_template",
 
 	props:{
+		api_url:"",
 		files_and_folders_prop: null,
 		is_list_view: true,
 		current_directory: "",
@@ -15,6 +16,7 @@ Vue.component('file-folder-component', {
 		event_bus.$on('files-and-folders-prop_data-changed', (data)=> {
 			Vue.set(this, "files_and_folders_prop_data", data)
 		})
+
 	},
 
 
@@ -77,7 +79,6 @@ Vue.component('file-folder-component', {
 
 		showDeleteModal() {
 			event_bus.$emit('show-delete-modal')
-			console.log('delete modal trigger pressed')
 		},
 
 		getNameHtmlByHighlighting(name) {
@@ -112,9 +113,7 @@ Vue.component('file-folder-component', {
 			if (is_directory) {
 				event_bus.$emit('directory-changed-by-user', full_location)
 			}
-			else {
-				console.log('not a directory')
-			}
+
 		}
 
 	},

@@ -15,27 +15,43 @@ Vue.component('delete-component', {
 
 	},
 
+
 	created() {
 
 		event_bus.$on('show-delete-modal', ()=> {
 
 			$('#delete_modal').modal('show')
-			console.log('modal shown')
 		})
 
 	},
 
 	methods: {
-	
+
+		confirmDeleteFiles() {
+
+			const delete_object = {
+				action: 'delete_items',
+				file_list: this.choosen_files
+			}
+
+			// reset deleted files
+			Vue.set(this, "deleted_files", [])
+
+			this.$http.post(this.api_url, delete_object, {emulateJSON:true})
+			.then(response=> {
+				const deleted_files_statistics = response.body
+				Vue.set(this, "deleted_files", deleted_files_statistics);
+				event_bus.$emit('refresh-current-directory-data');
+			})
+
+		}
 
 	},
 
 	data: function () {
 		return  {
 
-			completed_progress: 0,
-
-			alert_message: "",
+			deleted_files:[],
 
 		}
 	}
