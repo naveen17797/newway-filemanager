@@ -158,6 +158,10 @@ class JsonUserDataManager implements UserDataManager {
 		}
 
 	}
+
+	public function getAllUsers() {
+		return $this->user_data;
+	}
 	
 
 	public function insertUser(User $user):bool {

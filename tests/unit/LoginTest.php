@@ -27,6 +27,12 @@ class LoginTest extends \Codeception\Test\Unit
         return $user_to_be_registered;
     }
 
+    public function testAfterRegisteringUsersAbleToRetrieveThem() {
+        $user_to_be_registered = $this->registerUser();
+        $this->assertNotNull($this->user_data_manager->getAllUsers());
+        $this->assertEquals(1, count($this->user_data_manager->getAllUsers()));
+    }
+
     public function testWhenGivenCorrectCredentialsShouldLogin()
     {
         $user_to_be_registered = $this->registerUser();

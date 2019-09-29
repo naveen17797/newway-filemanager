@@ -74,8 +74,8 @@
 								<td @click="changeFileViewState()" style="cursor: pointer" :class="{selected_option:(is_list_view == false)}"><i class="fa fa-square"></i>&nbsp; Grid View</td>
 							</tr>
 						</table>
-<!-- 
-						<add-user-component></add-user-component> -->
+
+						<add-user-component></add-user-component>
 					</div>
 					<div class="col-sm-9" v-if="is_file_folder_data_ready">
 						<file-folder-component :files_and_folders_prop="files" :is_list_view="is_list_view" :current_directory="current_directory" :root_directory="root_directory" :directory_separator="directory_separator" :api_url="api_url"></file-folder-component>
