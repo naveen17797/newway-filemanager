@@ -53,7 +53,7 @@
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light sticky-top">
 			  <div class="container">
 			    <a class="navbar-brand" href="#"><i class="fa fa-shield"></i> &nbsp;{{ application_title }}</a>
-				 <div class="form-inline">
+				 <div class="form-inline" v-if="is_logged_in">
 				    <button class="btn btn-outline-light my-2 my-sm-0" @click="logoutUser()" type="submit">Logout</button>
 				  </div>
 			  </div>
