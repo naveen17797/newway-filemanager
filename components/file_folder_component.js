@@ -35,7 +35,7 @@ Vue.component('file-folder-component', {
 		files_and_folders_prop_data: {
 			
 			handler(newValue) {
-				
+				Vue.set(this, "selected_items", [])
 				for (item of newValue) {
 					if (item.is_selected && !this.selected_items.includes(item.full_location)) {
 						this.selected_items.push(item.full_location)

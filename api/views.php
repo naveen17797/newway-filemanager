@@ -120,6 +120,21 @@ if ($action == "upload_files") {
 
 
 }
-	
+
+
+if ($action == "delete_item") {
+
+	$item = $_POST['directory_or_file_to_be_deleted'];
+
+	$current_user_instance = SessionUser::getCurrenUserInstance();
+
+	if ($current_user_instance != null) {
+		echo $item;
+	}
+	else {
+		return FileManagerState::NotAuthenticated;
+	}
+
+}
 
 ?>
