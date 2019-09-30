@@ -152,6 +152,12 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
         $this->assertTrue($this->file_manager_instance->pathSecurityCheck($correct_file_path));
     }
 
+    public function testGivenMaliciousFilePathShouldNotPerformOperation() {
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck(SERVER_ROOT."../../foo1"));
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck(SERVER_ROOT."../../foo1.txt"));
+        
+    }
+
 
 
 }

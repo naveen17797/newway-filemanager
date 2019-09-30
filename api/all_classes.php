@@ -334,9 +334,21 @@ class NewwayFileManager {
 		// real path will return false if the file does not exists
 		// so capture the dir value using path info
 		if ($real_path == false) {
-			$real_path = pathinfo($path)['dirname'];
+			$path_info = pathinfo($path);
+
+			if (array_key_exists("extension", $path_info)) {
+				$real_path = realpath($path_info['dirname']);
+				return $this->isRootDirectoryPresentInStartingOfPath($real_path);
+			}
+			else {
+				return false;
+			}
+
 		}
-		return $this->isRootDirectoryPresentInStartingOfPath($real_path);
+		else {
+			return $this->isRootDirectoryPresentInStartingOfPath($real_path);
+		}
+		
 	}	
 }
 
