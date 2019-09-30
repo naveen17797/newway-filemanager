@@ -312,6 +312,37 @@ class NewwayFileManager {
 		else {
 			return false;
 		}
+	}
+
+	private function isRootDirectoryPresentInStartingOfPath($path) {
+
+		$root_path_length = strlen(SERVER_ROOT);
+
+		$current_root_path = substr($path, 0, $root_path_length);
+
+		return SERVER_ROOT == $current_root_path;
+
+
+	}
+
+	public function pathSecurityCheck($path) {
+		// check if the path lies in our root
+		if (strlen($path) >= strlen(SERVER_ROOT)) {
+
+			if (strpos($path, '../') !== false){
+				// this is attempting to go outside of root directory
+				return false;
+			}
+			else {
+
+				return $this->isRootDirectoryPresentInStartingOfPath($path);
+
+			}
+
+		}
+		else {
+			return false;
+		}
 	}	
 }
 

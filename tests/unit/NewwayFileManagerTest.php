@@ -110,4 +110,32 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
         }
 
     }
+
+
+    public function testGivenMaliciousPathFileManagerShouldNotPerformOperation() {
+
+        // malicious file path
+        $malicious_file_path = "/";
+
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck($malicious_file_path));
+
+    }
+
+    public function testGivenMaliciousFilePathAlongWithRootShouldNotPerformOperation() {
+        //malicious file path 2
+        $malicious_file_path = SERVER_ROOT."../../";
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck($malicious_file_path));
+    }
+
+    public function testGivenMaliciousFilePathWithNoRootOperationShouldNotBePerformed() {
+         $malicious_file_path = "/home/naveen/Desktop/foo/";
+         $this->assertFalse($this->file_manager_instance->pathSecurityCheck($malicious_file_path));
+
+    }
+
+    public function testGivenValidPathAllowUserToPerformOperation() {
+        $correct_file_path = SERVER_ROOT."foo";
+        $this->assertTrue($this->file_manager_instance->pathSecurityCheck($correct_file_path));
+    }
+
 }
