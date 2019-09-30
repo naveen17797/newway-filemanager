@@ -42,10 +42,10 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
         // a perfectly normal user with delete access has been created 
     
         // lets create a file 
-        fopen("delete_test_file.txt", "w");
+        fopen(ABSPATH."delete_test_file.txt", "w");
 
         // now try to delete it
-        $this->assertTrue($file_manager_instance->deleteItem("delete_test_file.txt"));
+        $this->assertTrue($file_manager_instance->deleteItem(ABSPATH."delete_test_file.txt"));
 
         // even if it is not deleted by test, just remove it
         if (file_exists("delete_test_file.txt")) {

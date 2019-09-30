@@ -246,7 +246,7 @@ class NewwayFileManager {
 	}
 
 	public function getFilesAndFolders($directory):?array {
-		if ($this->current_logged_in_user_instance->canReadFiles()) {
+		if ($this->current_logged_in_user_instance->canReadFiles() && $this->pathSecurityCheck($directory)) {
 			$files_and_folders = array();
 			$files = new DirectoryIterator($directory);
 			foreach ($files as $file_info) {
@@ -296,7 +296,7 @@ class NewwayFileManager {
 
 	// deletes a file or folder based on the user access level
 	public function deleteItem($item) {
-		if ($this->current_logged_in_user_instance->canDeleteFiles()) {
+		if ($this->current_logged_in_user_instance->canDeleteFiles() && $this->pathSecurityCheck($item)) {
 			return $this->deleteFileOrFolder($item);
 		}
 		else {
@@ -306,7 +306,8 @@ class NewwayFileManager {
 
 
 	public function renameItem($oldname, $newname) {
-		if ($this->current_logged_in_user_instance->canWriteFiles()) {
+		if ($this->current_logged_in_user_instance->canWriteFiles()
+			&& $this->pathSecurityCheck($oldname) && $this->pathSecurityCheck($newname)) {
 			return rename($oldname, $newname);
 		}
 		else {
@@ -324,6 +325,7 @@ class NewwayFileManager {
 
 
 	}
+
 
 	public function pathSecurityCheck($path) {
 		// check if the path lies in our root
