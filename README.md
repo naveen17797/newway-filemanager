@@ -1,5 +1,5 @@
 # NEWWAY FILE MANAGER
-[![BCH compliance](https://bettercodehub.com/edge/badge/naveen17797/newway-filemanager?branch=master)](https://bettercodehub.com/)
+[![Gitter](https://badges.gitter.im/newwayfilemanager/community.svg)](https://gitter.im/newwayfilemanager/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)]()   [<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Facebook.svg" width="80">](https://www.facebook.com/newwayfilemanager)
 
 
