@@ -42,10 +42,10 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
         // a perfectly normal user with delete access has been created 
     
         // lets create a file 
-        fopen("delete_test_file.txt", "w");
+        fopen(ABSPATH."delete_test_file.txt", "w");
 
         // now try to delete it
-        $this->assertTrue($file_manager_instance->deleteItem("delete_test_file.txt"));
+        $this->assertTrue($file_manager_instance->deleteItem(ABSPATH."delete_test_file.txt"));
 
         // even if it is not deleted by test, just remove it
         if (file_exists("delete_test_file.txt")) {
@@ -66,7 +66,7 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
 
         $delete_test_dir_name = ABSPATH."delete_test_dir".DIRECTORY_SEPARATOR;
 
-        codecept_debug(ABSPATH);
+
 
         // now check if the user is able to delete a directory with file 
          $this->assertTrue($this->file_manager_instance->deleteItem(ABSPATH."delete_test_dir"));
@@ -133,9 +133,38 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
 
     }
 
+    public function testGivenUrlEncodedMaliciousFilePathOperationShouldNotBePerformed() {
+        $malicious_file_path = SERVER_ROOT."../";
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck($malicious_file_path));
+
+    }
+
+
     public function testGivenValidPathAllowUserToPerformOperation() {
         $correct_file_path = SERVER_ROOT."foo";
         $this->assertTrue($this->file_manager_instance->pathSecurityCheck($correct_file_path));
+    }
+
+    public function testGivenMaliciousFilePathShouldNotPerformOperation() {
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck(SERVER_ROOT."../../foo1"));
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck(SERVER_ROOT."../../foo1.txt"));
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck(SERVER_ROOT."../../"));
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck(SERVER_ROOT."..%2f..%2f"));
+
+    }
+
+    public function testGivenNonExistentButOldnameIsValidThenShouldPerformOperation() {
+        
+
+        fopen(ABSPATH."delete_test_file.txt", "w");
+
+        $this->assertTrue($this->file_manager_instance->pathSecurityCheckForRenameOperation(ABSPATH."delete_test_file.txt",ABSPATH."b.txt" ));
+
+        // even if it is not deleted by test, just remove it
+        if (file_exists(ABSPATH."delete_test_file.txt")) {
+            unlink(ABSPATH."delete_test_file.txt");
+        }           
+
     }
 
 }

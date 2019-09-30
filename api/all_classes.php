@@ -246,7 +246,7 @@ class NewwayFileManager {
 	}
 
 	public function getFilesAndFolders($directory):?array {
-		if ($this->current_logged_in_user_instance->canReadFiles()) {
+		if ($this->current_logged_in_user_instance->canReadFiles() && $this->pathSecurityCheck($directory)) {
 			$files_and_folders = array();
 			$files = new DirectoryIterator($directory);
 			foreach ($files as $file_info) {
@@ -296,7 +296,7 @@ class NewwayFileManager {
 
 	// deletes a file or folder based on the user access level
 	public function deleteItem($item) {
-		if ($this->current_logged_in_user_instance->canDeleteFiles()) {
+		if ($this->current_logged_in_user_instance->canDeleteFiles() && $this->pathSecurityCheck($item)) {
 			return $this->deleteFileOrFolder($item);
 		}
 		else {
@@ -304,9 +304,9 @@ class NewwayFileManager {
 		}
 	}
 
-
 	public function renameItem($oldname, $newname) {
-		if ($this->current_logged_in_user_instance->canWriteFiles()) {
+		if ($this->current_logged_in_user_instance->canWriteFiles()
+			&& $this->pathSecurityCheck($oldname) && $this->pathSecurityCheckForRenameOperation($oldname, $newname)) {
 			return rename($oldname, $newname);
 		}
 		else {
@@ -315,35 +315,41 @@ class NewwayFileManager {
 	}
 
 	private function isRootDirectoryPresentInStartingOfPath($path) {
-
-		$root_path_length = strlen(SERVER_ROOT);
-
-		$current_root_path = substr($path, 0, $root_path_length);
-
-		return SERVER_ROOT == $current_root_path;
-
-
-	}
-
-	public function pathSecurityCheck($path) {
-		// check if the path lies in our root
-		if (strlen($path) >= strlen(SERVER_ROOT)) {
-
-			if (strpos($path, '../') !== false){
-				// this is attempting to go outside of root directory
-				return false;
-			}
-			else {
-
-				return $this->isRootDirectoryPresentInStartingOfPath($path);
-
-			}
-
+		$root_path_length = strlen(SERVER_ROOT) - 1;
+		if (strlen($path) >= $root_path_length) {
+			$current_root_path = substr($path, 0, $root_path_length);
+			// when given a directory with trailing slash, real path removes it
+			// so we need to compare to server root without that slash
+			return substr(SERVER_ROOT,0,-1) == $current_root_path;
 		}
 		else {
 			return false;
 		}
+
+	}
+
+
+	public function pathSecurityCheck($path) {
+		$real_path = realpath($path);
+		// real path will return false if the file does not exists
+		// so capture the dir value using path info
+		if ($real_path == false) {
+			return false;
+		}
+		else {
+			return $this->isRootDirectoryPresentInStartingOfPath($real_path);
+		}	
 	}	
+
+	// the real path will return false if the file/folder does not exists
+	// which is a specific case in rename operation.So Before calling this method 
+	// pathSecurityCheck should be called and it should have verified the old path 
+	// as valid
+	public function pathSecurityCheckForRenameOperation($valid_old_path, $new_path) {
+		$old_item_directory = pathinfo($valid_old_path)['dirname'];
+		$new_item_directory = pathinfo($new_path)['dirname'];
+		return $old_item_directory == $new_item_directory;
+	}
 }
 
 ?>
