@@ -139,13 +139,6 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
 
     }
 
-    public function testGivenValidNonExistentFilePathShouldReturnTrue() {
-        $valid_file_path = SERVER_ROOT."foo.txt";
-        // this file is non existent, but the path is valid
-        // this test to counter the realpath function failure on non existent files
-        $this->assertTrue($this->file_manager_instance->pathSecurityCheck($valid_file_path));
-    }
-
 
     public function testGivenValidPathAllowUserToPerformOperation() {
         $correct_file_path = SERVER_ROOT."foo";
@@ -155,9 +148,23 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
     public function testGivenMaliciousFilePathShouldNotPerformOperation() {
         $this->assertFalse($this->file_manager_instance->pathSecurityCheck(SERVER_ROOT."../../foo1"));
         $this->assertFalse($this->file_manager_instance->pathSecurityCheck(SERVER_ROOT."../../foo1.txt"));
-        
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck(SERVER_ROOT."../../"));
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck(SERVER_ROOT."..%2f..%2f"));
+
     }
 
+    public function testGivenNonExistentButOldnameIsValidThenShouldPerformOperation() {
+        
 
+        fopen(ABSPATH."delete_test_file.txt", "w");
+
+        $this->assertTrue($this->file_manager_instance->pathSecurityCheckForRenameOperation(ABSPATH."delete_test_file.txt",ABSPATH."b.txt" ));
+
+        // even if it is not deleted by test, just remove it
+        if (file_exists(ABSPATH."delete_test_file.txt")) {
+            unlink(ABSPATH."delete_test_file.txt");
+        }           
+
+    }
 
 }

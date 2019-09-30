@@ -306,7 +306,7 @@ class NewwayFileManager {
 
 	public function renameItem($oldname, $newname) {
 		if ($this->current_logged_in_user_instance->canWriteFiles()
-			&& $this->pathSecurityCheck($oldname) && $this->pathSecurityCheck($newname)) {
+			&& $this->pathSecurityCheck($oldname) && $this->pathSecurityCheckForRenameOperation($oldname, $newname)) {
 			return rename($oldname, $newname);
 		}
 		else {
@@ -334,22 +334,22 @@ class NewwayFileManager {
 		// real path will return false if the file does not exists
 		// so capture the dir value using path info
 		if ($real_path == false) {
-			$path_info = pathinfo($path);
-
-			if (array_key_exists("extension", $path_info)) {
-				$real_path = realpath($path_info['dirname']);
-				return $this->isRootDirectoryPresentInStartingOfPath($real_path);
-			}
-			else {
-				return false;
-			}
-
+			return false;
 		}
 		else {
 			return $this->isRootDirectoryPresentInStartingOfPath($real_path);
-		}
-		
+		}	
 	}	
+
+	// the real path will return false if the file/folder does not exists
+	// which is a specific case in rename operation.So Before calling this method 
+	// pathSecurityCheck should be called and it should have verified the old path 
+	// as valid
+	public function pathSecurityCheckForRenameOperation($valid_old_path, $new_path) {
+		$old_item_directory = pathinfo($valid_old_path)['dirname'];
+		$new_item_directory = pathinfo($new_path)['dirname'];
+		return $old_item_directory == $new_item_directory;
+	}
 }
 
 ?>
