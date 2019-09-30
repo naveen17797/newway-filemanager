@@ -133,6 +133,19 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
 
     }
 
+    public function testGivenUrlEncodedMaliciousFilePathOperationShouldNotBePerformed() {
+        $malicious_file_path = SERVER_ROOT."../";
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck($malicious_file_path));
+
+    }
+
+    public function testGivenSpecialCharactersInPathOperationShouldNotBePerformed() {
+        $malicious_file_path = SERVER_ROOT."..%2f..%2f";
+        $this->assertFalse($this->file_manager_instance->pathSecurityCheck($malicious_file_path));        
+    }
+
+
+
     public function testGivenValidPathAllowUserToPerformOperation() {
         $correct_file_path = SERVER_ROOT."foo";
         $this->assertTrue($this->file_manager_instance->pathSecurityCheck($correct_file_path));

@@ -307,7 +307,7 @@ class NewwayFileManager {
 
 	public function renameItem($oldname, $newname) {
 		if ($this->current_logged_in_user_instance->canWriteFiles()
-			&& $this->pathSecurityCheck($oldname) && $this->pathSecurityCheck($newname)) {
+			&& $this->pathSecurityCheck($oldname)) {
 			return rename($oldname, $newname);
 		}
 		else {
@@ -316,35 +316,23 @@ class NewwayFileManager {
 	}
 
 	private function isRootDirectoryPresentInStartingOfPath($path) {
-
-		$root_path_length = strlen(SERVER_ROOT);
-
-		$current_root_path = substr($path, 0, $root_path_length);
-
-		return SERVER_ROOT == $current_root_path;
-
+		$root_path_length = strlen(SERVER_ROOT) - 1;
+		if (strlen($path) >= $root_path_length) {
+			$current_root_path = substr($path, 0, $root_path_length);
+			// when given a directory with trailing slash, real path removes it
+			// so we need to compare to server root without that slash
+			return substr(SERVER_ROOT,0,-1) == $current_root_path;
+		}
+		else {
+			return false;
+		}
 
 	}
 
 
 	public function pathSecurityCheck($path) {
-		// check if the path lies in our root
-		if (strlen($path) >= strlen(SERVER_ROOT)) {
-
-			if (strpos($path, '../') !== false){
-				// this is attempting to go outside of root directory
-				return false;
-			}
-			else {
-
-				return $this->isRootDirectoryPresentInStartingOfPath($path);
-
-			}
-
-		}
-		else {
-			return false;
-		}
+		$path = realpath($path);
+		return $this->isRootDirectoryPresentInStartingOfPath($path);
 	}	
 }
 

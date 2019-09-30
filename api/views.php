@@ -85,7 +85,7 @@ if ($action == "get_files") {
 		echo json_encode($file_manager->getFilesAndFolders($directory));
 	}
 	else {
-		return FileManagerState::NotAuthenticated;
+		echo FileManagerState::NotAuthenticated;
 	}
 
 
@@ -115,7 +115,7 @@ if ($action == "upload_files") {
 
 	}
 	else {
-		return FileManagerState::NotAuthenticated;
+		echo FileManagerState::NotAuthenticated;
 	}
 
 
@@ -138,7 +138,7 @@ if ($action == "rename_item") {
 			echo json_encode(array("new_name"=>$new_name, "is_renamed"=>$is_renamed));
 		}
 		else {
-			return FileManagerState::NotAuthenticated;
+			echo FileManagerState::NotAuthenticated;
 		}
 
 
@@ -178,7 +178,7 @@ if ($action == "delete_items") {
 
 	}
 	else {
-		return FileManagerState::NotAuthenticated;
+		echo FileManagerState::NotAuthenticated;
 	}
 
 }
