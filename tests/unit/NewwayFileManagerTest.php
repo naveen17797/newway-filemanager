@@ -66,7 +66,7 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
 
         $delete_test_dir_name = ABSPATH."delete_test_dir".DIRECTORY_SEPARATOR;
 
-        codecept_debug(ABSPATH);
+
 
         // now check if the user is able to delete a directory with file 
          $this->assertTrue($this->file_manager_instance->deleteItem(ABSPATH."delete_test_dir"));
@@ -139,16 +139,19 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
 
     }
 
-    public function testGivenSpecialCharactersInPathOperationShouldNotBePerformed() {
-        $malicious_file_path = SERVER_ROOT."..%2f..%2f";
-        $this->assertFalse($this->file_manager_instance->pathSecurityCheck($malicious_file_path));        
+    public function testGivenValidNonExistentFilePathShouldReturnTrue() {
+        $valid_file_path = SERVER_ROOT."foo.txt";
+        // this file is non existent, but the path is valid
+        // this test to counter the realpath function failure on non existent files
+        $this->assertTrue($this->file_manager_instance->pathSecurityCheck($valid_file_path));
     }
-
 
 
     public function testGivenValidPathAllowUserToPerformOperation() {
         $correct_file_path = SERVER_ROOT."foo";
         $this->assertTrue($this->file_manager_instance->pathSecurityCheck($correct_file_path));
     }
+
+
 
 }

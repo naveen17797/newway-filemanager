@@ -304,10 +304,9 @@ class NewwayFileManager {
 		}
 	}
 
-
 	public function renameItem($oldname, $newname) {
 		if ($this->current_logged_in_user_instance->canWriteFiles()
-			&& $this->pathSecurityCheck($oldname)) {
+			&& $this->pathSecurityCheck($oldname) && $this->pathSecurityCheck($newname)) {
 			return rename($oldname, $newname);
 		}
 		else {
@@ -331,8 +330,13 @@ class NewwayFileManager {
 
 
 	public function pathSecurityCheck($path) {
-		$path = realpath($path);
-		return $this->isRootDirectoryPresentInStartingOfPath($path);
+		$real_path = realpath($path);
+		// real path will return false if the file does not exists
+		// so capture the dir value using path info
+		if ($real_path == false) {
+			$real_path = pathinfo($path)['dirname'];
+		}
+		return $this->isRootDirectoryPresentInStartingOfPath($real_path);
 	}	
 }
 
