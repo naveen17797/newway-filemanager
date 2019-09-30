@@ -20,3 +20,14 @@ Newway uses the presence of the `users.json` file to detect whether an email ID 
 
 ## Main UI (Grid View)
 ![Screenshot_2019-09-29_20-56-55](https://user-images.githubusercontent.com/18109258/65834853-c9653580-e2fc-11e9-8466-09c4b28bb883.png)
+
+# Like to contribute?
+I appreciate your interest to contributing to newway, please follow the below steps
+- The entire codebase is developed with tdd(test driven development), and all paths in api/all_classes.php are covered in it
+- Newway file manager uses codeception testing framework for running tests (download from here -> https://codeception.com/) 
+- After downloading, go to newway file manger directory and enter php /path/to/codeception/binary run unit in terminal, it will run the tests and it will pass all the tests (it should, unless some file tests may fail in some operating systems)
+- Write the test and then make your change
+- Run the tests again if it passes, push it to your branch
+- send the pull request.
+- if the test fail after making your change it indicates it broke some part of the working application
+- so in that case you need to refactor the code and make sure the tests always pass
