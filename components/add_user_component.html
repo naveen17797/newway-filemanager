@@ -4,9 +4,6 @@
 		<br/><br/>
 		<h4>Add New User </h4>
 		<br/>
-		<div class="alert alert-info">
-			<i class="fa fa-warning"></i> The add new user feature is coming soon..
-		</div>
 		<div class="input-group">
 			<div class="input-group-prepend">
 	          <div class="input-group-text"><i class="fa fa-envelope"></i></div>
@@ -26,7 +23,7 @@
 			<div class="input-group-prepend">
 	          <div class="input-group-text"><i class="fa fa-exclamation-triangle"></i></div>
 	        </div>
-			<select v-model="access" class="form-control">
+			<select v-model="access_level" class="form-control">
 				<option value="" disabled selected>Choose user access level</option>
 				<option value="0">This user can see files</option>
 				<option value="1">This user can see,write files</option>
@@ -36,7 +33,20 @@
 			</select>
 		</div>
 		<br/>
-		<button class="btn btn-primary" disabled>Submit</button>
+		<button class="btn btn-primary" @click="addNewUser()" :disabled="email.length == 0 || password.length == 0">Submit</button>
+		
+		<template v-if="all_users.length > 0">
+			<br/><br/>
+			<h4> <i class="fa fa-users"></i> Registered Users </h4>
+			<br/>
+			<table class="table">
+				<template v-for="user in all_users">
+					<tr>
+						<td>{{ user.email }}</td>
+					</tr>
+				</template>
+			</table>
+		</template>
 	</div>
 
 </script>

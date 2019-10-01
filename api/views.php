@@ -146,6 +146,21 @@ if ($action == "rename_item") {
 	}
 }
 
+if ($action == "add_new_user") {
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+	$access_level = $_POST['access_level'];
+	$user_data_manager = JsonUserDataManager::getInstance();
+	$user_to_be_registered = new User($email, $password, $access_level);
+    $is_user_registration_success = $user_data_manager->insertUser($user_to_be_registered);
+    echo json_encode(array("is_user_registration_success"=> $is_user_registration_success));
+}
+
+if ($action == "get_users") {
+	$user_data_manager = JsonUserDataManager::getInstance();
+	echo json_encode($user_data_manager->getAllUsers());
+}
+
 
 if ($action == "delete_items") {
 

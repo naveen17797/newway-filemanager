@@ -160,7 +160,31 @@ class JsonUserDataManager implements UserDataManager {
 	}
 
 	public function getAllUsers() {
-		return $this->user_data;
+		$current_user_instance = SessionUser::getCurrenUserInstance();
+		if ($current_user_instance == null) {
+			// unauthorised login access, so return false
+			return array();
+		}
+		else {
+
+			if ($current_user_instance->canAddUsers()) {
+				
+				// apply a filter and dispatch only email, access_level to 
+				// the front end
+				$user_data = array();
+				foreach ($this->user_data as $key) {
+					$single_user_data['email'] = $key['email'];
+					$single_user_data['access_level'] = $key['access_level'];
+					array_push($user_data, $single_user_data);
+				}
+				return $user_data;
+
+			}
+			else {
+				return array();
+			}
+
+		}
 	}
 	
 
