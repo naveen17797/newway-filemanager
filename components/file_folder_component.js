@@ -9,6 +9,7 @@ Vue.component('file-folder-component', {
 		current_directory: "",
 		root_directory: "",
 		directory_separator: "",
+		can_write_files:false,
 		
 	},
 

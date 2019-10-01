@@ -12,7 +12,7 @@
 				<input type="text" class="form-control" v-model="search_string" placeholder="search files by name">&nbsp;
 				<button class="btn btn-primary"><i class="fa fa-search"></i></button>
 				&nbsp;&nbsp;
-				<button class="btn btn-primary" @click="showUploadModal()"><i class="fa fa-upload"></i> Upload Files</button>
+				<button class="btn btn-primary" @click="showUploadModal()" :disabled="can_write_files == false"><i class="fa fa-upload"></i> Upload Files</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-danger"  @click="showDeleteModal()" :disabled="selected_items.length == 0"><i class="fa fa-trash"></i> Delete</button>
 			</div>

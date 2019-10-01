@@ -78,7 +78,7 @@
 						<add-user-component :api_url="api_url"></add-user-component>
 					</div>
 					<div class="col-sm-9" v-if="is_file_folder_data_ready">
-						<file-folder-component :files_and_folders_prop="files" :is_list_view="is_list_view" :current_directory="current_directory" :root_directory="root_directory" :directory_separator="directory_separator" :api_url="api_url"></file-folder-component>
+						<file-folder-component :can_write_files="can_write_files" :files_and_folders_prop="files" :is_list_view="is_list_view" :current_directory="current_directory" :root_directory="root_directory" :directory_separator="directory_separator" :api_url="api_url"></file-folder-component>
 						<upload-component  :api_url="api_url" :current_directory="current_directory"></upload-component>
 					</div>
 				</div>
@@ -186,6 +186,10 @@
 			is_list_view: false,
 			is_logged_in: false,
 			is_first_time_installation: false,
+			can_read_files: false,
+			can_write_files: false,
+			can_delete_files: false,
+			can_add_users:false,
 			api_url: API_URL,
 			alert_object: {
 				"title":"",
@@ -222,6 +226,22 @@
 
 		methods: 
 		{
+
+				getCurrentLoggedInUserAccessLevel() {
+
+					this.$http.post(this.api_url, {action:"get_current_logged_in_user"},
+						{emulateJSON:true})
+						.then(response=> {
+							const server_response = response.body
+							this.can_read_files = server_response.can_read_files
+							this.can_write_files = server_response.can_write_files
+							this.can_delete_files = server_response.can_delete_files
+							this.can_add_users = server_response.can_add_users
+
+						})
+
+				},
+			
 
 
 				setUpLoginEventHandler() {

@@ -161,12 +161,25 @@ if ($action == "get_users") {
 	echo json_encode($user_data_manager->getAllUsers());
 }
 
+if ($action == "get_current_logged_in_user") {
+	$current_user_instance = SessionUser::getCurrenUserInstance();
+	if ($current_user_instance != null) {
+
+		echo json_encode(
+			array(
+				"email"=>$current_user_instance->email,
+				"can_read_files"=>$current_user_instance->canReadFiles(),
+				"can_write_files"=>$current_user_instance->canWriteFiles(),
+				"can_delete_files"=>$current_user_instance->canDeleteFiles(),
+				"can_add_users"=>$current_user_instance->canAddUsers()
+			)
+		);
+	}
+}
 
 if ($action == "delete_items") {
 
 	$file_list = $_POST['file_list'];
-
-
 
 	$current_user_instance = SessionUser::getCurrenUserInstance();
 
