@@ -14,7 +14,7 @@
 				&nbsp;&nbsp;
 				<button class="btn btn-primary" @click="showUploadModal()" :disabled="can_write_files == false"><i class="fa fa-upload"></i> Upload Files</button>
 				&nbsp;&nbsp;
-				<button class="btn btn-danger"  @click="showDeleteModal()" :disabled="selected_items.length == 0"><i class="fa fa-trash"></i> Delete</button>
+				<button class="btn btn-danger"  @click="showDeleteModal()" :disabled="selected_items.length == 0 || can_delete_files == false"><i class="fa fa-trash"></i> Delete</button>
 			</div>
 			<br/><br/>
 			<table class="table borderless">
@@ -59,7 +59,7 @@
 
 											 				<div class="card-title text-center">
 											 					<br/>
-											 					<template v-if="item.is_editable">
+											 					<template v-if="item.is_editable && can_write_files">
 											 						<div class="form-inline text-center">
 											 						
 											 						<input type="text" class="form-control" v-model="item.name" style=
@@ -96,7 +96,7 @@
 											 <i class="fa fa-file text-dark"></i>
 										</template>
 										&nbsp;
-										<template v-if="item.is_editable">
+										<template v-if="item.is_editable && can_write_files">
 					 						
 					 						
 					 						<input type="text" class="form-control" v-model="item.name" style=

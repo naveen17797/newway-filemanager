@@ -74,11 +74,16 @@
 								<td @click="changeFileViewState()" style="cursor: pointer" :class="{selected_option:(is_list_view == false)}"><i class="fa fa-square"></i>&nbsp; Grid View</td>
 							</tr>
 						</table>
-
-						<add-user-component :api_url="api_url"></add-user-component>
+						<template v-if="can_add_users">
+						 <add-user-component :api_url="api_url"></add-user-component>
+						</template>
 					</div>
 					<div class="col-sm-9" v-if="is_file_folder_data_ready">
-						<file-folder-component :can_write_files="can_write_files" :files_and_folders_prop="files" :is_list_view="is_list_view" :current_directory="current_directory" :root_directory="root_directory" :directory_separator="directory_separator" :api_url="api_url"></file-folder-component>
+
+						<file-folder-component :can_write_files="can_write_files"
+						:can_delete_files="can_delete_files" 
+						:files_and_folders_prop="files" :is_list_view="is_list_view" :current_directory="current_directory" :root_directory="root_directory" :directory_separator="directory_separator" :api_url="api_url"></file-folder-component>
+						
 						<upload-component  :api_url="api_url" :current_directory="current_directory"></upload-component>
 					</div>
 				</div>
@@ -213,6 +218,7 @@
 				if (newValue) {
 					// if logged in then get files
 					this.getFilesAndFolders()
+					this.getCurrentLoggedInUserAccessLevel()
 				}
 			},
 

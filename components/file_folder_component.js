@@ -10,6 +10,7 @@ Vue.component('file-folder-component', {
 		root_directory: "",
 		directory_separator: "",
 		can_write_files:false,
+		can_delete_files:false,
 		
 	},
 
