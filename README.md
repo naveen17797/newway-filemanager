@@ -8,9 +8,20 @@ https://gitter.im/newwayfilemanager/community#
 
 
 Newway is a file manager for servers written with PHP. To install it, just download this repo and place the folder in your root and access it by `https://yourwebsitename/foldername`. You will be asked to set up an email and password to access the file manager. This application doesn't require a database. Instead, it uses a flat files as its database, which will be generated and placed outside your root directory after the completion of setup. Other things in this file manager are pretty self explantory.
+## REQUIREMENTS 
+### PHP >= 7.3
 
-## Installation
-Newway uses the presence of the `users.json` file to detect whether an email ID and password has been registered. If you forget the email ID or password registered for Newway, the only way to reset it is to delete the `users.json` file (thus deleting the existing registered information). After doing so, you'll be able to register a new email ID and password for Newway.
+## Do i need to have a database?
+Newway uses the presence of the `newway_users.json` file to detect whether an email ID and password has been registered. If you forget the email ID or password registered for Newway, the only way to reset it is to delete the `newway_users.json` file (thus deleting the existing registered information). After doing so, you'll be able to register a new email ID and password for Newway.
+
+## Steps to install
+1. Download or clone the repo and extract it to your server root
+2. Make sure the server is the owner of server root (which is very much essential for newway to function, if not then use ` chmod www-data:www-data /var/www/html`, assuming www-data is your server user name and /var/www/html is your server root
+3. If you are using cpanel without SSH access, then you cant really follow step 2, in that case set the permission of server root to `755`, make sure to recurse the permissions in to subdirectories
+4. Open the url yourdomainname.com/newway-folder-name , you will be asked to register now login with the registered information
+
+
+
 
 ## Screenshots from Newway
 
