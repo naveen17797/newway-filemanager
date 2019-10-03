@@ -102,17 +102,8 @@ if ($action == "upload_files") {
 	}
 	$current_user_instance = SessionUser::getCurrenUserInstance();
 	if ($current_user_instance != null) {
-
-            $count=0;
-            foreach ($_FILES['file']['name'] as $filename) 
-            {
-                $tmp=$_FILES['file']['tmp_name'][$count];
-                $count=$count + 1;
-                $temp=$directory.basename($filename);
-                echo $temp;
-                copy($tmp,$temp);
-            }
-
+		$file_manager = new NewwayFileManager($current_user_instance);
+		$file_manager->uploadFiles($directory);
 	}
 	else {
 		echo FileManagerState::NotAuthenticated;

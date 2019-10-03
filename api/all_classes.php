@@ -352,6 +352,23 @@ class NewwayFileManager {
 
 	}
 
+	public function uploadFiles($path) {
+
+		if ($this->pathSecurityCheck($path)) {
+
+		    $count=0;
+	        foreach ($_FILES['file']['name'] as $filename) 
+	        {
+	            $tmp=$_FILES['file']['tmp_name'][$count];
+	            $count=$count + 1;
+	            $temp=$path.basename($filename);
+	            
+	            echo copy($tmp,$temp);
+	        }
+    	}
+
+	}
+
 
 	public function pathSecurityCheck($path) {
 		$real_path = realpath($path);
