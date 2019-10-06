@@ -213,8 +213,15 @@ class JsonUserDataManager implements UserDataManager {
 				// the front end
 				$user_data = array();
 				foreach ($this->user_data as $key) {
+					
+					$user = new User($key['email'], $key['password'], $key['access_level'], null, $key['allowed_directories']);
 					$single_user_data['email'] = $key['email'];
 					$single_user_data['access_level'] = $key['access_level'];
+					$single_user_data["can_read_files"] = $user->canReadFiles();
+					$single_user_data["can_write_files"] = $user->canWriteFiles();
+					$single_user_data["can_delete_files"] = $user->canDeleteFiles();
+					$single_user_data["can_add_users"] = $user->canAddUsers();
+
 					array_push($user_data, $single_user_data);
 				}
 				return $user_data;
