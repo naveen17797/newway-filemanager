@@ -16,6 +16,7 @@ class RegistrationTest extends \Codeception\Test\Unit
         $this->user_data_manager = JsonUserDataManager::getInstance($this->db_storage_file_name);
     }
 
+    // the file is empty, so the insert user will accept the user and insert it.
     public function testWhenNoUserPresentAbleToRegisterAsAdminUser() {
 
         $user_to_be_registered = new User("foo@gmail.com", "foo", AccessLevel::Admin);
@@ -26,6 +27,7 @@ class RegistrationTest extends \Codeception\Test\Unit
         $this->assertEquals($user_instance->email, $user_to_be_registered->email);
     }
 
+    // the file is empty, so the insert user will accept the user and insert it.
     public function testWhenAdminUserPresentTryingToRegisterAsAdminUser() {
         $user_to_be_registered = new User("foo@gmail.com", "foo", AccessLevel::Admin);
         $this->user_data_manager->insertUser($user_to_be_registered);
@@ -35,6 +37,8 @@ class RegistrationTest extends \Codeception\Test\Unit
         $this->assertFalse($result);
     }
 
+    // here we are trying to insert a non admin user, so it will fail
+    // in order to do overcome, we set the session user.
     public function testWhetherTheNonAdminUserCanBeAddedWithAllowedDirectories() {
         //mkdir(ABSPATH."delete_test_dir");
         SessionUser::$current_user_instance = new User("aa@gmail.com", "aa", AccessLevel::Admin);
@@ -45,6 +49,10 @@ class RegistrationTest extends \Codeception\Test\Unit
         $user_instance = $this->user_data_manager->getUser("foo@gmail.com", "foo");
         $this->assertEquals($user_instance->getAllowedDirectories(), [ABSPATH."delete_test_dir"]);
         //rmdir(ABSPATH."delete_test_dir");
+    }
+
+    public function testIsAllowedDirectoriesProperlyValidated() {
+
     }
 
     protected function _after()
