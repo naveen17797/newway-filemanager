@@ -64,13 +64,20 @@ Vue.component('add-user-component', {
 				action: "add_new_user",
 				email: this.email,
 				password: this.password,
-				access_level: this.access_level
+				access_level: this.access_level,
+				allowed_directories: this.allowed_directories,
 			}
 
 			this.$http.post(this.api_url, registration_object, {emulateJSON:true})
 			.then(response=> {
 				const result = response.body
+				// resetting ui after user creation
 				this.getAllUsers()
+				this.email = ""
+				this.password = ""
+				this.access_level =""
+				Vue.set(this, "allowed_directories", [])
+			
 			})
 
 		},

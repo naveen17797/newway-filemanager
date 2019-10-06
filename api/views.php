@@ -141,8 +141,9 @@ if ($action == "add_new_user") {
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 	$access_level = $_POST['access_level'];
+	$allowed_directories = $_POST['allowed_directories'];
 	$user_data_manager = JsonUserDataManager::getInstance();
-	$user_to_be_registered = new User($email, $password, $access_level);
+	$user_to_be_registered = new User($email, $password, $access_level, null, $allowed_directories);
     $is_user_registration_success = $user_data_manager->insertUser($user_to_be_registered);
     echo json_encode(array("is_user_registration_success"=> $is_user_registration_success));
 }

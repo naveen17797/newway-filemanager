@@ -57,7 +57,7 @@
 			<div class="text-left">
 				<p>Allowed Folders</p>
 				<small>This user can access only the folders listed below</small>
-				<div class="bg-light form-control" style="padding: 30px;">
+				<div class="bg-light form-control" style="padding: 20px;">
 					<template v-for="item in allowed_directories">
 						<button class="btn btn-primary" style="margin-bottom:10px;">{{ shortenTextOfPath(item) }}
 						 <i class="fa fa-lg fa-close" @click="removeFromAllowedFolderList(item)"></i></button>
