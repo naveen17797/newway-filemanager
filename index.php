@@ -342,13 +342,21 @@
 					this.$http.post(API_URL, file_object, {emulateJSON:true}).then(response=> {
 						const server_response = response.body;
 						if (Array.isArray(server_response)) {
+							this.alert_object.title=""
 							Vue.set(this, "files", server_response)
-							this.is_file_folder_data_ready = true
-							event_bus.$emit('files-and-folders-prop_data-changed', this.files)
 						}
 						else {
+							// request not returned files, doesnot have permission to 
+							// view the directory
+							this.alert_object.title = "Access Restricted"
+							this.alert_object.description = "We cant show you the files in this folder, you can access only the folders in allowed folders list"
+							this.alert_object.type = AlertType.Failure
 							Vue.set(this, "files", [])
 						}
+						this.is_file_folder_data_ready = true
+						event_bus.$emit('files-and-folders-prop_data-changed', this.files)
+					}, response=> {
+						Vue.set(this, "files", [])
 					})
 
 				},
