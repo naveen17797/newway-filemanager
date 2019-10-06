@@ -14,12 +14,14 @@ abstract class AccessLevel {
 
 class User {
 
-	public function __construct(string $email, string $hashed_password, int $access_level, ?string $unhashed_password=null, array $allowed_directories=array()) {
+	public function __construct(string $email, string $hashed_password, int $access_level, ?string $unhashed_password=null, ?array $allowed_directories=array()) {
 
 		$this->access_level = $access_level;
 		$this->email = $email;
 		$this->password = $hashed_password;
 		$this->unhashed_password = $unhashed_password;
+		// dont use this variable for getting allowed directories, use
+		// the method getAllowedDirectories()
 		$this->allowed_directories = $allowed_directories;
 	}
 
@@ -103,6 +105,8 @@ interface UserDataManager {
 	public function save():bool;
 
 	public function checkIfAdminUserPresent():bool;
+
+	public function deleteUser(User $user):bool;
 }
 
 
@@ -129,6 +133,24 @@ class JsonUserDataManager implements UserDataManager {
 		$this->user_data = array();
 		$this->loadFileContents();
 
+	}
+
+	public function deleteUser($user):bool {
+		$current_user_instance = SessionUser::getCurrenUserInstance();
+		if ($current_user_instance != null) {
+			if ($current_user_instance->canAddUsers()) {
+				// admin user can delete the user.
+				unset($this->user_data[$user->email]);
+				return $this->save();
+			}
+			else {
+				return false;
+			}
+
+		}
+		else {
+			return false;
+		}
 	}
 
 	private function loadFileContents() {

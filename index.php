@@ -192,6 +192,7 @@
 			is_logged_in: false,
 			is_first_time_installation: false,
 			can_read_files: false,
+			allowed_directories:[],
 			can_write_files: false,
 			can_delete_files: false,
 			can_add_users:false,
@@ -240,6 +241,7 @@
 						.then(response=> {
 							const server_response = response.body
 							this.can_read_files = server_response.can_read_files
+							Vue.set(this,"allowed_directories", server_response.allowed_directories)
 							this.can_write_files = server_response.can_write_files
 							this.can_delete_files = server_response.can_delete_files
 							this.can_add_users = server_response.can_add_users

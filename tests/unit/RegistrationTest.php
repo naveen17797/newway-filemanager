@@ -74,6 +74,28 @@ class RegistrationTest extends \Codeception\Test\Unit
         $this->assertEquals($user_instance->allowed_directories, [SERVER_ROOT]);
     }
 
+    public function testWhenNonAdminUserTriesToDeleteAdminUserMustReturnFalse() {
+        $user_to_be_registered = new User("foo@gmail.com", "foo", AccessLevel::Admin);
+        $this->user_data_manager->insertUser($user_to_be_registered);
+        // now we inserted the admin user, lets login as user with read access
+        SessionUser::$current_user_instance = new User("fo@gmail.com", "fooo", AccessLevel::ReadOnly);
+        $delete_operation_status = $this->user_data_manager->deleteUser($user_to_be_registered);
+        $this->assertFalse($delete_operation_status);
+    }
+
+    public function testWhenAdminUserTriesToDeleteNonAdminUserMustReturnTrue() {
+        SessionUser::$current_user_instance = new User("foo@gmail.com", "foo", AccessLevel::Admin);
+        $user_to_be_deleted = new User("fo@gmail.com", "fooo", AccessLevel::ReadOnly);
+        $this->user_data_manager->insertUser($user_to_be_deleted);
+        // lets try to delete this non admin user
+        $delete_operation_status = $this->user_data_manager->deleteUser($user_to_be_deleted);
+        $this->assertTrue($delete_operation_status);
+        // and also when try to getUser it should be null and not present in the json 
+        // file
+        $this->assertNull($this->user_data_manager->getUser("fo@gmail.com", "fooo"));
+    }
+
+
     protected function _after()
     {
         if (file_exists($this->user_data_manager->full_file_path)) {

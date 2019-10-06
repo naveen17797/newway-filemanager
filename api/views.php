@@ -162,7 +162,8 @@ if ($action == "get_current_logged_in_user") {
 				"can_read_files"=>$current_user_instance->canReadFiles(),
 				"can_write_files"=>$current_user_instance->canWriteFiles(),
 				"can_delete_files"=>$current_user_instance->canDeleteFiles(),
-				"can_add_users"=>$current_user_instance->canAddUsers()
+				"can_add_users"=>$current_user_instance->canAddUsers(),
+				"allowed_directories"=>$current_user_instance->getAllowedDirectories(),
 			)
 		);
 	}
