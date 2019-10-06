@@ -7,7 +7,7 @@ Vue.component('add-user-component', {
 			type: String,
 			default: ""
 		},
-		
+
 		files_and_folders_prop: {
 			type:Array,
 			default:[]
@@ -25,10 +25,24 @@ Vue.component('add-user-component', {
 			password:"",
 			access_level:"",
 			all_users: [],
+			allowed_directories:[],
+			current_allowed_directory:"",
 		}
 	},
 
 	methods: {
+
+		addToAllowedDirectoryList() {
+			if (!this.allowed_directories.includes(this.current_allowed_directory)) {
+				this.allowed_directories.push(this.$refs.allowed_directory.value)
+			}
+		},
+
+		shortenTextOfPath(text) {
+
+			return text.substr(0,10) + "..."
+
+		},
 
 		addNewUser() {
 
