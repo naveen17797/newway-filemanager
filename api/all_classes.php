@@ -461,7 +461,7 @@ class NewwayFileManager {
 
 	public function uploadFiles($path) {
 
-		if ($this->pathSecurityCheck($path)) {
+		if ($this->pathSecurityCheck($path) && $this->folderPresentInAllowedDirectories($path)) {
 
 		    $count=0;
 	        foreach ($_FILES['file']['name'] as $filename) 
