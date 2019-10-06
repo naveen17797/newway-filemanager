@@ -370,6 +370,7 @@ class NewwayFileManager {
 			foreach($directories as $allowed_directory) {
 				if ($this->isAllowedDirectoryPresentInStartingOfPath($allowed_directory, $directory)) {
 					$is_folder_present_in_allowed_directory = true;
+					break;
 				}
 			}
 			return $is_folder_present_in_allowed_directory;
@@ -437,7 +438,10 @@ class NewwayFileManager {
 
 	public function renameItem($oldname, $newname) {
 		if ($this->current_logged_in_user_instance->canWriteFiles()
-			&& $this->pathSecurityCheck($oldname) && $this->pathSecurityCheckForRenameOperation($oldname, $newname)) {
+			&& $this->pathSecurityCheck($oldname) 
+			&& $this->pathSecurityCheckForRenameOperation($oldname, $newname) 
+			&& $this->folderPresentInAllowedDirectories($oldname) 
+			&& $this->folderPresentInAllowedDirectories($newname)) {
 			return rename($oldname, $newname);
 		}
 		else {

@@ -54,13 +54,15 @@
 			  <div class="container">
 			    <a class="navbar-brand" href="#"><i class="fa fa-shield"></i> &nbsp;{{ application_title }}</a>
 				 <div class="form-inline" v-if="is_logged_in">
-				 	Allowed Directories:&nbsp;&nbsp;
-				 	<select v-if="can_add_users == false" class="btn-outline-light form-control" v-model="current_directory">
-				 		<template v-for="(item,index) in allowed_directories">
-				 			<option :value="item" :selected="index === 0">{{ item }}</option>
-				 		</template>
-				 	</select>
-				 	&nbsp;&nbsp;
+				 	<template v-if="can_add_users == false">
+				 		Allowed Directories:&nbsp;&nbsp;
+					 	<select class="btn-outline-light form-control" v-model="current_directory">
+					 		<template v-for="(item,index) in allowed_directories">
+					 			<option :value="item" :selected="index === 0">{{ item }}</option>
+					 		</template>
+					 	</select>
+					 	&nbsp;&nbsp;
+				 	</template>
 				    <button class="btn btn-outline-light my-2 my-sm-0" @click="logoutUser()" type="submit">Logout</button>
 				  </div>
 			  </div>
