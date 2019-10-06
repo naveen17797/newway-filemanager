@@ -14,12 +14,15 @@ abstract class AccessLevel {
 
 class User {
 
-	public function __construct(string $email, string $hashed_password, int $access_level, ?string $unhashed_password=null) {
+	public function __construct(string $email, string $hashed_password, int $access_level, ?string $unhashed_password=null, ?array $allowed_directories=array()) {
 
 		$this->access_level = $access_level;
 		$this->email = $email;
 		$this->password = $hashed_password;
 		$this->unhashed_password = $unhashed_password;
+		// dont use this variable for getting allowed directories, use
+		// the method getAllowedDirectories()
+		$this->allowed_directories = $allowed_directories;
 	}
 
 	public function getPasswordHash() {
@@ -62,6 +65,15 @@ class User {
 	public function canAddUsers() {
 		return $this->access_level == AccessLevel::Admin;
 	}
+
+	public function getAllowedDirectories() {
+		if ($this->canAddUsers()) {
+			return [SERVER_ROOT];
+		}
+		else {
+			return $this->allowed_directories;
+		}
+	}
 	
 }
 
@@ -93,6 +105,8 @@ interface UserDataManager {
 	public function save():bool;
 
 	public function checkIfAdminUserPresent():bool;
+
+	public function deleteUser(User $user):bool;
 }
 
 
@@ -119,6 +133,32 @@ class JsonUserDataManager implements UserDataManager {
 		$this->user_data = array();
 		$this->loadFileContents();
 
+	}
+
+	public function deleteUser($user):bool {
+		$current_user_instance = SessionUser::getCurrenUserInstance();
+		if ($current_user_instance != null) {
+			if ($current_user_instance->canAddUsers()) {
+				// admin user can delete the user.
+				
+				// check if the current user if being deleted
+				// dont allow that.
+				if ($current_user_instance->email == $user->email) {
+					return false;
+				}
+				else {
+					unset($this->user_data[$user->email]);
+					return $this->save();
+				}
+			}
+			else {
+				return false;
+			}
+
+		}
+		else {
+			return false;
+		}
 	}
 
 	private function loadFileContents() {
@@ -150,7 +190,7 @@ class JsonUserDataManager implements UserDataManager {
 
 			$single_user_data = $this->user_data[$email];
 
-			return new User($single_user_data['email'], $single_user_data['password'], $single_user_data['access_level'], $supplied_password);
+			return new User($single_user_data['email'], $single_user_data['password'], $single_user_data['access_level'], $supplied_password, $single_user_data['allowed_directories']);
 		}
 		else {
 
@@ -173,8 +213,15 @@ class JsonUserDataManager implements UserDataManager {
 				// the front end
 				$user_data = array();
 				foreach ($this->user_data as $key) {
+					
+					$user = new User($key['email'], $key['password'], $key['access_level'], null, $key['allowed_directories']);
 					$single_user_data['email'] = $key['email'];
 					$single_user_data['access_level'] = $key['access_level'];
+					$single_user_data["can_read_files"] = $user->canReadFiles();
+					$single_user_data["can_write_files"] = $user->canWriteFiles();
+					$single_user_data["can_delete_files"] = $user->canDeleteFiles();
+					$single_user_data["can_add_users"] = $user->canAddUsers();
+
 					array_push($user_data, $single_user_data);
 				}
 				return $user_data;
@@ -202,10 +249,12 @@ class JsonUserDataManager implements UserDataManager {
 				return false;
 			}
 			else {
+
 				// check for access level
 				// and also check for duplicate email address
 				if ($current_user_instance->canAddUsers() &&
 					$current_user_instance->email != $user->email) {
+
 					// has access
 					return $this->constructArrayAndSaveToDb($user);
 				}
@@ -222,15 +271,42 @@ class JsonUserDataManager implements UserDataManager {
     	
     }
 
+    private function isAllAllowedDirectoryPathsValid($allowed_directories) {
+    	foreach ($allowed_directories as $item) {
+    		if (!NewwayFileManager::pathSecurityCheck($item)) {
+    			// do security check on path
+    			return false;
+    				
+    		}	
+    	}
+    	return true;
+    }
+
     private function constructArrayAndSaveToDb($user) {
+
+		// before constructing the array, check if the paths
+		// are valid
+		$is_allowed_directories_paths_are_valid = $this->isAllAllowedDirectoryPathsValid($user->allowed_directories);
+		// if the user is admin then the allowed directories 
+		// are server root. 
+		if ($user->canAddUsers()) {
+			$user->allowed_directories = [SERVER_ROOT];
+		}
+		
+		if ($is_allowed_directories_paths_are_valid) {
     		// allow user to be registered
 			$this->user_data[$user->email] = array(
 													"email"=>$user->email,
 													"password"=>$user->getPasswordHash(),
-													"access_level"=>$user->access_level
+													"access_level"=>$user->access_level,
+													"allowed_directories"=>$user->allowed_directories
 												);
 			// and call save
     		return $this->save();
+		}
+		else {
+			return false;
+		}
     }
 
     public function save():bool {
@@ -269,8 +345,40 @@ class NewwayFileManager {
 		$this->current_logged_in_user_instance = $current_logged_in_user_instance;
 	}
 
+	public static function isAllowedDirectoryPresentInStartingOfPath($allowed_directory, $path) {
+		$root_path_length = strlen($allowed_directory) - 1;
+		if (strlen($path) >= $root_path_length) {
+			$current_root_path = substr($path, 0, $root_path_length);
+			// when given a directory with trailing slash, real path removes it
+			// so we need to compare to server root without that slash
+			return substr($allowed_directory,0,-1) == $current_root_path;
+		}
+		else {
+			return false;
+		}
+
+	}
+
+	public function folderPresentInAllowedDirectories($directory):bool {
+		if ($this->current_logged_in_user_instance->canAddUsers()) {
+			// if admin always return true
+			return true;
+		}
+		else {
+			$directories = $this->current_logged_in_user_instance->getAllowedDirectories();
+			$is_folder_present_in_allowed_directory = false;
+			foreach($directories as $allowed_directory) {
+				if ($this->isAllowedDirectoryPresentInStartingOfPath($allowed_directory, $directory)) {
+					$is_folder_present_in_allowed_directory = true;
+					break;
+				}
+			}
+			return $is_folder_present_in_allowed_directory;
+		}
+	}
+
 	public function getFilesAndFolders($directory):?array {
-		if ($this->current_logged_in_user_instance->canReadFiles() && $this->pathSecurityCheck($directory)) {
+		if ($this->current_logged_in_user_instance->canReadFiles() && $this->pathSecurityCheck($directory) && $this->folderPresentInAllowedDirectories($directory)) {
 			$files_and_folders = array();
 			$files = new DirectoryIterator($directory);
 			foreach ($files as $file_info) {
@@ -320,7 +428,7 @@ class NewwayFileManager {
 
 	// deletes a file or folder based on the user access level
 	public function deleteItem($item) {
-		if ($this->current_logged_in_user_instance->canDeleteFiles() && $this->pathSecurityCheck($item)) {
+		if ($this->current_logged_in_user_instance->canDeleteFiles() && $this->pathSecurityCheck($item) && $this->folderPresentInAllowedDirectories($item)) {
 			return $this->deleteFileOrFolder($item);
 		}
 		else {
@@ -330,7 +438,10 @@ class NewwayFileManager {
 
 	public function renameItem($oldname, $newname) {
 		if ($this->current_logged_in_user_instance->canWriteFiles()
-			&& $this->pathSecurityCheck($oldname) && $this->pathSecurityCheckForRenameOperation($oldname, $newname)) {
+			&& $this->pathSecurityCheck($oldname) 
+			&& $this->pathSecurityCheckForRenameOperation($oldname, $newname) 
+			&& $this->folderPresentInAllowedDirectories($oldname) 
+			&& $this->folderPresentInAllowedDirectories($newname)) {
 			return rename($oldname, $newname);
 		}
 		else {
@@ -338,7 +449,7 @@ class NewwayFileManager {
 		}
 	}
 
-	private function isRootDirectoryPresentInStartingOfPath($path) {
+	public static function isRootDirectoryPresentInStartingOfPath($path) {
 		$root_path_length = strlen(SERVER_ROOT) - 1;
 		if (strlen($path) >= $root_path_length) {
 			$current_root_path = substr($path, 0, $root_path_length);
@@ -354,7 +465,7 @@ class NewwayFileManager {
 
 	public function uploadFiles($path) {
 
-		if ($this->pathSecurityCheck($path)) {
+		if ($this->pathSecurityCheck($path) && $this->folderPresentInAllowedDirectories($path)) {
 
 		    $count=0;
 	        foreach ($_FILES['file']['name'] as $filename) 
@@ -369,8 +480,7 @@ class NewwayFileManager {
 
 	}
 
-
-	public function pathSecurityCheck($path) {
+	public static function pathSecurityCheck($path) {
 		$real_path = realpath($path);
 		// real path will return false if the file does not exists
 		// so capture the dir value using path info
@@ -378,7 +488,7 @@ class NewwayFileManager {
 			return false;
 		}
 		else {
-			return $this->isRootDirectoryPresentInStartingOfPath($real_path);
+			return NewwayFileManager::isRootDirectoryPresentInStartingOfPath($real_path);
 		}	
 	}	
 

@@ -141,8 +141,9 @@ if ($action == "add_new_user") {
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 	$access_level = $_POST['access_level'];
+	$allowed_directories = $_POST['allowed_directories'];
 	$user_data_manager = JsonUserDataManager::getInstance();
-	$user_to_be_registered = new User($email, $password, $access_level);
+	$user_to_be_registered = new User($email, $password, $access_level, null, $allowed_directories);
     $is_user_registration_success = $user_data_manager->insertUser($user_to_be_registered);
     echo json_encode(array("is_user_registration_success"=> $is_user_registration_success));
 }
@@ -162,10 +163,17 @@ if ($action == "get_current_logged_in_user") {
 				"can_read_files"=>$current_user_instance->canReadFiles(),
 				"can_write_files"=>$current_user_instance->canWriteFiles(),
 				"can_delete_files"=>$current_user_instance->canDeleteFiles(),
-				"can_add_users"=>$current_user_instance->canAddUsers()
+				"can_add_users"=>$current_user_instance->canAddUsers(),
+				"allowed_directories"=>$current_user_instance->getAllowedDirectories(),
 			)
 		);
 	}
+}
+
+if ($action == "delete_user") {
+	$user_data_manager = JsonUserDataManager::getInstance();
+	$user_to_be_deleted = $user_data_manager->getUser($_POST['email'],null);
+	echo $user_data_manager->deleteUser($user_to_be_deleted);
 }
 
 if ($action == "delete_items") {

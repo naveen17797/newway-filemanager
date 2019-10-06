@@ -54,6 +54,15 @@
 			  <div class="container">
 			    <a class="navbar-brand" href="#"><i class="fa fa-shield"></i> &nbsp;{{ application_title }}</a>
 				 <div class="form-inline" v-if="is_logged_in">
+				 	<template v-if="can_add_users == false">
+				 		Allowed Directories:&nbsp;&nbsp;
+					 	<select class="btn-outline-light form-control" v-model="current_directory">
+					 		<template v-for="(item,index) in allowed_directories">
+					 			<option :value="item" :selected="index === 0">{{ item }}</option>
+					 		</template>
+					 	</select>
+					 	&nbsp;&nbsp;
+				 	</template>
 				    <button class="btn btn-outline-light my-2 my-sm-0" @click="logoutUser()" type="submit">Logout</button>
 				  </div>
 			  </div>
@@ -75,10 +84,10 @@
 							</tr>
 						</table>
 						<template v-if="can_add_users">
-						 <add-user-component :api_url="api_url"></add-user-component>
+						 <add-user-component :api_url="api_url" :files_and_folders_prop="files" :directory_separator="directory_separator"></add-user-component>
 						</template>
 					</div>
-					<div class="col-sm-9" v-if="is_file_folder_data_ready">
+					<div class="col-sm-8" v-if="is_file_folder_data_ready">
 
 						<file-folder-component :can_write_files="can_write_files"
 						:can_delete_files="can_delete_files" 
@@ -192,6 +201,7 @@
 			is_logged_in: false,
 			is_first_time_installation: false,
 			can_read_files: false,
+			allowed_directories:[],
 			can_write_files: false,
 			can_delete_files: false,
 			can_add_users:false,
@@ -206,7 +216,7 @@
 			files:[],
 			is_file_folder_data_ready: false,
 			// the current directory the user is present
-			current_directory:"",
+			current_directory:null,
 			directory_separator:"<?php echo DIRECTORY_SEPARATOR; ?>",
 			root_directory:"<?php echo dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR; ?>",
 
@@ -217,7 +227,6 @@
 			is_logged_in: function(newValue, oldValue) {
 				if (newValue) {
 					// if logged in then get files
-					this.getFilesAndFolders()
 					this.getCurrentLoggedInUserAccessLevel()
 				}
 			},
@@ -240,9 +249,14 @@
 						.then(response=> {
 							const server_response = response.body
 							this.can_read_files = server_response.can_read_files
+							Vue.set(this,"allowed_directories", server_response.allowed_directories)
 							this.can_write_files = server_response.can_write_files
 							this.can_delete_files = server_response.can_delete_files
 							this.can_add_users = server_response.can_add_users
+							if (server_response.allowed_directories.length > 0) {
+								Vue.set(this, "current_directory", server_response.allowed_directories[0])
+								this.is_file_folder_data_ready = true
+							}
 
 						})
 
@@ -324,6 +338,7 @@
 
 
 				getFilesAndFolders(directory="") {
+
 					const file_object = {
 						"action":"get_files"
 					}
@@ -333,13 +348,21 @@
 					this.$http.post(API_URL, file_object, {emulateJSON:true}).then(response=> {
 						const server_response = response.body;
 						if (Array.isArray(server_response)) {
+							this.alert_object.title=""
 							Vue.set(this, "files", server_response)
-							this.is_file_folder_data_ready = true
-							event_bus.$emit('files-and-folders-prop_data-changed', this.files)
 						}
 						else {
-							console.log('not array')
+							// request not returned files, doesnot have permission to 
+							// view the directory
+							this.alert_object.title = "Access Restricted"
+							this.alert_object.description = "We cant show you the files in this folder, you can access only the folders in allowed folders list"
+							this.alert_object.type = AlertType.Failure
+							Vue.set(this, "files", [])
 						}
+						this.is_file_folder_data_ready = true
+						event_bus.$emit('files-and-folders-prop_data-changed', this.files)
+					}, response=> {
+						Vue.set(this, "files", [])
 					})
 
 				},

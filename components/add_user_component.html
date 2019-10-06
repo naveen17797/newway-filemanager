@@ -32,17 +32,71 @@
 
 			</select>
 		</div>
-		<br/>
+		
+		<template v-if="access_level != 3">
+			<br/>
+			<div class="input-group">
+				<div class="input-group-prepend">
+		          <div class="input-group-text"><i class="fa fa-folder"></i></div>
+		        </div>
+				<input list="allowed_folders" class="form-control" placeholder="Add a folder name to allowed folders" title="The directories the user can access, for admin user this field wont be used" ref="allowed_directory" type="text">
+	
+				<datalist id="allowed_folders">
+					<template v-for="item in files_and_folders_prop">
+						<template v-if="item.is_directory">
+							<option :value="item.full_location"></option>
+						</template>
+					</template>				
+				</datalist>				
+
+				<div class="input-group-append">
+		        <div class="input-group-text" style="cursor:pointer;" @click="addToAllowedDirectoryList()"><i class="fa fa-plus"></i></div>
+		        </div>
+			</div>
+			<br/>
+			<div class="text-left">
+				<p>Allowed Folders</p>
+				<small>This user can access only the folders listed below</small>
+				<div class="bg-light form-control" style="padding: 20px;">
+					<template v-for="item in allowed_directories">
+						<button class="btn btn-primary" style="margin-bottom:10px;">{{ shortenTextOfPath(item) }}
+						 <i class="fa fa-lg fa-close" @click="removeFromAllowedFolderList(item)"></i></button>
+						 &nbsp;&nbsp;
+					</template>
+				</div>
+			</div>
+
+		</template>
+
+		<br/><br/>
 		<button class="btn btn-primary" @click="addNewUser()" :disabled="email.length == 0 || password.length == 0">Submit</button>
 		
 		<template v-if="all_users.length > 0">
-			<br/><br/>
+			<br/><br/><br/><br/>
 			<h4> <i class="fa fa-users"></i> Registered Users </h4>
 			<br/>
-			<table class="table">
+			<div>
+				<i class="fa fa-square text-success"></i>&nbsp;indicates the items which are enabled.
+			</div>
+			<br/>
+			<table class="text-center table table-striped">
+				<tr>
+					<th>Email</th>
+					<th>Access Level</th>
+					<th>Remove</th>
+				</tr>
 				<template v-for="user in all_users">
 					<tr>
 						<td>{{ user.email }}</td>
+						<td>
+							<i :class="{'text-success':user.can_read_files, 'fa fa-eye fa-lg':true}" title="This user can read files and folders" :disabled="user.can_read_files"></i>&nbsp;
+							<i title="This user can write files and folders"  :class="{'text-success':user.can_write_files, 'fa fa-pencil fa-lg':true}"></i>&nbsp;
+							<i :class="{'text-success':user.can_delete_files, 'fa fa-trash fa-lg':true}" title="This user can delete files and folders"></i>&nbsp;
+							<i :class="{'text-success':user.can_add_users, 'fa fa-user fa-lg':true}" title="This user can add other users"></i>&nbsp;</td>
+							
+						<td @click="deleteUser(user.email)" style="cursor:pointer;">
+							<i class="fa fa-close"></i>
+						</td>
 					</tr>
 				</template>
 			</table>
