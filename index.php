@@ -216,7 +216,7 @@
 			files:[],
 			is_file_folder_data_ready: false,
 			// the current directory the user is present
-			current_directory:"",
+			current_directory:null,
 			directory_separator:"<?php echo DIRECTORY_SEPARATOR; ?>",
 			root_directory:"<?php echo dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR; ?>",
 
@@ -227,7 +227,6 @@
 			is_logged_in: function(newValue, oldValue) {
 				if (newValue) {
 					// if logged in then get files
-					this.getFilesAndFolders()
 					this.getCurrentLoggedInUserAccessLevel()
 				}
 			},
@@ -254,6 +253,10 @@
 							this.can_write_files = server_response.can_write_files
 							this.can_delete_files = server_response.can_delete_files
 							this.can_add_users = server_response.can_add_users
+							if (server_response.allowed_directories.length > 0) {
+								Vue.set(this, "current_directory", server_response.allowed_directories[0])
+								this.is_file_folder_data_ready = true
+							}
 
 						})
 
@@ -335,6 +338,7 @@
 
 
 				getFilesAndFolders(directory="") {
+
 					const file_object = {
 						"action":"get_files"
 					}
