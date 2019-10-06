@@ -65,7 +65,12 @@ class User {
 	}
 
 	public function getAllowedDirectories() {
-		return $this->allowed_directories;
+		if ($this->canAddUsers()) {
+			return [SERVER_ROOT];
+		}
+		else {
+			return $this->allowed_directories;
+		}
 	}
 	
 }
@@ -229,32 +234,42 @@ class JsonUserDataManager implements UserDataManager {
     	
     }
 
+    private function isAllAllowedDirectoryPathsValid($allowed_directories) {
+    	foreach ($allowed_directories as $item) {
+    		if (!NewwayFileManager::pathSecurityCheck($item)) {
+    			// do security check on path
+    			return false;
+    				
+    		}	
+    	}
+    	return true;
+    }
+
     private function constructArrayAndSaveToDb($user) {
 
-    		// before constructing the array, check if the paths
-    		// are valid
-    		$is_allowed_directories_paths_are_valid = true;
-    		foreach ($user->allowed_directories as $item) {
-    			if (!NewwayFileManager::pathSecurityCheck($item)) {
-    				$is_allowed_directories_paths_are_valid = false;
-    				break;
-    			}	
-    		} 
-
-    		if ($is_allowed_directories_paths_are_valid) {
-	    		// allow user to be registered
-				$this->user_data[$user->email] = array(
-														"email"=>$user->email,
-														"password"=>$user->getPasswordHash(),
-														"access_level"=>$user->access_level,
-														"allowed_directories"=>$user->allowed_directories
-													);
-				// and call save
-	    		return $this->save();
-    		}
-    		else {
-    			return false;
-    		}
+		// before constructing the array, check if the paths
+		// are valid
+		$is_allowed_directories_paths_are_valid = $this->isAllAllowedDirectoryPathsValid($user->allowed_directories);
+		// if the user is admin then the allowed directories 
+		// are server root. 
+		if ($user->canAddUsers()) {
+			$user->allowed_directories = [SERVER_ROOT];
+		}
+		
+		if ($is_allowed_directories_paths_are_valid) {
+    		// allow user to be registered
+			$this->user_data[$user->email] = array(
+													"email"=>$user->email,
+													"password"=>$user->getPasswordHash(),
+													"access_level"=>$user->access_level,
+													"allowed_directories"=>$user->allowed_directories
+												);
+			// and call save
+    		return $this->save();
+		}
+		else {
+			return false;
+		}
     }
 
     public function save():bool {

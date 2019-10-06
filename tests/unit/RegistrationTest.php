@@ -50,14 +50,28 @@ class RegistrationTest extends \Codeception\Test\Unit
         $this->assertEquals($user_instance->getAllowedDirectories(), [ABSPATH."delete_test_dir"]);
     }
 
-    public function testIsAllowedDirectoriesProperlyValidated() {
+    public function testWhenInvalidDirectoryPresentDontSaveTheUser() {
         SessionUser::$current_user_instance = new User("aa@gmail.com", "aa", AccessLevel::Admin);
         $user_to_be_registered = new User("foo@gmail.com", "foo", AccessLevel::ReadWriteDelete, null, [ABSPATH."delete_test_dir"]);
         $insert_operation = $this->user_data_manager->insertUser($user_to_be_registered);
         $this->assertFalse($insert_operation);
         // if the directory is not valid, dont allow it to save,
         // in this test delete_test_dir didnt exist, so it should not be saved
+    }
 
+    // admin users should not have restricted paths, so allowed paths 
+    // should be only be server root.
+    public function testWhenGivenAdminShouldNotHaveRestrictedPath() {
+        $user_to_be_registered = new User("foo@gmail.com", "foo", AccessLevel::Admin, null, [ABSPATH]);
+        $this->user_data_manager->insertUser($user_to_be_registered);
+        // since user is registered we need to get it back
+        $user_instance = $this->user_data_manager->getUser("foo@gmail.com", "foo");
+        // even if a directory is given to the admin on registration, it should
+        // always reset to server root upon saving and also even if the authorisation
+        // got changed, then it should changed to server root.
+        $this->assertEquals($user_instance->getAllowedDirectories(), [SERVER_ROOT]);
+        // saved directory for admin also be the server root.
+        $this->assertEquals($user_instance->allowed_directories, [SERVER_ROOT]);
     }
 
     protected function _after()
