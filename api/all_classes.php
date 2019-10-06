@@ -14,12 +14,13 @@ abstract class AccessLevel {
 
 class User {
 
-	public function __construct(string $email, string $hashed_password, int $access_level, ?string $unhashed_password=null) {
+	public function __construct(string $email, string $hashed_password, int $access_level, ?string $unhashed_password=null, array $allowed_directories=array()) {
 
 		$this->access_level = $access_level;
 		$this->email = $email;
 		$this->password = $hashed_password;
 		$this->unhashed_password = $unhashed_password;
+		$this->allowed_directories = $allowed_directories;
 	}
 
 	public function getPasswordHash() {
@@ -61,6 +62,10 @@ class User {
 
 	public function canAddUsers() {
 		return $this->access_level == AccessLevel::Admin;
+	}
+
+	public function getAllowedDirectories() {
+		return $this->allowed_directories;
 	}
 	
 }
@@ -150,7 +155,7 @@ class JsonUserDataManager implements UserDataManager {
 
 			$single_user_data = $this->user_data[$email];
 
-			return new User($single_user_data['email'], $single_user_data['password'], $single_user_data['access_level'], $supplied_password);
+			return new User($single_user_data['email'], $single_user_data['password'], $single_user_data['access_level'], $supplied_password, $single_user_data['allowed_directories']);
 		}
 		else {
 
@@ -202,10 +207,12 @@ class JsonUserDataManager implements UserDataManager {
 				return false;
 			}
 			else {
+
 				// check for access level
 				// and also check for duplicate email address
 				if ($current_user_instance->canAddUsers() &&
 					$current_user_instance->email != $user->email) {
+
 					// has access
 					return $this->constructArrayAndSaveToDb($user);
 				}
@@ -223,11 +230,17 @@ class JsonUserDataManager implements UserDataManager {
     }
 
     private function constructArrayAndSaveToDb($user) {
+
+    		// // before constructing the array, check if the paths
+    		// // are valid
+    		// $is_allowed_directories_paths_are_valid = 
+
     		// allow user to be registered
 			$this->user_data[$user->email] = array(
 													"email"=>$user->email,
 													"password"=>$user->getPasswordHash(),
-													"access_level"=>$user->access_level
+													"access_level"=>$user->access_level,
+													"allowed_directories"=>$user->allowed_directories
 												);
 			// and call save
     		return $this->save();

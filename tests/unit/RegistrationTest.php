@@ -35,6 +35,18 @@ class RegistrationTest extends \Codeception\Test\Unit
         $this->assertFalse($result);
     }
 
+    public function testWhetherTheNonAdminUserCanBeAddedWithAllowedDirectories() {
+        //mkdir(ABSPATH."delete_test_dir");
+        SessionUser::$current_user_instance = new User("aa@gmail.com", "aa", AccessLevel::Admin);
+
+        $user_to_be_registered = new User("foo@gmail.com", "foo", AccessLevel::ReadWriteDelete, null, [ABSPATH."delete_test_dir"]);
+        // while saving the user we need to check if the paths are valid.
+        $this->user_data_manager->insertUser($user_to_be_registered);
+        $user_instance = $this->user_data_manager->getUser("foo@gmail.com", "foo");
+        $this->assertEquals($user_instance->getAllowedDirectories(), [ABSPATH."delete_test_dir"]);
+        //rmdir(ABSPATH."delete_test_dir");
+    }
+
     protected function _after()
     {
         if (file_exists($this->user_data_manager->full_file_path)) {
