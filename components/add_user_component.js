@@ -11,7 +11,9 @@ Vue.component('add-user-component', {
 		files_and_folders_prop: {
 			type:Array,
 			default:[]
-		}
+		},
+
+		directory_separator: "",
 	},
 
 	created() {
@@ -33,15 +35,17 @@ Vue.component('add-user-component', {
 	methods: {
 
 		addToAllowedDirectoryList() {
-			if (!this.allowed_directories.includes(this.current_allowed_directory)) {
+
+			if (!this.allowed_directories.includes(this.$refs.allowed_directory.value)) {
 				this.allowed_directories.push(this.$refs.allowed_directory.value)
+				this.$refs.allowed_directory.value = ""
 			}
 		},
 
 		shortenTextOfPath(text) {
-
-			return text.substr(0,10) + "..."
-
+			const paths = text.split(this.directory_separator)
+			var current_path_name = paths[paths.length - 2]
+			return current_path_name
 		},
 
 		addNewUser() {

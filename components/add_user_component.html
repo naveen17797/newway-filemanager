@@ -43,7 +43,9 @@
 	
 				<datalist id="allowed_folders">
 					<template v-for="item in files_and_folders_prop">
-						<option :value="item.full_location"></option>
+						<template v-if="item.is_directory">
+							<option :value="item.full_location"></option>
+						</template>
 					</template>				
 				</datalist>				
 
@@ -57,8 +59,9 @@
 				<small>This user can access only the folders listed below</small>
 				<div class="bg-light form-control" style="padding: 30px;">
 					<template v-for="item in allowed_directories">
-						<button class="btn btn-primary">{{ shortenTextOfPath(item) }}
+						<button class="btn btn-primary" style="margin-bottom:10px;">{{ shortenTextOfPath(item) }}
 						 <i class="fa fa-lg fa-close"></i></button>
+						 &nbsp;&nbsp;
 					</template>
 				</div>
 			</div>
