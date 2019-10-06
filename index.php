@@ -78,7 +78,7 @@
 						 <add-user-component :api_url="api_url"></add-user-component>
 						</template>
 					</div>
-					<div class="col-sm-9" v-if="is_file_folder_data_ready">
+					<div class="col-sm-8" v-if="is_file_folder_data_ready">
 
 						<file-folder-component :can_write_files="can_write_files"
 						:can_delete_files="can_delete_files" 

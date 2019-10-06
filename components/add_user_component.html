@@ -32,12 +32,38 @@
 
 			</select>
 		</div>
-		<br/>
+		
+		<template v-if="access_level != 3">
+			<br/>
+			<div class="input-group">
+				<div class="input-group-prepend">
+		          <div class="input-group-text"><i class="fa fa-folder"></i></div>
+		        </div>
+				<input type="text" class="form-control" placeholder="Add a folder name to allowed folders" :disabled="access_level == 3" title="The directories the user can access, for admin user this field wont be used">
+				<div class="input-group-append">
+		          <div class="input-group-text" style="cursor:pointer;"><i class="fa fa-plus"></i></div>
+		        </div>
+			</div>
+			<br/>
+			<div class="text-left">
+				<p>Allowed Folders</p>
+				<small>This user can access only the folders listed below</small>
+				<div class="bg-light form-control" style="height: 100px;">
+				</div>
+			</div>
+
+		</template>
+
+		<br/><br/>
 		<button class="btn btn-primary" @click="addNewUser()" :disabled="email.length == 0 || password.length == 0">Submit</button>
 		
 		<template v-if="all_users.length > 0">
-			<br/><br/>
+			<br/><br/><br/><br/>
 			<h4> <i class="fa fa-users"></i> Registered Users </h4>
+			<br/>
+			<div>
+				<i class="fa fa-square text-success"></i>&nbsp;indicates the items which are enabled.
+			</div>
 			<br/>
 			<table class="text-center table table-striped">
 				<tr>
