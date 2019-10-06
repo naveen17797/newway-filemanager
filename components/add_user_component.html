@@ -39,11 +39,11 @@
 			<br/><br/>
 			<h4> <i class="fa fa-users"></i> Registered Users </h4>
 			<br/>
-			<table class="table">
+			<table class="text-center table table-striped">
 				<template v-for="user in all_users">
 					<tr>
 						<td>{{ user.email }}</td>
-						<td><i class="fa fa-close"></i></td>
+						<td style="cursor:pointer;" @click="deleteUser(user.email)"><i class="fa fa-close"></i></td>
 					</tr>
 				</template>
 			</table>

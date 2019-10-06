@@ -47,6 +47,14 @@ Vue.component('add-user-component', {
 			.then(response=> {
 				Vue.set(this, "all_users", response.body)
 			})
+		},
+
+		deleteUser(email) {
+			this.$http.post(this.api_url, 
+				{action:"delete_user", email:email}, {emulateJSON:true})
+			.then(response=> {
+				this.getAllUsers()
+			})
 		}
 	},
 

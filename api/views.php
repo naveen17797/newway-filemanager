@@ -169,6 +169,12 @@ if ($action == "get_current_logged_in_user") {
 	}
 }
 
+if ($action == "delete_user") {
+	$user_data_manager = JsonUserDataManager::getInstance();
+	$user_to_be_deleted = $user_data_manager->getUser($_POST['email'],null);
+	echo $user_data_manager->deleteUser($user_to_be_deleted);
+}
+
 if ($action == "delete_items") {
 
 	$file_list = $_POST['file_list'];
