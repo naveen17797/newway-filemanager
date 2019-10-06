@@ -25,6 +25,21 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
         
     }
 
+    public function testGivenNonAdminUserOnlyAllowedToReadAllowedDirectories() {
+        $file_manager_instance = new NewwayFileManager(new User("foo@gmail.com", "foo", AccessLevel::ReadOnly, null, [ABSPATH]));
+        // when trying to read file from the server root it should return error code
+        $result = $file_manager_instance->getFilesAndFolders(SERVER_ROOT);
+        $this->assertNull($result);
+    }
+
+    public function testGivenNonAdminUserAccessSubfolderInsideAllowedDirectory() {
+        mkdir("delete_test_dir_name");
+        $file_manager_instance = new NewwayFileManager(new User("foo@gmail.com", "foo", AccessLevel::ReadOnly, null, [ABSPATH]));
+        $result = $file_manager_instance->getFilesAndFolders(ABSPATH."delete_test_dir_name");
+        rmdir("delete_test_dir_name");
+        $this->assertNotNull($result);
+    }
+
     public function testGivenUnAuthorisedUserShouldReturnNull() {
         $unauthorised_user = new User("foo@gmail.com", "foo", -1);
         $unauthorised_file_manager_instance = new NewwayFileManager($unauthorised_user);

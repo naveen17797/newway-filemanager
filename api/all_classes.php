@@ -345,8 +345,39 @@ class NewwayFileManager {
 		$this->current_logged_in_user_instance = $current_logged_in_user_instance;
 	}
 
+	public static function isAllowedDirectoryPresentInStartingOfPath($allowed_directory, $path) {
+		$root_path_length = strlen($allowed_directory) - 1;
+		if (strlen($path) >= $root_path_length) {
+			$current_root_path = substr($path, 0, $root_path_length);
+			// when given a directory with trailing slash, real path removes it
+			// so we need to compare to server root without that slash
+			return substr($allowed_directory,0,-1) == $current_root_path;
+		}
+		else {
+			return false;
+		}
+
+	}
+
+	public function folderPresentInAllowedDirectories($directory):bool {
+		if ($this->current_logged_in_user_instance->canAddUsers()) {
+			// if admin always return true
+			return true;
+		}
+		else {
+			$directories = $this->current_logged_in_user_instance->getAllowedDirectories();
+			$is_folder_present_in_allowed_directory = false;
+			foreach($directories as $allowed_directory) {
+				if ($this->isAllowedDirectoryPresentInStartingOfPath($allowed_directory, $directory)) {
+					$is_folder_present_in_allowed_directory = true;
+				}
+			}
+			return $is_folder_present_in_allowed_directory;
+		}
+	}
+
 	public function getFilesAndFolders($directory):?array {
-		if ($this->current_logged_in_user_instance->canReadFiles() && $this->pathSecurityCheck($directory)) {
+		if ($this->current_logged_in_user_instance->canReadFiles() && $this->pathSecurityCheck($directory) && $this->folderPresentInAllowedDirectories($directory)) {
 			$files_and_folders = array();
 			$files = new DirectoryIterator($directory);
 			foreach ($files as $file_info) {
