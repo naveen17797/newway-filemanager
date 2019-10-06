@@ -60,7 +60,7 @@
 				<div class="bg-light form-control" style="padding: 30px;">
 					<template v-for="item in allowed_directories">
 						<button class="btn btn-primary" style="margin-bottom:10px;">{{ shortenTextOfPath(item) }}
-						 <i class="fa fa-lg fa-close"></i></button>
+						 <i class="fa fa-lg fa-close" @click="removeFromAllowedFolderList(item)"></i></button>
 						 &nbsp;&nbsp;
 					</template>
 				</div>

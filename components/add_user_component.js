@@ -35,12 +35,22 @@ Vue.component('add-user-component', {
 	methods: {
 
 		addToAllowedDirectoryList() {
-
-			if (!this.allowed_directories.includes(this.$refs.allowed_directory.value)) {
-				this.allowed_directories.push(this.$refs.allowed_directory.value)
+			const directory = this.$refs.allowed_directory.value
+			if (!this.allowed_directories.includes(directory) && directory != "") {
+				this.allowed_directories.push(directory)
 				this.$refs.allowed_directory.value = ""
 			}
 		},
+
+		removeFromAllowedFolderList(path) {
+
+			const index = this.allowed_directories.indexOf(path)
+			if (index != -1) {
+				this.$delete(this.allowed_directories, index)
+			}
+
+		},
+
 
 		shortenTextOfPath(text) {
 			const paths = text.split(this.directory_separator)
