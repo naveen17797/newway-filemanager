@@ -40,15 +40,23 @@
 			<h4> <i class="fa fa-users"></i> Registered Users </h4>
 			<br/>
 			<table class="text-center table table-striped">
+				<tr>
+					<th>Email</th>
+					<th>Access Level</th>
+					<th>Remove</th>
+				</tr>
 				<template v-for="user in all_users">
 					<tr>
 						<td>{{ user.email }}</td>
-						<td style="cursor:pointer;" @click="deleteUser(user.email)">
-							<i class="fa fa-eye" title="This user can read files and folders" :disabled="user.can_read_files"></i>&nbsp;
-							<i class="fa fa-pencil" title="This user can write files and folders" :disabled="user.can_write_files"></i>&nbsp;
-							<i class="fa fa-trash" title="This user can delete files and folders"></i>&nbsp;
-							<i class="fa fa-user" title="This user can add other users"></i>&nbsp;
-							<i class="fa fa-close"></i></td>
+						<td>
+							<i :class="{'text-success':user.can_read_files, 'fa fa-eye fa-lg':true}" title="This user can read files and folders" :disabled="user.can_read_files"></i>&nbsp;
+							<i title="This user can write files and folders"  :class="{'text-success':user.can_write_files, 'fa fa-pencil fa-lg':true}"></i>&nbsp;
+							<i :class="{'text-success':user.can_delete_files, 'fa fa-trash fa-lg':true}" title="This user can delete files and folders"></i>&nbsp;
+							<i :class="{'text-success':user.can_add_users, 'fa fa-user fa-lg':true}" title="This user can add other users"></i>&nbsp;</td>
+							
+						<td @click="deleteUser(user.email)" style="cursor:pointer;">
+							<i class="fa fa-close"></i>
+						</td>
 					</tr>
 				</template>
 			</table>
