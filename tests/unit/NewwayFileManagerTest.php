@@ -53,7 +53,7 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
     }
 
     public function testGivenUserWithProperDeletePermissionTheUserShouldBeAbleToDeleteTheFile() {
-        $file_manager_instance = new NewwayFileManager(new User("foo@gmail.com", "foo", AccessLevel::ReadWriteDelete));
+        $file_manager_instance = new NewwayFileManager(new User("foo@gmail.com", "foo", AccessLevel::ReadWriteDelete, null, [ABSPATH]));
         // a perfectly normal user with delete access has been created 
     
         // lets create a file 

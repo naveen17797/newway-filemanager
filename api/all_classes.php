@@ -427,7 +427,7 @@ class NewwayFileManager {
 
 	// deletes a file or folder based on the user access level
 	public function deleteItem($item) {
-		if ($this->current_logged_in_user_instance->canDeleteFiles() && $this->pathSecurityCheck($item)) {
+		if ($this->current_logged_in_user_instance->canDeleteFiles() && $this->pathSecurityCheck($item) && $this->folderPresentInAllowedDirectories($item)) {
 			return $this->deleteFileOrFolder($item);
 		}
 		else {
