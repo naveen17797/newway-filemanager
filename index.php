@@ -75,7 +75,7 @@
 							</tr>
 						</table>
 						<template v-if="can_add_users">
-						 <add-user-component :api_url="api_url"></add-user-component>
+						 <add-user-component :api_url="api_url" :files_and_folders_prop="files"></add-user-component>
 						</template>
 					</div>
 					<div class="col-sm-8" v-if="is_file_folder_data_ready">

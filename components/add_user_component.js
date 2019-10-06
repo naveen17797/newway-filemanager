@@ -6,6 +6,11 @@ Vue.component('add-user-component', {
 		api_url : {
 			type: String,
 			default: ""
+		},
+		
+		files_and_folders_prop: {
+			type:Array,
+			default:[]
 		}
 	},
 
