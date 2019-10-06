@@ -40,18 +40,23 @@ class RegistrationTest extends \Codeception\Test\Unit
     // here we are trying to insert a non admin user, so it will fail
     // in order to do overcome, we set the session user.
     public function testWhetherTheNonAdminUserCanBeAddedWithAllowedDirectories() {
-        //mkdir(ABSPATH."delete_test_dir");
+        mkdir(ABSPATH."delete_test_dir");
         SessionUser::$current_user_instance = new User("aa@gmail.com", "aa", AccessLevel::Admin);
 
         $user_to_be_registered = new User("foo@gmail.com", "foo", AccessLevel::ReadWriteDelete, null, [ABSPATH."delete_test_dir"]);
-        // while saving the user we need to check if the paths are valid.
         $this->user_data_manager->insertUser($user_to_be_registered);
+        rmdir(ABSPATH."delete_test_dir");
         $user_instance = $this->user_data_manager->getUser("foo@gmail.com", "foo");
         $this->assertEquals($user_instance->getAllowedDirectories(), [ABSPATH."delete_test_dir"]);
-        //rmdir(ABSPATH."delete_test_dir");
     }
 
     public function testIsAllowedDirectoriesProperlyValidated() {
+        SessionUser::$current_user_instance = new User("aa@gmail.com", "aa", AccessLevel::Admin);
+        $user_to_be_registered = new User("foo@gmail.com", "foo", AccessLevel::ReadWriteDelete, null, [ABSPATH."delete_test_dir"]);
+        $insert_operation = $this->user_data_manager->insertUser($user_to_be_registered);
+        $this->assertFalse($insert_operation);
+        // if the directory is not valid, dont allow it to save,
+        // in this test delete_test_dir didnt exist, so it should not be saved
 
     }
 

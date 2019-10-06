@@ -231,19 +231,30 @@ class JsonUserDataManager implements UserDataManager {
 
     private function constructArrayAndSaveToDb($user) {
 
-    		// // before constructing the array, check if the paths
-    		// // are valid
-    		// $is_allowed_directories_paths_are_valid = 
+    		// before constructing the array, check if the paths
+    		// are valid
+    		$is_allowed_directories_paths_are_valid = true;
+    		foreach ($user->allowed_directories as $item) {
+    			if (!NewwayFileManager::pathSecurityCheck($item)) {
+    				$is_allowed_directories_paths_are_valid = false;
+    				break;
+    			}	
+    		} 
 
-    		// allow user to be registered
-			$this->user_data[$user->email] = array(
-													"email"=>$user->email,
-													"password"=>$user->getPasswordHash(),
-													"access_level"=>$user->access_level,
-													"allowed_directories"=>$user->allowed_directories
-												);
-			// and call save
-    		return $this->save();
+    		if ($is_allowed_directories_paths_are_valid) {
+	    		// allow user to be registered
+				$this->user_data[$user->email] = array(
+														"email"=>$user->email,
+														"password"=>$user->getPasswordHash(),
+														"access_level"=>$user->access_level,
+														"allowed_directories"=>$user->allowed_directories
+													);
+				// and call save
+	    		return $this->save();
+    		}
+    		else {
+    			return false;
+    		}
     }
 
     public function save():bool {
@@ -351,7 +362,7 @@ class NewwayFileManager {
 		}
 	}
 
-	private function isRootDirectoryPresentInStartingOfPath($path) {
+	public static function isRootDirectoryPresentInStartingOfPath($path) {
 		$root_path_length = strlen(SERVER_ROOT) - 1;
 		if (strlen($path) >= $root_path_length) {
 			$current_root_path = substr($path, 0, $root_path_length);
@@ -382,8 +393,7 @@ class NewwayFileManager {
 
 	}
 
-
-	public function pathSecurityCheck($path) {
+	public static function pathSecurityCheck($path) {
 		$real_path = realpath($path);
 		// real path will return false if the file does not exists
 		// so capture the dir value using path info
@@ -391,7 +401,7 @@ class NewwayFileManager {
 			return false;
 		}
 		else {
-			return $this->isRootDirectoryPresentInStartingOfPath($real_path);
+			return NewwayFileManager::isRootDirectoryPresentInStartingOfPath($real_path);
 		}	
 	}	
 
