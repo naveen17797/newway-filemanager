@@ -140,8 +140,16 @@ class JsonUserDataManager implements UserDataManager {
 		if ($current_user_instance != null) {
 			if ($current_user_instance->canAddUsers()) {
 				// admin user can delete the user.
-				unset($this->user_data[$user->email]);
-				return $this->save();
+				
+				// check if the current user if being deleted
+				// dont allow that.
+				if ($current_user_instance->email == $user->email) {
+					return false;
+				}
+				else {
+					unset($this->user_data[$user->email]);
+					return $this->save();
+				}
 			}
 			else {
 				return false;

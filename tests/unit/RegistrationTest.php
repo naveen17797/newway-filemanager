@@ -95,6 +95,18 @@ class RegistrationTest extends \Codeception\Test\Unit
         $this->assertNull($this->user_data_manager->getUser("fo@gmail.com", "fooo"));
     }
 
+    public function testWhenAdminUserTriesToDeleteHimselfShouldFail() {
+        
+        $user_to_be_deleted = new User("fo@gmail.com", "fooo", AccessLevel::Admin);
+        $this->user_data_manager->insertUser($user_to_be_deleted);
+        SessionUser::$current_user_instance = $user_to_be_deleted;
+        // lets try to delete this admin user
+        $delete_operation_status = $this->user_data_manager->deleteUser($user_to_be_deleted);
+        $this->assertFalse($delete_operation_status);
+        // and also when try to getUser it should be null and not present in the json 
+        // file
+        $this->assertNotNull($this->user_data_manager->getUser("fo@gmail.com", "fooo"));
+    }
 
     protected function _after()
     {
