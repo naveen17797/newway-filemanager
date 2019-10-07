@@ -1,0 +1,65 @@
+<script type="text/x-template" id="create_new_folder_component_template">
+	
+
+	<div class="offset-2 col-sm-8 modal fade" ref="create_new_folder_modal"  role="dialog" aria-labelledby="exampleModalScrollableTitle">
+
+
+    <div class="modal-dialog modal-dialog-centered">
+
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header bg-success text-light">
+          <h4 class="modal-title">Create New Folder</h4>
+          <button type="button" class="text-light close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class=" modal-body">
+            <div class="sticky-top">
+                <template v-for="item in created_folders">
+
+                    <template v-if="item.is_folder_created">
+                            <div class="alert alert-success" role="alert">
+                              <i class="fa fa-check"></i> {{ item.name }} successfully created
+                            </div>
+                    </template>
+                    <template v-else>
+                            <div class="alert alert-danger" role="alert">
+                              <i class="fa fa-warning"></i> {{ item.name }} failed to create
+                            </div>
+                    </template>
+
+                </template>
+            </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fa fa-folder-o"></i></div>
+            </div>
+            <input type="text" class="form-control" v-model="folder_name" placeholder="Enter New folder name">
+            &nbsp;&nbsp;
+            <button class="btn btn-success" @click="createNewFolder()">Create</button>
+        </div>
+        <br/>
+
+
+
+        	
+        </div>
+
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+</script>

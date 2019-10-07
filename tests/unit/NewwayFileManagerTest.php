@@ -182,4 +182,24 @@ class NewwayFileManagerTest extends \Codeception\Test\Unit
 
     }
 
+    public function testGivenAdminUserShouldBeAbleToCreateDirectory() {
+        $this->file_manager_instance->createDirectory(ABSPATH."delete_test_file_name");
+        $this->assertTrue(is_dir(ABSPATH."delete_test_file_name"));
+        if (is_dir(ABSPATH."delete_test_file_name")) {
+            rmdir(ABSPATH."delete_test_file_name");
+        }
+    }
+
+
+    public function testGivenNonAdminUserShouldNotBeAbleToCreateDirectoryOnNonAllowedPath() {
+        $file_manager_instance = new NewwayFileManager(new User("foo@gmail.com", "foo", AccessLevel::ReadWriteDelete, null, [ABSPATH]));
+        // abspath is the only allowed path for the user,
+        // so he should not create folder in server root
+        $create_folder_operation = $file_manager_instance->createDirectory(SERVER_ROOT."delete_test_file_name");
+        $this->assertFalse($create_folder_operation);
+        if (is_dir(SERVER_ROOT."delete_test_file_name")) {
+            rmdir(SERVER_ROOT."delete_test_file_name");
+        }
+    }
+
 }
