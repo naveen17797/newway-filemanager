@@ -1,0 +1,75 @@
+<script type="text/x-template" id="create_new_folder_component_template">
+	
+
+	<div class="col-sm-10 modal fade" ref="create_new_folder_modal"  role="dialog" aria-labelledby="exampleModalScrollableTitle">
+
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header bg-success text-light">
+          <h4 class="modal-title">Create New Folder</h4>
+          <button type="button" class="text-light close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class=" modal-body" style="max-height: calc(100vh - 200px); overflow-y: auto;">
+            <div class="sticky-top">
+                <template v-for="item in deleted_files">
+
+                    <template v-if="item.is_deleted">
+                            <div class="alert alert-success" role="alert">
+                              <i class="fa fa-check"></i> {{ item.name }} successfully deleted
+                            </div>
+                    </template>
+                    <template v-else>
+                            <div class="alert alert-danger" role="alert">
+                              <i class="fa fa-warning"></i> {{ item.name }} failed to delete
+                            </div>
+                    </template>
+
+                </template>
+            </div>  
+        	<div v-if="choosen_files.length > 0">     
+                <br/><br/>
+        		<h5>Files/Folders to be Deleted</h5>
+        		<br/>
+        		<table class="table">
+        			<tr>
+        				<th>Name</th>
+        			</tr>
+        			<template v-for="(item,index) in choosen_files">
+        				<tr>
+        					<td>{{ item }}</td>
+        				</tr>
+        			</template>
+        		</table>
+        	</div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+
+
+    	         <button v-if="choosen_files.length > 0" type="button" class="btn btn-danger" @click="confirmDeleteFiles()">Confirm Delete</button>
+    	         &nbsp;
+    	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+    	</div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+</script>
