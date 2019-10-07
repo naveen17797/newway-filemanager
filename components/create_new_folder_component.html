@@ -19,14 +19,14 @@
             <div class="sticky-top">
                 <template v-for="item in created_folders">
 
-                    <template v-if="item.is_deleted">
+                    <template v-if="item.is_folder_created">
                             <div class="alert alert-success" role="alert">
-                              <i class="fa fa-check"></i> {{ item.name }} successfully deleted
+                              <i class="fa fa-check"></i> {{ item.name }} successfully created
                             </div>
                     </template>
                     <template v-else>
                             <div class="alert alert-danger" role="alert">
-                              <i class="fa fa-warning"></i> {{ item.name }} failed to delete
+                              <i class="fa fa-warning"></i> {{ item.name }} failed to create
                             </div>
                     </template>
 
@@ -39,7 +39,7 @@
             </div>
             <input type="text" class="form-control" v-model="folder_name" placeholder="Enter New folder name">
             &nbsp;&nbsp;
-            <button class="btn btn-success">Create</button>
+            <button class="btn btn-success" @click="createNewFolder()">Create</button>
         </div>
         <br/>
 

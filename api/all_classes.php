@@ -340,9 +340,19 @@ class JsonUserDataManager implements UserDataManager {
 
 class NewwayFileManager {
 
-	public function __construct($current_logged_in_user_instance) {
+	public function __construct(Object $current_logged_in_user_instance) {
 
 		$this->current_logged_in_user_instance = $current_logged_in_user_instance;
+	}
+
+	public function createDirectory($path):bool {
+		if ($this->isRootDirectoryPresentInStartingOfPath($path) 
+			&& $this->folderPresentInAllowedDirectories($path)) {
+			return mkdir($path);
+		}
+		else {
+			return false;
+		}
 	}
 
 	public static function isAllowedDirectoryPresentInStartingOfPath($allowed_directory, $path) {

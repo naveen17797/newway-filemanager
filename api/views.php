@@ -176,6 +176,20 @@ if ($action == "delete_user") {
 	echo $user_data_manager->deleteUser($user_to_be_deleted);
 }
 
+if ($action == "create_new_folder") {
+	$new_folder_name = $_POST['directory'];
+	$current_user_instance = SessionUser::getCurrenUserInstance();
+	$file_manager = new NewwayFileManager($current_user_instance);
+	$is_directory_created = $file_manager->createDirectory($new_folder_name);
+	$error = error_get_last();
+	echo json_encode(
+		array("is_folder_created"=>$is_directory_created,
+			  "name"=>$new_folder_name,
+			  "message"=>$error['message'])
+	);
+
+}
+
 if ($action == "delete_items") {
 
 	$file_list = $_POST['file_list'];

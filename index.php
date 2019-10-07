@@ -348,9 +348,12 @@
 						file_object["directory"] = directory;
 					}
 					this.$http.post(API_URL, file_object, {emulateJSON:true}).then(response=> {
-						const server_response = response.body;
+						var server_response = response.body
 						if (Array.isArray(server_response)) {
 							this.alert_object.title=""
+							server_response = server_response.sort(function(a, b) {
+							   return a.name.localeCompare(b.name);
+							});
 							Vue.set(this, "files", server_response)
 						}
 						else {
