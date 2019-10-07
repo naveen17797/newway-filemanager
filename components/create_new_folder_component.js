@@ -14,8 +14,7 @@ Vue.component('create-new-folder-component', {
 	created() {
 
 		event_bus.$on('show-create-new-folder-modal', ()=> {
-			this.$refs.create_new_folder_modal.modal('show')
-			//$('#create_new_folder_modal').modal('show')
+			$(this.$refs.create_new_folder_modal).modal('show')
 		})
 
 	},
@@ -29,6 +28,7 @@ Vue.component('create-new-folder-component', {
 		return  {
 
 			folder_name:"",
+			created_folders:[],
 
 		}
 	}

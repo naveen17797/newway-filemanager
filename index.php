@@ -9,6 +9,7 @@
 	require_once 'components/file_folder_component.html';
 	require_once 'components/upload_component.html';
 	require_once 'components/delete_component.html';
+	require_once 'components/create_new_folder_component.html';
 ?>
 <style type="text/css">
 	td.file_folder_item:hover {
@@ -178,6 +179,7 @@
 <script type="text/javascript" src="components/file_folder_component.js"></script>
 <script type="text/javascript" src="components/delete_component.js"></script>
 <script type="text/javascript" src="components/upload_component.js"></script>
+<script type="text/javascript" src="components/create_new_folder_component.js"></script>
 <script>
 
 	new Vue({

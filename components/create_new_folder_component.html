@@ -1,10 +1,10 @@
 <script type="text/x-template" id="create_new_folder_component_template">
 	
 
-	<div class="col-sm-10 modal fade" ref="create_new_folder_modal"  role="dialog" aria-labelledby="exampleModalScrollableTitle">
+	<div class="offset-2 col-sm-8 modal fade" ref="create_new_folder_modal"  role="dialog" aria-labelledby="exampleModalScrollableTitle">
 
 
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered">
 
       <div class="modal-content">
       
@@ -15,9 +15,9 @@
         </div>
         
         <!-- Modal body -->
-        <div class=" modal-body" style="max-height: calc(100vh - 200px); overflow-y: auto;">
+        <div class=" modal-body">
             <div class="sticky-top">
-                <template v-for="item in deleted_files">
+                <template v-for="item in created_folders">
 
                     <template v-if="item.is_deleted">
                             <div class="alert alert-success" role="alert">
@@ -31,33 +31,23 @@
                     </template>
 
                 </template>
-            </div>  
-        	<div v-if="choosen_files.length > 0">     
-                <br/><br/>
-        		<h5>Files/Folders to be Deleted</h5>
-        		<br/>
-        		<table class="table">
-        			<tr>
-        				<th>Name</th>
-        			</tr>
-        			<template v-for="(item,index) in choosen_files">
-        				<tr>
-        					<td>{{ item }}</td>
-        				</tr>
-        			</template>
-        		</table>
-        	</div>
+            </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fa fa-folder-o"></i></div>
+            </div>
+            <input type="text" class="form-control" v-model="folder_name" placeholder="Enter New folder name">
+            &nbsp;&nbsp;
+            <button class="btn btn-success">Create</button>
         </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
+        <br/>
 
 
-    	         <button v-if="choosen_files.length > 0" type="button" class="btn btn-danger" @click="confirmDeleteFiles()">Confirm Delete</button>
-    	         &nbsp;
-    	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-    	</div>
+        	
+        </div>
+
         
       </div>
     </div>
