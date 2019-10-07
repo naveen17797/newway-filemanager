@@ -53,6 +53,10 @@ Vue.component('file-folder-component', {
 	
 	methods: {
 
+		showCreateNewFolderModal() {
+			event_bus.$emit('show-create-new-folder-modal')
+		},
+
 		getNavigatableDirectories() {
 			const navigatableDirectories = []
 			navigatableDirectories.push({

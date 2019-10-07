@@ -8,13 +8,16 @@
 		    </template>
 		  </ol>
 			<div class="alert alert-primary">{{ selected_items.length }} items selected</div>
-			<div class="col-sm-8 input-group">
+			<div class="col-sm-10 input-group">
 				<input type="text" class="form-control" v-model="search_string" placeholder="search files by name">&nbsp;
 				<button class="btn btn-primary"><i class="fa fa-search"></i></button>
 				&nbsp;&nbsp;
 				<button class="btn btn-primary" @click="showUploadModal()" :disabled="can_write_files == false"><i class="fa fa-upload"></i> Upload Files</button>
 				&nbsp;&nbsp;
 				<button class="btn btn-danger"  @click="showDeleteModal()" :disabled="selected_items.length == 0 || can_delete_files == false"><i class="fa fa-trash"></i> Delete</button>
+				&nbsp;&nbsp;
+				<button class="btn btn-primary" @click="showCreateNewFolderModal()"><i class="fa fa-folder-open"></i> Create New Folder</button>
+
 			</div>
 			<br/><br/>
 			<table class="table borderless">
