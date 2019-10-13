@@ -219,8 +219,8 @@
 			is_file_folder_data_ready: false,
 			// the current directory the user is present
 			current_directory:null,
-			directory_separator:"<?php echo DIRECTORY_SEPARATOR; ?>",
-			root_directory:"<?php echo dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR; ?>",
+			directory_separator:"<?php echo addslashes(DIRECTORY_SEPARATOR); ?>",
+			root_directory:"<?php echo addslashes(dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR); ?>",
 
 		},
 
