@@ -42,9 +42,16 @@
 											 		<div class="card text-center">
 
 											 			<div class="card-body" :class="{selected_file_folder:item.is_selected}">
-											 				<div class="text-left">
-											 					<input type="checkbox" v-model="item.is_selected"
+											 				<div class="form-group">
+											 					<div class="text-left">
+											 						<input type="checkbox" v-model="item.is_selected"
 											 					class="checkbox-1x">
+											 					</div>
+											 					<template v-if="item.is_directory == false">
+											 						<div class="text-right">
+											 							<a :href="item.url" download><i class='fa 	fa-download fa-lg'></i></a>
+											 						</div>
+											 					</template>
 											 				</div>
 											 				<br/>
 

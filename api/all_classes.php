@@ -407,6 +407,7 @@ class NewwayFileManager {
 						$single_file_info_array['full_location'] = $directory.$file_info->getFilename().DIRECTORY_SEPARATOR;
 					}
 					$single_file_info_array['is_selected'] = false;
+					$single_file_info_array['url']  = '//'.$_SERVER['HTTP_HOST'].DIRECTORY_SEPARATOR.str_replace(SERVER_ROOT, '', $single_file_info_array['full_location']);
 					array_push($files_and_folders, $single_file_info_array);
 				}
 			}
