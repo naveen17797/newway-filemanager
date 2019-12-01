@@ -1,5 +1,6 @@
-<link rel="stylesheet" type="text/css" href="css/fontawesome.min.css">
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/fontawesome.min.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
 
 <?php 
 	require_once 'components/login_component.html';
@@ -102,6 +103,8 @@
 		</div>
 
 
+
+<noscript>Newway requires JavaScript in order to function and display correctly in your browser. JavaScript is currently disabled by your browser.</noscript>
 
 <script type="text/javascript">
 	//load globals and enums
