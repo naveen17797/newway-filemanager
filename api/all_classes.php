@@ -135,7 +135,7 @@ class JsonUserDataManager implements UserDataManager {
 
 	}
 
-	public function deleteUser($user):bool {
+	public function deleteUser(User $user):bool {
 		$current_user_instance = SessionUser::getCurrenUserInstance();
 		if ($current_user_instance != null) {
 			if ($current_user_instance->canAddUsers()) {
@@ -340,7 +340,7 @@ class JsonUserDataManager implements UserDataManager {
 
 class NewwayFileManager {
 
-	public function __construct(Object $current_logged_in_user_instance) {
+	public function __construct(User $current_logged_in_user_instance) {
 
 		$this->current_logged_in_user_instance = $current_logged_in_user_instance;
 	}

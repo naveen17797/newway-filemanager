@@ -1,0 +1,8 @@
+version: '3.7'
+services:
+  apache:
+    image: webdevops/php-apache:7.2-alpine
+    volumes:
+      - .:/app/
+    ports:
+      - "${MY_DOCKER_IP:-127.0.0.1}:420:80"
